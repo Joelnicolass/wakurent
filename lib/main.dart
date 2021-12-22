@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/views/login.dart';
+import 'globals.dart' as g;
 
 void main() => runApp(const App());
 
@@ -7,16 +10,22 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return NeumorphicApp(
       debugShowCheckedModeBanner: false,
-      title: 'Wakure Center',
-      home: Scaffold(
-        body: Center(
-          child: Container(
-            child: Text('Hello World'),
-          ),
-        ),
+      themeMode: ThemeMode.dark,
+      title: 'Acufan App',
+      darkTheme: NeumorphicThemeData(
+        baseColor: g.background,
+        lightSource: LightSource.topLeft,
+        depth: 1.5,
+        intensity: 0.3,
+        defaultTextColor: Colors.white,
+        shadowDarkColor: Colors.black87,
       ),
+      initialRoute: 'home_screen',
+      routes: {
+        'home_screen': (_) => Login(),
+      },
     );
   }
 }
