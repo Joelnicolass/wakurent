@@ -34,10 +34,10 @@ class Login extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            login_form(),
+            const login_form(),
           ],
         ),
       ),
@@ -48,11 +48,11 @@ class Login extends StatelessWidget {
             context: context,
             builder: (BuildContext context) {
               return AlertDialog(
-                title: Text('Forgot Password'),
-                content: Text('Please contact the admin'),
+                title: const Text('Forgot Password'),
+                content: const Text('Please contact the admin'),
                 actions: [
                   TextButton(
-                    child: Text('OK'),
+                    child: const Text('OK'),
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
@@ -62,7 +62,7 @@ class Login extends StatelessWidget {
             },
           );
         },
-        child: Container(child: Text('Crear una cuenta')),
+        child: Container(child: const Text('Crear una cuenta')),
       ),
     );
   }
@@ -81,7 +81,7 @@ class login_form extends StatelessWidget {
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
-          boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+          boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
             topLeft: Radius.circular(0),
             topRight: Radius.circular(50),
             bottomLeft: Radius.circular(50),
@@ -148,17 +148,17 @@ class login_form extends StatelessWidget {
               style: NeumorphicStyle(
                 depth: 1.5,
                 intensity: 0.8,
-                shadowLightColor: Color.fromRGBO(255, 0, 0, 1),
+                shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
                 oppositeShadowLightSource: true,
                 shape: NeumorphicShape.convex,
-                boxShape: NeumorphicBoxShape.roundRect(BorderRadius.only(
+                boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
                   topLeft: Radius.circular(25),
                   topRight: Radius.circular(0),
                   bottomLeft: Radius.circular(0),
                   bottomRight: Radius.circular(25),
                 )),
               ),
-              child: Text(
+              child: const Text(
                 'Login',
                 style: TextStyle(
                   fontSize: 20,

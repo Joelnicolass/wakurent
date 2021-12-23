@@ -1,9 +1,21 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:walkiler/views/login.dart';
 import 'globals.dart' as g;
+import './screens/screens.dart';
 
-void main() => runApp(const App());
+void main() {
+  runApp(MultiBlocProvider(
+    providers: [
+      BlocProvider(
+        create: (context) => GpsBloc(),
+      ),
+    ],
+    child: const App(),
+  ));
+}
 
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
@@ -14,7 +26,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
       title: 'Acufan App',
-      darkTheme: NeumorphicThemeData(
+      darkTheme: const NeumorphicThemeData(
         baseColor: g.background,
         lightSource: LightSource.topLeft,
         depth: 1.5,
@@ -22,9 +34,10 @@ class App extends StatelessWidget {
         defaultTextColor: Colors.white,
         shadowDarkColor: Colors.black87,
       ),
-      initialRoute: 'home_screen',
+      initialRoute: 'gps_access',
       routes: {
-        'home_screen': (_) => Login(),
+        'home_screen': (_) => const Login(),
+        'gps_access': (_) => const GpsAccessScreen(),
       },
     );
   }
