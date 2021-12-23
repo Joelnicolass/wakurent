@@ -9,6 +9,11 @@ class Menu_View extends StatelessWidget {
     //responsive
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
+    
+
+    void goRoute (String value) {
+      Navigator.pushNamed(context, value);
+    }
 
     return Scaffold(
       backgroundColor: NeumorphicTheme.baseColor(context),
@@ -19,17 +24,17 @@ class Menu_View extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                _menuCard(labelName: "Mis Wakure", icon: Icons.electric_scooter),
-                _menuCard(labelName: "Invitados", icon: Icons.groups),
+              children:  [
+                _menuCard(labelName: "Mis Wakure", icon: Icons.electric_scooter, route: () => goRoute('misWakure_view') ),
+                _menuCard(labelName: "Invitados", icon: Icons.groups, route: () => goRoute('invitados_view')),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: const [
-                _menuCard(labelName: "Mapa", icon: Icons.location_pin),
-                _menuCard(labelName: "Reservas", icon: Icons.date_range_outlined)
+              children: [
+                _menuCard(labelName: "Mapa", icon: Icons.location_pin, route: () => goRoute('maps_view')),
+                _menuCard(labelName: "Reserva", icon: Icons.date_range_outlined, route: () => goRoute('quickBooking_view'))
               ],
             )
           ],
@@ -44,10 +49,12 @@ class _menuCard extends StatelessWidget {
     Key? key,
     required this.icon,
     required this.labelName,
+    required this.route,
   }) : super(key: key);
 
   final IconData icon;
   final String labelName;
+  final VoidCallback route;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +63,7 @@ class _menuCard extends StatelessWidget {
         padding: EdgeInsets.symmetric(
             horizontal: g.width * 0.1, vertical: g.height * 0.05),
         onPressed: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MisWakure_View()));
+          route();
         },
         style: NeumorphicStyle(
           depth: 1.5,
