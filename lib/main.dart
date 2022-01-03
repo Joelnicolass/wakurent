@@ -34,10 +34,9 @@ class App extends StatelessWidget {
         defaultTextColor: Colors.white,
         shadowDarkColor: Colors.black87,
       ),
-      initialRoute: 'gps_access',
+      initialRoute: 'loading',
       routes: {
-        'home_screen': (_) => const Login(),
-        'gps_access': (_) => const GpsAccessScreen(),
+        'loading': (_) => const LoadingScreen(),
       },
     );
   }

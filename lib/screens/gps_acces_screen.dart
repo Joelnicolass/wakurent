@@ -37,7 +37,10 @@ class _AccessButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        final gpsBloc = BlocProvider.of<GpsBloc>(context);
+        gpsBloc.askGpsAccess();
+      },
       child: Text("Acceder"),
     );
   }
