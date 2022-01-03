@@ -34,7 +34,7 @@ class Menu_View extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _menuCard(labelName: "Mapa", icon: Icons.location_pin, route: () => goRoute('maps_view')),
-                _menuCard(labelName: "Reserva", icon: Icons.date_range_outlined, route: () => goRoute('quickBooking_view'))
+                _menuCard(labelName: "Reserva", icon: Icons.date_range_outlined, route: () => goRoute('booking_view'))
               ],
             )
           ],
