@@ -7,6 +7,8 @@
    <application
         android:label="walkiler"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyAKUYMIlJYbpce868azCUs9XHQBi5MIVpo"/>
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"

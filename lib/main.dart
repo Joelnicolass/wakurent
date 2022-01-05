@@ -1,8 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:walkiler/views/login.dart';
 import 'globals.dart' as g;
 import './screens/screens.dart';
 
@@ -11,6 +9,12 @@ void main() {
     providers: [
       BlocProvider(
         create: (context) => GpsBloc(),
+      ),
+      BlocProvider(
+        create: (context) => LocationBloc(),
+      ),
+      BlocProvider(
+        create: (context) => MapBloc(),
       ),
     ],
     child: const App(),
@@ -25,7 +29,7 @@ class App extends StatelessWidget {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.dark,
-      title: 'Acufan App',
+      title: 'WakuRent',
       darkTheme: const NeumorphicThemeData(
         baseColor: g.background,
         lightSource: LightSource.topLeft,
