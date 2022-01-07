@@ -1,5 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'package:walkiler/helpers/wak.dart';
+import 'package:walkiler/helpers/wakVarios.dart';
+import 'package:walkiler/models/wakure.dart';
 import 'package:walkiler/views/map_view.dart';
 import '../blocs/blocs.dart';
 
@@ -35,15 +40,67 @@ class _MapScreenState extends State<MapScreen> {
             return const Center(child: const Text('Loading...'));
           }
 
-          return SingleChildScrollView(
-            child: Stack(
-              children: [
-                MapView(
-                  initialLocation: state.lastKnownLocation!,
-                ),
-              ],
-            ),
-          );
+          return BlocBuilder<MapBloc, MapState>(builder: (context, mapState) {
+            Map<String, Marker> markers = Map.from(mapState.markers);
+
+            return SingleChildScrollView(
+              child: Stack(
+                children: [
+                  MapView(
+                    initialLocation: state.lastKnownLocation!,
+                    markers: markers.values.toSet(),
+                  ),
+                  //crear boton
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Neumorphic(
+                      style: NeumorphicStyle(
+                        boxShape: NeumorphicBoxShape.circle(),
+                        depth: 10,
+                        color: Colors.white,
+                      ),
+                      child: Container(
+                        height: 50,
+                        width: 50,
+                        child: Center(
+                          child: IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              /* final mapped = Wakure.fromJson(wakVarios); */
+                              final List<LatLng> pos = [
+                                LatLng(-27.4872, -55.1196),
+                                LatLng(-27.4822, -55.1196)
+                              ];
+
+                              /* final wakureBLoc =
+                                    BlocProvider.of<WakureBloc>(context); */
+                              final mapBloc = BlocProvider.of<MapBloc>(context);
+                              mapBloc.add(
+                                AddMarkerEvent(pos),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  //create blocbuilder for show markers
+                  BlocBuilder<WakureBloc, WakureState>(
+                    builder: (context, state) {
+                      if (state.wakures.length == 0) {
+                        return Container();
+                      }
+                      return Container(
+                        child: Text('ALGO PASÓ'),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          });
         },
       ),
     );

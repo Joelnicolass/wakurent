@@ -12,3 +12,13 @@ class OnMapInitializedEvent extends MapEvent {
 
   const OnMapInitializedEvent(this.controller);
 }
+
+// event for add marker
+class AddMarkerEvent extends MapEvent {
+  final List<LatLng> position;
+
+  AddMarkerEvent(this.position);
+
+  @override
+  List<Object> get props => [position];
+}

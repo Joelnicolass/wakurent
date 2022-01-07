@@ -4,9 +4,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walkiler/blocs/blocs.dart';
 
 class MapView extends StatelessWidget {
+  final Set<Marker> markers;
   final LatLng initialLocation;
 
-  const MapView({Key? key, required this.initialLocation}) : super(key: key);
+  const MapView(
+      {Key? key, required this.initialLocation, required this.markers})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class MapView extends StatelessWidget {
           myLocationButtonEnabled: false,
           onMapCreated: (controller) =>
               mapBloc.add(OnMapInitializedEvent(controller)),
+          markers: markers,
         ));
   }
 }

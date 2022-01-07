@@ -16,6 +16,9 @@ void main() {
       BlocProvider(
         create: (context) => MapBloc(),
       ),
+      BlocProvider(
+        create: (context) => WakureBloc(),
+      ),
     ],
     child: const App(),
   ));
