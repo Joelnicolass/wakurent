@@ -9,6 +9,7 @@ import 'package:walkiler/helpers/wak.dart';
 import 'package:walkiler/helpers/wakVarios.dart';
 import 'package:walkiler/helpers/wakure_res.dart';
 import 'package:walkiler/models/wakure.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/views/map_view.dart';
 import '../blocs/blocs.dart';
 
@@ -71,11 +72,14 @@ class _MapScreenState extends State<MapScreen> {
                         child: Center(
                           child: IconButton(
                             icon: Icon(Icons.add),
-                            onPressed: () {
-                              final response =
-                                  ProcessResponse.processJsonList(res);
+                            onPressed: () async {
+                              final httpRes = await Http.getWakures(
+                                  '61d74520b26f4b6103e370bc');
+
+                              List<dynamic> jsonList = httpRes as List;
+
                               final wakures =
-                                  ProcessResponse.getWakureList(response);
+                                  ProcessResponse.getWakureList(jsonList);
 
                               final mapBloc = BlocProvider.of<MapBloc>(context);
                               mapBloc.add(
