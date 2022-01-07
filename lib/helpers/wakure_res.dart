@@ -1,0 +1,2 @@
+const res =
+    '''[{"geolocation":{"lat":-27.37008,"lng":-55.99201},"_id":"61d8428a56b26f2ab2a754de","id":"w0001","name":"Wakure1","hasOwner":true,"statusDB":true,"__v":0},{"geolocation":{"lat":-28.37008,"lng":-55.99201},"_id":"61d8429056b26f2ab2a754e1","id":"w0002","name":"Wakure2","hasOwner":true,"statusDB":true,"__v":0},{"geolocation":{"lat":-29.37008,"lng":-55.99201},"_id":"61d8429456b26f2ab2a754e4","id":"w0003","name":"Wakure3","hasOwner":true,"statusDB":true,"__v":0}]''';

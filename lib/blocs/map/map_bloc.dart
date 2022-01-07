@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/wakVarios.dart';
@@ -39,21 +38,23 @@ class MapBloc extends Bloc<MapEvent, MapState> {
   //create multiple markers
 
   void _addMarker(AddMarkerEvent event, Emitter<MapState> emit) {
-    //add marker
+    //add markers
 
-    final marker = Marker(
-      markerId: MarkerId('Wakure'),
-      icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
-      position: event.position.first,
-    );
+    List<Marker> listMarkers = [];
 
-    final markera = NewMarker.markers(Wakure.fromJson(wakVarios));
+    event.wakures.forEach((wakure) {
+      var marker = Marker(
+        markerId: MarkerId(wakure.name),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+        position: LatLng(wakure.geolocation.lat, wakure.geolocation.lng),
+      );
+      listMarkers = [...listMarkers, marker];
+    });
 
     final currentMarkers = Map<String, Marker>.from(state.markers);
-    /* currentMarkers['Wakure'] = marker; */
 
-    markera.forEach((element) {
-      currentMarkers[element.markerId.toString()] = element;
+    listMarkers.forEach((marker) {
+      currentMarkers[marker.markerId.toString()] = marker;
     });
 
     emit(state.copyWith(
@@ -68,14 +69,14 @@ class NewMarker {
     List<Marker> listMarkers = [];
 
     //map wakures
-    wakure.wakures.forEach((wakure) {
+/*     wakure.wakures.forEach((wakure) {
       var marker = Marker(
         markerId: MarkerId(wakure.name),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         position: LatLng(wakure.geolocation.lat, wakure.geolocation.lng),
       );
       listMarkers = [...listMarkers, marker];
-    });
+    }); */
 
     return listMarkers;
   }

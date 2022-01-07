@@ -8,7 +8,7 @@ abstract class WakureEvent extends Equatable {
 }
 
 class OnGetWakuresEvent extends WakureEvent {
-  final List<WakureElement> wakures;
+  final List<Wakure> wakures;
 
   const OnGetWakuresEvent({required this.wakures});
 

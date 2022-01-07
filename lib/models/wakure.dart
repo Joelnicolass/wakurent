@@ -2,60 +2,49 @@
 //
 //     final wakure = wakureFromMap(jsonString);
 
-import 'package:meta/meta.dart';
 import 'dart:convert';
 
 class Wakure {
   Wakure({
-    required this.wakures,
+    required this.geolocation,
+    required this.id,
+    required this.wakureId,
+    required this.name,
+    required this.hasOwner,
+    required this.statusDb,
+    required this.v,
   });
 
-  List<WakureElement> wakures;
+  Geolocation geolocation;
+  String id;
+  String wakureId;
+  String name;
+  bool hasOwner;
+  bool statusDb;
+  int v;
 
   factory Wakure.fromJson(String str) => Wakure.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
   factory Wakure.fromMap(Map<String, dynamic> json) => Wakure(
-        wakures: List<WakureElement>.from(
-            json["Wakures"].map((x) => WakureElement.fromMap(x))),
-      );
-
-  Map<String, dynamic> toMap() => {
-        "Wakures": List<dynamic>.from(wakures.map((x) => x.toMap())),
-      };
-}
-
-class WakureElement {
-  WakureElement({
-    required this.id,
-    required this.name,
-    required this.geolocation,
-    required this.booking,
-  });
-
-  int id;
-  String name;
-  Geolocation geolocation;
-  bool booking;
-
-  factory WakureElement.fromJson(String str) =>
-      WakureElement.fromMap(json.decode(str));
-
-  String toJson() => json.encode(toMap());
-
-  factory WakureElement.fromMap(Map<String, dynamic> json) => WakureElement(
-        id: json["id"],
-        name: json["name"],
         geolocation: Geolocation.fromMap(json["geolocation"]),
-        booking: json["booking"],
+        id: json["_id"],
+        wakureId: json["id"],
+        name: json["name"],
+        hasOwner: json["hasOwner"],
+        statusDb: json["statusDB"],
+        v: json["__v"],
       );
 
   Map<String, dynamic> toMap() => {
-        "id": id,
-        "name": name,
         "geolocation": geolocation.toMap(),
-        "booking": booking,
+        "_id": id,
+        "id": wakureId,
+        "name": name,
+        "hasOwner": hasOwner,
+        "statusDB": statusDb,
+        "__v": v,
       };
 }
 

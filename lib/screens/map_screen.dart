@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:walkiler/helpers/process_response.dart';
 
 import 'package:walkiler/helpers/wak.dart';
 import 'package:walkiler/helpers/wakVarios.dart';
+import 'package:walkiler/helpers/wakure_res.dart';
 import 'package:walkiler/models/wakure.dart';
 import 'package:walkiler/views/map_view.dart';
 import '../blocs/blocs.dart';
@@ -68,17 +72,14 @@ class _MapScreenState extends State<MapScreen> {
                           child: IconButton(
                             icon: Icon(Icons.add),
                             onPressed: () {
-                              /* final mapped = Wakure.fromJson(wakVarios); */
-                              final List<LatLng> pos = [
-                                LatLng(-27.4872, -55.1196),
-                                LatLng(-27.4822, -55.1196)
-                              ];
+                              final response =
+                                  ProcessResponse.processJsonList(res);
+                              final wakures =
+                                  ProcessResponse.getWakureList(response);
 
-                              /* final wakureBLoc =
-                                    BlocProvider.of<WakureBloc>(context); */
                               final mapBloc = BlocProvider.of<MapBloc>(context);
                               mapBloc.add(
-                                AddMarkerEvent(pos),
+                                AddMarkerEvent(wakures),
                               );
                             },
                           ),

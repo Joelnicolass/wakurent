@@ -15,10 +15,10 @@ class OnMapInitializedEvent extends MapEvent {
 
 // event for add marker
 class AddMarkerEvent extends MapEvent {
-  final List<LatLng> position;
+  final List<Wakure> wakures;
 
-  AddMarkerEvent(this.position);
+  AddMarkerEvent(this.wakures);
 
   @override
-  List<Object> get props => [position];
+  List<Object> get props => [wakures];
 }

@@ -2,12 +2,12 @@ part of 'wakure_bloc.dart';
 
 class WakureState extends Equatable {
   //arguments
-  final List<WakureElement> wakures;
+  final List<Wakure> wakures;
 
-  WakureState({List<WakureElement>? wakures}) : wakures = wakures ?? [];
+  WakureState({List<Wakure>? wakures}) : wakures = wakures ?? [];
 
   //create copywith
-  WakureState copyWith({List<WakureElement>? wakures}) =>
+  WakureState copyWith({List<Wakure>? wakures}) =>
       WakureState(wakures: wakures ?? this.wakures);
 
   @override
