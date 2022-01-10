@@ -23,10 +23,10 @@ class Login extends StatelessWidget {
               style: TextStyle(
                 fontFamily: 'Arial',
                 fontSize: g.width * 0.1,
-                color: g.red,
+                color: g.rojo,
                 shadows: [
                   Shadow(
-                    color: g.red,
+                    color: g.rojo,
                     blurRadius: g.width * 0.05,
                     offset: Offset(g.width * 0.001, g.width * 0.001),
                   ),
@@ -98,12 +98,12 @@ class login_form extends StatelessWidget {
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.red,
+                      color: g.rojo,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.red,
+                      color: g.rojo,
                       width: 2,
                     ),
                   ),
@@ -123,12 +123,12 @@ class login_form extends StatelessWidget {
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.red,
+                      color: g.rojo,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.red,
+                      color: g.rojo,
                       width: 2,
                     ),
                   ),

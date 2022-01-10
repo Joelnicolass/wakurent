@@ -45,7 +45,7 @@ class Menu_View extends StatelessWidget {
                 _menuCard(
                     labelName: "Mapa",
                     icon: Icons.location_pin,
-                    route: () => goRoute('maps_view')),
+                    route: () => goRoute('map_screen')),
               ],
             )
           ],
