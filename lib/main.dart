@@ -7,6 +7,7 @@ import 'package:walkiler/views/invitados_view.dart';
 import 'package:walkiler/views/menu_view.dart';
 import 'package:walkiler/views/misWakure_view.dart';
 import 'package:walkiler/views/quickBooking_view.dart';
+import 'package:walkiler/views/register_view.dart';
 import './views/menu_view.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -54,6 +55,8 @@ class App extends StatelessWidget {
       routes: {
         'loading_screen': (context) => LoadingScreen(),
         'menu_view': (_) => Menu_View(),
+        'login_screen': (_) => Login(),
+        'register_view': (_) => Register_View(),
         'misWakure_view': (_) => MisWakure_View(),
         'invitados_view': (_) => Invitados_View(),
         'invitadosInfo_view': (_) => InvitadosInfo_View(),

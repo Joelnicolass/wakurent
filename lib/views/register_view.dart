@@ -2,8 +2,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../globals.dart' as g;
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
+class Register_View extends StatelessWidget {
+  const Register_View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,69 +12,25 @@ class Login extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      appBar: NeumorphicAppBar(actions: []),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'WAKURE',
-              style: TextStyle(
-                fontFamily: 'Arial',
-                fontSize: g.width * 0.1,
-                color: g.rojo,
-                shadows: [
-                  Shadow(
-                    color: g.rojo,
-                    blurRadius: g.width * 0.05,
-                    offset: Offset(g.width * 0.001, g.width * 0.001),
-                  ),
-                ],
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Registro'),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            const login_form(),
+            const addGuest_form(),
           ],
         ),
-      ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          //popup
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Forgot Password'),
-                content: const Text('Please contact the admin'),
-                actions: [
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        child: Container(
-            child: GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context, 'register_view');
-              },
-              child: const Text('Crear una cuenta'))),
       ),
     );
   }
 }
 
-class login_form extends StatelessWidget {
-  const login_form({
+class addGuest_form extends StatelessWidget {
+  const addGuest_form({
     Key? key,
   }) : super(key: key);
 
@@ -82,7 +38,7 @@ class login_form extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: g.width * 0.8,
-      height: g.height * 0.6,
+      height: g.height * 0.7,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -94,11 +50,11 @@ class login_form extends StatelessWidget {
           )),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -112,12 +68,9 @@ class login_form extends StatelessWidget {
                       width: 2,
                     ),
                   ),
-                  hintText: 'Usuario',
+                  hintText: 'Nombre',
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -137,7 +90,83 @@ class login_form extends StatelessWidget {
                       width: 2,
                     ),
                   ),
-                  hintText: 'Contraseña',
+                  hintText: 'Apellido',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Email',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Password',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Dirección',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Teléfono',
                 ),
               ),
             ),
@@ -164,12 +193,13 @@ class login_form extends StatelessWidget {
                 )),
               ),
               child: const Text(
-                'Login',
+                'Aceptar',
                 style: TextStyle(
                   fontSize: 20,
                 ),
               ),
             ),
+            SizedBox(height: 0.2)
           ],
         ),
       ),
