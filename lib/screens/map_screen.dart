@@ -9,7 +9,7 @@ import 'package:walkiler/helpers/wak.dart';
 import 'package:walkiler/helpers/wakVarios.dart';
 import 'package:walkiler/helpers/wakure_res.dart';
 import 'package:walkiler/models/wakure.dart';
-import 'package:walkiler/services/services.dart';
+import 'package:walkiler/services/wakure_service.dart';
 import 'package:walkiler/views/map_view.dart';
 import '../blocs/blocs.dart';
 
@@ -73,7 +73,7 @@ class _MapScreenState extends State<MapScreen> {
                           child: IconButton(
                             icon: Icon(Icons.add),
                             onPressed: () async {
-                              final httpRes = await Http.getWakures(
+                              final httpRes = await WakureService.getWakures(
                                   '61d74520b26f4b6103e370bc');
 
                               print('boton');

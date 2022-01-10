@@ -9,5 +9,7 @@ import 'dart:ui';
 var width;
 var height;
 
-var rojo = Color.fromRGBO(255, 0, 0, 1);
+const rojo = Color.fromRGBO(255, 0, 0, 1);
 const background = Color(0xff24272f);
+
+const ip = "192.168.0.46";

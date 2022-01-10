@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/screens/login_screen.dart';
 import 'package:walkiler/views/addWakure_view.dart';
 import 'package:walkiler/views/booking_view.dart';
 import 'package:walkiler/views/invitadosInfo_view.dart';
@@ -49,8 +50,9 @@ class App extends StatelessWidget {
           defaultTextColor: Colors.white,
           shadowDarkColor: Colors.black87),
       // home: Menu_View(),
-      initialRoute: 'menu_view',
+      initialRoute: 'login_screen',
       routes: {
+        'loading_screen': (context) => LoadingScreen(),
         'menu_view': (_) => Menu_View(),
         'misWakure_view': (_) => MisWakure_View(),
         'invitados_view': (_) => Invitados_View(),
@@ -59,6 +61,7 @@ class App extends StatelessWidget {
         'booking_view': (_) => Booking_View(),
         'quickBooking_view': (_) => QuickBooking_View(),
         'addWakure_view': (_) => AddWakure_View(),
+        'login_screen': (_) => Login(),
       },
     );
   }
