@@ -76,6 +76,8 @@ class _MapScreenState extends State<MapScreen> {
                               final httpRes = await Http.getWakures(
                                   '61d74520b26f4b6103e370bc');
 
+                              print('boton');
+
                               List<dynamic> jsonList = httpRes as List;
 
                               final wakures =

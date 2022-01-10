@@ -8,7 +8,7 @@ class Http {
     var dio = Dio();
 
     response =
-        await dio.get('http://192.168.1.35:5000/api/users/' + id + '/wakures');
+        await dio.get('http://192.168.0.46:5000/api/users/' + id + '/wakures');
 
     return response.data;
   }
