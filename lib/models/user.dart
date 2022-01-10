@@ -30,7 +30,6 @@ class User {
 class UserClass {
   UserClass({
     required this.id,
-    required this.token,
     required this.role,
     required this.name,
     required this.surname,
@@ -45,7 +44,6 @@ class UserClass {
   });
 
   String id;
-  String token;
   String role;
   String name;
   String surname;
@@ -64,7 +62,6 @@ class UserClass {
 
   factory UserClass.fromMap(Map<String, dynamic> json) => UserClass(
         id: json["_id"],
-        token: json["token"],
         role: json["role"],
         name: json["name"],
         surname: json["surname"],
@@ -82,7 +79,6 @@ class UserClass {
 
   Map<String, dynamic> toMap() => {
         "_id": id,
-        "token": token,
         "role": role,
         "name": name,
         "surname": surname,

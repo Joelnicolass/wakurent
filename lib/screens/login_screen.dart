@@ -1,4 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/user/auth_bloc.dart';
 
 import '../globals.dart' as g;
 
@@ -109,6 +111,7 @@ class login_form extends StatelessWidget {
                   ),
                   hintText: 'Usuario',
                 ),
+                onChanged: (value) => g.email = value,
               ),
             ),
             SizedBox(
@@ -134,6 +137,7 @@ class login_form extends StatelessWidget {
                   ),
                   hintText: 'Contraseña',
                 ),
+                onChanged: (value) => g.password = value,
               ),
             ),
             SizedBox(
@@ -144,7 +148,17 @@ class login_form extends StatelessWidget {
                 horizontal: g.width * 0.2,
                 vertical: g.height * 0.015,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final authBloc = BlocProvider.of<AuthBloc>(context);
+                authBloc.add(
+                  LoginEvent(
+                    email: g.email,
+                    password: g.password,
+                  ),
+                );
+
+                // emit event AuthBloc
+              },
               style: NeumorphicStyle(
                 depth: 1.5,
                 intensity: 0.8,

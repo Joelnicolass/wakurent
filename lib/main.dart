@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/user/auth_bloc.dart';
 import 'package:walkiler/screens/login_screen.dart';
 import 'package:walkiler/views/addWakure_view.dart';
 import 'package:walkiler/views/booking_view.dart';
@@ -16,6 +17,9 @@ import './screens/screens.dart';
 void main() {
   runApp(MultiBlocProvider(
     providers: [
+      BlocProvider(
+        create: (context) => AuthBloc(),
+      ),
       BlocProvider(
         create: (context) => GpsBloc(),
       ),
