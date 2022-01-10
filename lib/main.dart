@@ -1,4 +1,13 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/views/addWakure_view.dart';
+import 'package:walkiler/views/booking_view.dart';
+import 'package:walkiler/views/invitadosInfo_view.dart';
+import 'package:walkiler/views/invitados_view.dart';
+import 'package:walkiler/views/maps_view.dart';
+import 'package:walkiler/views/menu_view.dart';
+import 'package:walkiler/views/misWakure_view.dart';
+import 'package:walkiler/views/quickBooking_view.dart';
+import './views/menu_view.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'globals.dart' as g;
@@ -31,19 +40,26 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
+      title: 'Wakurent',
       themeMode: ThemeMode.dark,
-      title: 'WakuRent',
       darkTheme: const NeumorphicThemeData(
-        baseColor: g.background,
-        lightSource: LightSource.topLeft,
-        depth: 1.5,
-        intensity: 0.3,
-        defaultTextColor: Colors.white,
-        shadowDarkColor: Colors.black87,
-      ),
-      initialRoute: 'loading',
+          baseColor: g.background,
+          lightSource: LightSource.topLeft,
+          depth: 1.5,
+          intensity: 0.3,
+          defaultTextColor: Colors.white,
+          shadowDarkColor: Colors.black87),
+      // home: Menu_View(),
+      initialRoute: 'menu_view',
       routes: {
-        'loading': (_) => const LoadingScreen(),
+        'menu_view': (_) => Menu_View(),
+        'misWakure_view': (_) => MisWakure_View(),
+        'invitados_view': (_) => Invitados_View(),
+        'invitadosInfo_view': (_) => InvitadosInfo_View(),
+        'maps_view': (_) => Maps_View(),
+        'booking_view': (_) => Booking_View(),
+        'quickBooking_view': (_) => QuickBooking_View(),
+        'addWakure_view': (_) => AddWakure_View(),
       },
     );
   }

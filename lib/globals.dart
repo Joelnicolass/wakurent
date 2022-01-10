@@ -9,7 +9,5 @@ import 'dart:ui';
 var width;
 var height;
 
-//colors
-
-const red = Color.fromRGBO(255, 0, 0, 1);
+var rojo = Color.fromRGBO(255, 0, 0, 1);
 const background = Color(0xff24272f);
