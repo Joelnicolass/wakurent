@@ -79,6 +79,7 @@ class invitado_card extends StatelessWidget {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
+        Navigator.pushNamed(context, 'invitadosInfo_view');
         },
       style: NeumorphicStyle(
         depth: 1.5,

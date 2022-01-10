@@ -23,7 +23,6 @@ class MisWakure_View extends StatelessWidget {
           Container(
             height: g.height * 0.63,
             child: ListView(
-              
               children: [
                 wakure_card(),
                 wakure_card(),
@@ -41,17 +40,15 @@ class MisWakure_View extends StatelessWidget {
       ),
       floatingActionButton: NeumorphicFloatingActionButton(
         style: NeumorphicStyle(
-        boxShape: NeumorphicBoxShape.circle(),
-        shape:NeumorphicShape.convex ,
-        depth: 1.5,
-        intensity: 0.3
-        ),
-        onPressed: (){
-
-        }, 
+            boxShape: NeumorphicBoxShape.circle(),
+            shape: NeumorphicShape.convex,
+            depth: 1.5,
+            intensity: 0.3),
+        onPressed: () {
+          Navigator.pushNamed(context, 'addWakure_view');
+        },
         child: Icon(Icons.add, color: Colors.white54),
-        ),
-
+      ),
     );
   }
 }
@@ -65,8 +62,7 @@ class wakure_card extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
-      onPressed: () {
-        },
+      onPressed: () {},
       style: NeumorphicStyle(
         depth: 1.5,
         intensity: 1,

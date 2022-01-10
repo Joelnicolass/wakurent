@@ -1,5 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/views/addWakure_view.dart';
 import 'package:walkiler/views/booking_view.dart';
+import 'package:walkiler/views/invitadosInfo_view.dart';
 import 'package:walkiler/views/invitados_view.dart';
 import 'package:walkiler/views/maps_view.dart';
 import 'package:walkiler/views/menu_view.dart';
@@ -32,9 +34,11 @@ class App extends StatelessWidget {
         'menu_view': (_) => Menu_View(),
         'misWakure_view': (_) => MisWakure_View(),
         'invitados_view': (_) => Invitados_View(),
+        'invitadosInfo_view': (_) => InvitadosInfo_View(),
         'maps_view': (_) => Maps_View(),
         'booking_view': (_) => Booking_View(),
         'quickBooking_view': (_) => QuickBooking_View(),
+        'addWakure_view': (_) => AddWakure_View(),
       },
     );
   }

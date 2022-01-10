@@ -2,8 +2,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../globals.dart' as g;
 
-class QuickBooking_View extends StatelessWidget {
-  const QuickBooking_View({Key? key}) : super(key: key);
+class AddWakure_View extends StatelessWidget {
+  const AddWakure_View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class QuickBooking_View extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Text('Reserva Rápida'),
+            Text('Mi nuevo Wakure'),
             const SizedBox(
               height: 20,
             ),
-            const addGuest_form(),
+            const addWakure_form(),
           ],
         ),
       ),
@@ -29,8 +29,8 @@ class QuickBooking_View extends StatelessWidget {
   }
 }
 
-class addGuest_form extends StatelessWidget {
-  const addGuest_form({
+class addWakure_form extends StatelessWidget {
+  const addWakure_form({
     Key? key,
   }) : super(key: key);
 
@@ -73,7 +73,7 @@ class addGuest_form extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 3
+              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -93,45 +93,7 @@ class addGuest_form extends StatelessWidget {
                       width: 2,
                     ),
                   ),
-                  hintText: 'Apellido',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.rojo,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.rojo,
-                      width: 2,
-                    ),
-                  ),
-                  hintText: 'Dirección',
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.rojo,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.rojo,
-                      width: 2,
-                    ),
-                  ),
-                  hintText: 'Teléfono',
+                  hintText: 'Código',
                 ),
               ),
             ),

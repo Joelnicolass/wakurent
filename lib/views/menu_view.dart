@@ -9,9 +9,8 @@ class Menu_View extends StatelessWidget {
     //responsive
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
-    
 
-    void goRoute (String value) {
+    void goRoute(String value) {
       Navigator.pushNamed(context, value);
     }
 
@@ -24,17 +23,29 @@ class Menu_View extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children:  [
-                _menuCard(labelName: "Mis Wakure", icon: Icons.electric_scooter, route: () => goRoute('misWakure_view') ),
-                _menuCard(labelName: "Invitados", icon: Icons.groups, route: () => goRoute('invitados_view')),
+              children: [
+                _menuCard(
+                    labelName: "Reservas",
+                    icon: Icons.date_range_outlined,
+                    route: () => goRoute('booking_view')),
+                _menuCard(
+                    labelName: "Mis Wakure",
+                    icon: Icons.electric_scooter,
+                    route: () => goRoute('misWakure_view')),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _menuCard(labelName: "Mapa", icon: Icons.location_pin, route: () => goRoute('maps_view')),
-                _menuCard(labelName: "Reserva", icon: Icons.date_range_outlined, route: () => goRoute('booking_view'))
+                _menuCard(
+                    labelName: "Invitados",
+                    icon: Icons.groups,
+                    route: () => goRoute('invitados_view')),
+                _menuCard(
+                    labelName: "Mapa",
+                    icon: Icons.location_pin,
+                    route: () => goRoute('maps_view')),
               ],
             )
           ],
