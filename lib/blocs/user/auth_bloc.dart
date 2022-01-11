@@ -20,9 +20,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     switch (response.statusCode) {
       case 200:
+        final User data = User.fromJson(response.toString());
         emit(state.copyWith(
           loggedIn: true,
-          user: null,
+          user: data.user,
           error: null,
         ));
         break;
@@ -32,7 +33,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           user: null,
           error: response.data['msg'],
         ));
-
         break;
       default:
         emit(state.copyWith(

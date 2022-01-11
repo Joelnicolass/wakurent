@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/user/auth_bloc.dart';
+import 'package:walkiler/screens/role_selector.dart';
 
 import '../globals.dart' as g;
 
@@ -17,7 +18,7 @@ class Login extends StatelessWidget {
       builder: (context, state) {
         if (state.loggedIn == true) {
           return Scaffold(
-            body: Center(child: Text('logueado')),
+            body: RoleSelector(),
           );
         } else {
           return loginView();
@@ -184,28 +185,6 @@ class login_form extends StatelessWidget {
                 //popup
 
                 //message if not logged
-
-                /*  if (authBloc.state.error == null) {
-                } else {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      final err = authBloc.state.error;
-                      return AlertDialog(
-                        title: const Text('Login'),
-                        content: Text(err!),
-                        actions: [
-                          TextButton(
-                            child: const Text('OK'),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                          ),
-                        ],
-                      );
-                    },
-                  );
-                } */
               },
               style: NeumorphicStyle(
                 depth: 1.5,

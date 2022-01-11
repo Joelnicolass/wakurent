@@ -4,7 +4,6 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walkiler/blocs/blocs.dart';
-import 'package:walkiler/helpers/wakVarios.dart';
 import 'package:walkiler/models/wakure.dart';
 import 'package:walkiler/themes/themes.dart';
 

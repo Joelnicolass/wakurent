@@ -4,10 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walkiler/helpers/process_response.dart';
-
-import 'package:walkiler/helpers/wak.dart';
-import 'package:walkiler/helpers/wakVarios.dart';
-import 'package:walkiler/helpers/wakure_res.dart';
 import 'package:walkiler/models/wakure.dart';
 import 'package:walkiler/services/wakure_service.dart';
 import 'package:walkiler/views/map_view.dart';

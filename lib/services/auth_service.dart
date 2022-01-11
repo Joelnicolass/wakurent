@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
 class AuthService {
@@ -16,7 +18,11 @@ class AuthService {
         },
       );
 
-      // guardar token en el storage
+      if (response.statusCode == 200) {
+        final token = response.headers['auth']!.first;
+        SecureStorage.saveToken(token);
+        print('token guardado');
+      }
 
       return response;
     } on DioError catch (e) {
