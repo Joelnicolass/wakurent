@@ -23,19 +23,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(state.copyWith(
           loggedIn: true,
           user: null,
+          error: null,
         ));
         break;
       case 400:
-        print(response.data);
         emit(state.copyWith(
           loggedIn: false,
           user: null,
+          error: response.data['msg'],
         ));
+
         break;
       default:
         emit(state.copyWith(
           loggedIn: state.loggedIn,
           user: state.user,
+          error: state.error,
         ));
     }
   }

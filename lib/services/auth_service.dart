@@ -4,8 +4,6 @@ import '../globals.dart' as g;
 class AuthService {
   static Future login(String email, String password) async {
     try {
-      print(email + " " + password);
-
       Response response;
       var dio = Dio();
       dio.options.contentType = "application/json; charset=utf-8";

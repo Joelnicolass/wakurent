@@ -181,7 +181,31 @@ class login_form extends StatelessWidget {
                   ),
                 );
 
-                // emit event AuthBloc
+                //popup
+
+                //message if not logged
+
+                /*  if (authBloc.state.error == null) {
+                } else {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      final err = authBloc.state.error;
+                      return AlertDialog(
+                        title: const Text('Login'),
+                        content: Text(err!),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
+                } */
               },
               style: NeumorphicStyle(
                 depth: 1.5,
