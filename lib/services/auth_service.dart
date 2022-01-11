@@ -8,6 +8,7 @@ class AuthService {
 
       Response response;
       var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
 
       response = await dio.post(
         'http://' + g.ip + ':5000/api/auth/signin',
@@ -16,14 +17,12 @@ class AuthService {
           "password": password,
         },
       );
-      final token = response.headers['auth'];
 
       // guardar token en el storage
 
-      return response.data;
-    } catch (e) {
-    } on Exception catch (e) {
-      print(e);
+      return response;
+    } on DioError catch (e) {
+      return e.response;
     }
   }
 }

@@ -13,16 +13,30 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Future<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
-    final response = await AuthService.login(
+    final Response response = await AuthService.login(
       event.email,
       event.password,
     );
 
-    print(response);
-
-    /*  emit(state.copyWith(
-      loggedIn: true,
-      user: null,
-    )); */
+    switch (response.statusCode) {
+      case 200:
+        emit(state.copyWith(
+          loggedIn: true,
+          user: null,
+        ));
+        break;
+      case 400:
+        print(response.data);
+        emit(state.copyWith(
+          loggedIn: false,
+          user: null,
+        ));
+        break;
+      default:
+        emit(state.copyWith(
+          loggedIn: state.loggedIn,
+          user: state.user,
+        ));
+    }
   }
 }

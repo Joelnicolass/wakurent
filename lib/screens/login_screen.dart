@@ -13,6 +13,27 @@ class Login extends StatelessWidget {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state.loggedIn == true) {
+          return Scaffold(
+            body: Center(child: Text('logueado')),
+          );
+        } else {
+          return loginView();
+        }
+      },
+    );
+  }
+}
+
+class loginView extends StatelessWidget {
+  const loginView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Center(
@@ -123,6 +144,9 @@ class login_form extends StatelessWidget {
                 right: 20,
               ),
               child: TextField(
+                obscureText: true,
+                autocorrect: false,
+                enableSuggestions: false,
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
