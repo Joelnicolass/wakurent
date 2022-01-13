@@ -57,7 +57,7 @@ class _MapScreenState extends State<MapScreen> {
                   ),
                   //crear boton
                   Positioned(
-                    bottom: 0,
+                    bottom: 20,
                     left: 0,
                     right: 0,
                     child: Neumorphic(
@@ -74,9 +74,10 @@ class _MapScreenState extends State<MapScreen> {
                             icon: Icon(Icons.add),
                             onPressed: () async {
                               final httpRes = await WakureService.getWakures(
-                                  '61d74520b26f4b6103e370bc');
-
-                              print('boton');
+                                  '61dc227daf00998225635541');
+                            
+                          
+                            
 
                               List<dynamic> jsonList = httpRes as List;
 
@@ -93,6 +94,18 @@ class _MapScreenState extends State<MapScreen> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    top: 30,
+                    left: 10,
+                    child: IconButton(
+                      icon: Icon(
+                        Icons.arrow_back_outlined,
+                        color: Colors.white,
+                      ),
+                      onPressed: () => Navigator.of(context).pop(),
+                    ),
+                  ),
+
                   //create blocbuilder for show markers
                   BlocBuilder<WakureBloc, WakureState>(
                     builder: (context, state) {

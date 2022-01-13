@@ -12,16 +12,25 @@ class AddWakure_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
-          children: [
-            Text('Mi nuevo Wakure'),
-            const SizedBox(
+          children: const [
+            Text('Mi nuevo Wakure',
+                style: TextStyle(fontSize: 20, color: Colors.grey)),
+            SizedBox(
               height: 20,
             ),
-            const addWakure_form(),
+            add_wakure_form(),
           ],
         ),
       ),
@@ -29,8 +38,8 @@ class AddWakure_View extends StatelessWidget {
   }
 }
 
-class addWakure_form extends StatelessWidget {
-  const addWakure_form({
+class add_wakure_form extends StatelessWidget {
+  const add_wakure_form({
     Key? key,
   }) : super(key: key);
 
@@ -53,10 +62,19 @@ class addWakure_form extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            const SizedBox(
+              height: 20,
+            ),
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -69,19 +87,20 @@ class addWakure_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Nombre',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
+            const Padding(
+              padding: EdgeInsets.only(
                 left: 20,
                 right: 20,
+                top: 10,
               ),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -94,10 +113,11 @@ class addWakure_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Código',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             NeumorphicButton(
@@ -123,6 +143,7 @@ class addWakure_form extends StatelessWidget {
                 'Aceptar',
                 style: TextStyle(
                   fontSize: 20,
+                  color: Colors.white
                 ),
               ),
             ),

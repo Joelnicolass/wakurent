@@ -12,7 +12,15 @@ class Register_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(

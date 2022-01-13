@@ -12,16 +12,25 @@ class QuickBooking_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
-          children: [
-            Text('Reserva Rápida'),
-            const SizedBox(
+          children: const [
+            Text("Reserva Rápida",
+                style: TextStyle(fontSize: 20, color: Colors.grey)),
+            SizedBox(
               height: 20,
             ),
-            const addGuest_form(),
+            add_guest_form(),
           ],
         ),
       ),
@@ -29,16 +38,21 @@ class QuickBooking_View extends StatelessWidget {
   }
 }
 
-class addGuest_form extends StatelessWidget {
-  const addGuest_form({
+class add_guest_form extends StatefulWidget {
+  const add_guest_form({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<add_guest_form> createState() => _add_guest_formState();
+}
+
+class _add_guest_formState extends State<add_guest_form> {
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: g.width * 0.8,
-      height: g.height * 0.6,
+      height: g.height * 0.7,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -50,13 +64,15 @@ class addGuest_form extends StatelessWidget {
           )),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20, top: 5),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -69,19 +85,20 @@ class addGuest_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Nombre',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 3
             ),
             Padding(
               padding: const EdgeInsets.only(
                 left: 20,
                 right: 20,
+                top: 10,
               ),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -94,13 +111,72 @@ class addGuest_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Apellido',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Email',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+            ),
+             Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
+              child: TextField(
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                  fillColor: g.rojo,
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Contraseña',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
+              child: TextField(
+                style: TextStyle(color: Colors.grey),
+                decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -113,13 +189,20 @@ class addGuest_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Dirección',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+              padding: const EdgeInsets.only(
+                left: 20,
+                right: 20,
+                top: 10,
+              ),
               child: TextField(
+                style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
+                  fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -132,11 +215,12 @@ class addGuest_form extends StatelessWidget {
                     ),
                   ),
                   hintText: 'Teléfono',
+                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 30,
             ),
             NeumorphicButton(
               padding: EdgeInsets.symmetric(
@@ -159,11 +243,10 @@ class addGuest_form extends StatelessWidget {
               ),
               child: const Text(
                 'Aceptar',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
+            SizedBox(height: 5)
           ],
         ),
       ),

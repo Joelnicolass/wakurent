@@ -1,6 +1,6 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
-import 'package:walkiler/views/misWakure_view.dart';
+import 'package:walkiler/views/mis_wakure_view.dart';
 
 class Menu_View extends StatelessWidget {
   Menu_View({Key? key}) : super(key: key);
@@ -15,6 +15,19 @@ class Menu_View extends StatelessWidget {
     }
 
     return Scaffold(
+      appBar: NeumorphicAppBar(
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+        actions: <Widget>[
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: const Icon(Icons.logout_rounded),
+              )),
+        ],
+      ),
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Container(
         child: Column(
@@ -79,7 +92,7 @@ class _menuCard extends StatelessWidget {
         style: NeumorphicStyle(
           depth: 1.5,
           intensity: 1,
-          shadowLightColor: Color.fromRGBO(255, 0, 0, 1),
+          shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
           oppositeShadowLightSource: true,
           shape: NeumorphicShape.convex,
           boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
@@ -98,7 +111,7 @@ class _menuCard extends StatelessWidget {
             ),
             Text(
               labelName,
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ));

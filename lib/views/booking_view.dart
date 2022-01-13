@@ -2,6 +2,7 @@
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 class Booking_View extends StatelessWidget {
   Booking_View({Key? key}) : super(key: key);
@@ -12,34 +13,46 @@ class Booking_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
         children: <Widget>[
-          Text('Mis Reservas', style: TextStyle(fontSize: 20)),
+          const Text('Mis Reservas',
+              style: TextStyle(fontSize: 20, color: Colors.grey)),
           SizedBox(
             height: g.height * 0.02,
           ),
           Container(
             height: g.height * 0.63,
-            child: ListView(
-              children: [
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-              ],
+            child: ScrollConfiguration(
+              behavior: NoScrollGlow(),
+              child: ListView(
+                children: const [
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                ],
+              ),
             ),
           )
         ],
       ),
       floatingActionButton: NeumorphicFloatingActionButton(
-        style: NeumorphicStyle(
+        style: const NeumorphicStyle(
             boxShape: NeumorphicBoxShape.circle(),
             shape: NeumorphicShape.convex,
             depth: 1.5,
@@ -47,7 +60,7 @@ class Booking_View extends StatelessWidget {
         onPressed: () {
           Navigator.pushNamed(context, 'quickBooking_view');
         },
-        child: Icon(Icons.add, color: Colors.white54),
+        child: const Icon(Icons.add, color: Colors.white54),
       ),
     );
   }
@@ -80,7 +93,7 @@ class wakure_card extends StatelessWidget {
       child: Column(
         children: [
           Row(
-            children: [
+            children: const [
               CircleAvatar(
                 radius: 30,
                 backgroundColor: Colors.transparent,
@@ -105,11 +118,11 @@ class wakure_card extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Row(
-            children: [
+            children: const [
               Text(
                 'Desde: 12/02/2021',
                 style: TextStyle(color: Colors.white, fontSize: 16),
