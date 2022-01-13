@@ -36,17 +36,16 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Wakurent',
       themeMode: ThemeMode.dark,
-      darkTheme: const NeumorphicThemeData(
-          accentColor: Colors.red,
+      darkTheme: const NeumorphicThemeData.dark(
+          defaultTextColor: Colors.white,
           baseColor: g.background,
           lightSource: LightSource.topLeft,
           depth: 1.5,
           intensity: 0.3,
-          defaultTextColor: Colors.white,
           shadowDarkColor: Colors.black87),
 
       // home: Menu_View(),
-      initialRoute: 'menu_view',
+      initialRoute: 'login_screen',
       routes: appRoutes,
     );
   }

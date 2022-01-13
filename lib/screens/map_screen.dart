@@ -70,10 +70,7 @@ class _MapScreenState extends State<MapScreen> {
                             icon: Icon(Icons.add),
                             onPressed: () async {
                               final httpRes = await WakureService.getWakures(
-                                  '61dc227daf00998225635541');
-                            
-                          
-                            
+                                  '61dc7c5ee3eabc342879eea5');
 
                               List<dynamic> jsonList = httpRes as List;
 
