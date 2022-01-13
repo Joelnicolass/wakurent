@@ -35,58 +35,70 @@ class loginView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              'WAKURE',
-              style: TextStyle(
-                fontFamily: 'Arial',
-                fontSize: g.width * 0.1,
-                color: g.rojo,
-                shadows: [
-                  Shadow(
-                    color: g.rojo,
-                    blurRadius: g.width * 0.05,
-                    offset: Offset(g.width * 0.001, g.width * 0.001),
-                  ),
-                ],
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            const login_form(),
-          ],
-        ),
-      ),
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          //popup
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Forgot Password'),
-                content: const Text('Please contact the admin'),
-                actions: [
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.error != null) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+                content: Text(state.error!), backgroundColor: Colors.white),
           );
-        },
-        child: Container(child: const Text('Crear una cuenta')),
+
+          BlocProvider.of<AuthBloc>(context).add(ClearErrorEvent());
+        }
+      },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'WAKURE',
+                style: TextStyle(
+                  fontFamily: 'Arial',
+                  fontSize: g.width * 0.1,
+                  color: g.rojo,
+                  shadows: [
+                    Shadow(
+                      color: g.rojo,
+                      blurRadius: g.width * 0.05,
+                      offset: Offset(g.width * 0.001, g.width * 0.001),
+                    ),
+                  ],
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              const login_form(),
+            ],
+          ),
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            //popup
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: const Text('Forgot Password'),
+                  content: const Text('Please contact the admin'),
+                  actions: [
+                    TextButton(
+                      child: const Text('OK'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+              },
+            );
+          },
+          child: Container(child: const Text('Crear una cuenta')),
+        ),
       ),
     );
   }
@@ -181,10 +193,6 @@ class login_form extends StatelessWidget {
                     password: g.password,
                   ),
                 );
-
-                //popup
-
-                //message if not logged
               },
               style: NeumorphicStyle(
                 depth: 1.5,

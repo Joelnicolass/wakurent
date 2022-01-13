@@ -17,3 +17,12 @@ class LoginEvent extends AuthEvent {
   @override
   List<Object> get props => [email, password];
 }
+
+// event for reset error message
+
+class ClearErrorEvent extends AuthEvent {
+  ClearErrorEvent();
+
+  @override
+  List<Object> get props => [];
+}

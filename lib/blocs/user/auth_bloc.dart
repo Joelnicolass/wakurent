@@ -10,6 +10,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthState()) {
     on<LoginEvent>(_login);
+    on<ClearErrorEvent>(_clearError);
   }
 
   Future<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
@@ -34,6 +35,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           error: response.data['msg'],
         ));
         break;
+      case 500:
+        emit(state.copyWith(
+          loggedIn: false,
+          user: null,
+          error: response.data['msg'],
+        ));
+        break;
       default:
         emit(state.copyWith(
           loggedIn: state.loggedIn,
@@ -41,5 +49,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           error: state.error,
         ));
     }
+  }
+
+  _clearError(ClearErrorEvent event, Emitter<AuthState> emit) {
+    emit(state.copyWith(
+      loggedIn: state.loggedIn,
+      user: state.user,
+      error: null,
+    ));
   }
 }
