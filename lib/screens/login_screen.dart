@@ -106,7 +106,12 @@ class loginView extends StatelessWidget {
             },
           );
         },
-        child: Container(child: const Text('Crear una cuenta')),
+        child: Container(
+            child: GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, 'register_view');
+              },
+              child: const Text('Crear una cuenta'))),
       ),
     );
   }

@@ -2,8 +2,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../globals.dart' as g;
 
-class AddWakure_View extends StatelessWidget {
-  const AddWakure_View({Key? key}) : super(key: key);
+class Register_View extends StatelessWidget {
+  const Register_View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,16 +12,24 @@ class AddWakure_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Center(
         child: Column(
           children: [
-            Text('Mi nuevo Wakure'),
+            Text('Registro'),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
-            const addWakure_form(),
+            const addGuest_form(),
           ],
         ),
       ),
@@ -29,8 +37,8 @@ class AddWakure_View extends StatelessWidget {
   }
 }
 
-class addWakure_form extends StatelessWidget {
-  const addWakure_form({
+class addGuest_form extends StatelessWidget {
+  const addGuest_form({
     Key? key,
   }) : super(key: key);
 
@@ -38,7 +46,7 @@ class addWakure_form extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: g.width * 0.8,
-      height: g.height * 0.6,
+      height: g.height * 0.7,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -50,11 +58,11 @@ class addWakure_form extends StatelessWidget {
           )),
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
+            const Padding(
+              padding: EdgeInsets.only(left: 20, right: 20),
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
@@ -71,9 +79,6 @@ class addWakure_form extends StatelessWidget {
                   hintText: 'Nombre',
                 ),
               ),
-            ),
-            SizedBox(
-              height: 20,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -93,7 +98,83 @@ class addWakure_form extends StatelessWidget {
                       width: 2,
                     ),
                   ),
-                  hintText: 'Código',
+                  hintText: 'Apellido',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Email',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Password',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Dirección',
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                    ),
+                  ),
+                  focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(
+                      color: g.rojo,
+                      width: 2,
+                    ),
+                  ),
+                  hintText: 'Teléfono',
                 ),
               ),
             ),
@@ -126,6 +207,7 @@ class addWakure_form extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 0.2)
           ],
         ),
       ),

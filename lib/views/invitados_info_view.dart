@@ -12,9 +12,17 @@ class InvitadosInfo_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       resizeToAvoidBottomInset: false,
-      body: Center(
+      body: const Center(
         child: guestInfo_card(),
       ),
     );
@@ -48,31 +56,47 @@ class guestInfo_card extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Row(
-                  children: [
+                  children: const[
                     Icon(Icons.person, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
-                    Text('Pedro Equis', style: TextStyle( fontSize: 18, color: Colors.grey)),
+                    Text('Pedro Equis',
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ],
+                )),
+                 Padding(
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Row(
+                  children: const[
+                    Icon(Icons.mail_rounded, color: Colors.grey, size: 30),
+                    SizedBox(width: 10),
+                    Text('pedrox@mail.com',
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-              ),
-              child: Row(
-                  children: [
+                padding: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Row(
+                  children: const[
                     Icon(Icons.map, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
-                    Text('Calle 123', style: TextStyle( fontSize: 18, color: Colors.grey)),
+                    Text('Calle 123',
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
                   ],
                 )),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
-              child: Row(
-                  children: [
+                padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
+                child: Row(
+                  children: const[
                     Icon(Icons.phone, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
-                    Text('3764-232545', style: TextStyle( fontSize: 18, color: Colors.grey)),
+                    Text('3764-232545',
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
                   ],
                 )),
           ],

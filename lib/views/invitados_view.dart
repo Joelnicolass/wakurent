@@ -2,6 +2,7 @@
 
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 class Invitados_View extends StatelessWidget {
   Invitados_View({Key? key}) : super(key: key);
@@ -12,59 +13,67 @@ class Invitados_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
         children: <Widget>[
-          Text('Invitados', style: TextStyle(fontSize: 20)),
+          const Text('Invitados',
+              style: TextStyle(fontSize: 20, color: Colors.grey)),
           SizedBox(
             height: g.height * 0.02,
           ),
           Container(
             height: g.height * 0.63,
-            child: ListView(
-              children: [
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-                invitado_card(),
-              ],
+            child: ScrollConfiguration(
+              behavior: NoScrollGlow(),
+              child: ListView(
+                children: const [
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                  invitado_card(),
+                ],
+              ),
             ),
           ),
           SizedBox(height: 20),
           NeumorphicButton(
-          margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
-      onPressed: () {
-        },
-      style: NeumorphicStyle(
-        depth: 1.5,
-        intensity: 0.3,
-        oppositeShadowLightSource: true,
-        shape: NeumorphicShape.convex,
-        boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(25))),
-            child: 
-                Text('Ver solicitudes', style: TextStyle(fontSize: 20))
-            )
+            margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
+            onPressed: () {},
+            style: NeumorphicStyle(
+                depth: 1.5,
+                intensity: 0.3,
+                oppositeShadowLightSource: true,
+                shape: NeumorphicShape.convex,
+                boxShape:
+                    NeumorphicBoxShape.roundRect(BorderRadius.circular(25))),
+            child: Text('Ver solicitudes',
+                style: TextStyle(fontSize: 18, color: Colors.white)),
+          )
         ],
       ),
       floatingActionButton: NeumorphicFloatingActionButton(
-        style: NeumorphicStyle(
-        boxShape: NeumorphicBoxShape.circle(),
-        shape:NeumorphicShape.convex ,
-        depth: 1.5,
-        intensity: 0.3
-        ),
-        onPressed: (){
-
-        }, 
-        child: Icon(Icons.add, color: Colors.white54),
-        ),
-
+        style: const NeumorphicStyle(
+            boxShape: NeumorphicBoxShape.circle(),
+            shape: NeumorphicShape.convex,
+            depth: 1.5,
+            intensity: 0.3),
+        onPressed: () {},
+        child: const Icon(Icons.add, color: Colors.white54),
+      ),
     );
   }
 }
@@ -80,7 +89,7 @@ class invitado_card extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
         Navigator.pushNamed(context, 'invitadosInfo_view');
-        },
+      },
       style: NeumorphicStyle(
         depth: 1.5,
         intensity: 1,
@@ -95,7 +104,7 @@ class invitado_card extends StatelessWidget {
         )),
       ),
       child: Row(
-        children: [
+        children: const [
           CircleAvatar(
             radius: 30,
             backgroundColor: Colors.transparent,

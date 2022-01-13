@@ -1,9 +1,13 @@
 // ignore_for_file: annotate_overrides
 
+import 'package:day_picker/model/day_in_week.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 class MisWakure_View extends StatelessWidget {
+  
+
   MisWakure_View({Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
@@ -12,28 +16,40 @@ class MisWakure_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return Scaffold(
-      appBar: NeumorphicAppBar(actions: []),
+      appBar: NeumorphicAppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
       backgroundColor: NeumorphicTheme.baseColor(context),
       body: Column(
         children: <Widget>[
-          Text('Mis Wakure', style: TextStyle(fontSize: 20)),
+          Text('Mis Wakure',
+              style: TextStyle(fontSize: 20, color: Colors.grey)),
           SizedBox(
             height: g.height * 0.02,
           ),
           Container(
             height: g.height * 0.63,
-            child: ListView(
-              children: [
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-                wakure_card(),
-              ],
+            child: ScrollConfiguration(
+              behavior: NoScrollGlow(),
+              child: ListView(
+                children: [
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                  wakure_card(),
+                ],
+              ),
             ),
           )
         ],
@@ -62,7 +78,9 @@ class wakure_card extends StatelessWidget {
   Widget build(BuildContext context) {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, 'bookingConfig_view');
+      },
       style: NeumorphicStyle(
         depth: 1.5,
         intensity: 1,
