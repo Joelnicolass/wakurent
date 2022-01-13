@@ -101,16 +101,14 @@ class _MapScreenState extends State<MapScreen> {
                       onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
-
+                  //TODO eliminar esto
                   //create blocbuilder for show markers
                   BlocBuilder<WakureBloc, WakureState>(
                     builder: (context, state) {
                       if (state.wakures.length == 0) {
                         return Container();
                       }
-                      return Container(
-                        child: Text('ALGO PASÓ'),
-                      );
+                      return Container();
                     },
                   ),
                 ],
