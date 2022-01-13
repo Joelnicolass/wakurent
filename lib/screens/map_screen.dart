@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,16 +20,31 @@ class MapScreen extends StatefulWidget {
 class _MapScreenState extends State<MapScreen> {
   late LocationBloc locationBloc;
 
+  Future<void> addMarker() async {
+    final mapBloc = BlocProvider.of<MapBloc>(context);
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final httpRes = await WakureService.getWakures(authBloc.state.user!.id);
+    List<dynamic> jsonList = httpRes as List;
+    final wakures = ProcessResponse.getWakureList(jsonList);
+    mapBloc.add(
+      AddMarkerEvent(wakures),
+    );
+  }
+
+  Timer? timer;
   @override
   void initState() {
     super.initState();
     locationBloc = BlocProvider.of<LocationBloc>(context);
     locationBloc.startFollowingUser();
+    timer = Timer.periodic(Duration(seconds: 10), (Timer t) => addMarker());
   }
 
   @override
   void dispose() {
     locationBloc.stopFollowingUser();
+    timer?.cancel();
+    print('dispose');
     super.dispose();
   }
 
@@ -68,20 +84,7 @@ class _MapScreenState extends State<MapScreen> {
                         child: Center(
                           child: IconButton(
                             icon: Icon(Icons.add),
-                            onPressed: () async {
-                              final httpRes = await WakureService.getWakures(
-                                  '61dc7c5ee3eabc342879eea5');
-
-                              List<dynamic> jsonList = httpRes as List;
-
-                              final wakures =
-                                  ProcessResponse.getWakureList(jsonList);
-
-                              final mapBloc = BlocProvider.of<MapBloc>(context);
-                              mapBloc.add(
-                                AddMarkerEvent(wakures),
-                              );
-                            },
+                            onPressed: () async {},
                           ),
                         ),
                       ),
