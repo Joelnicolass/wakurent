@@ -46,7 +46,7 @@ class App extends StatelessWidget {
           shadowDarkColor: Colors.black87),
 
       // home: Menu_View(),
-      initialRoute: 'bookingConfig_view',
+      initialRoute: 'login_screen',
       routes: appRoutes,
     );
   }
