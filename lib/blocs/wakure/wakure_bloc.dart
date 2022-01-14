@@ -9,14 +9,14 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
   WakureBloc() : super(WakureState()) {
     on<OnGetWakuresEvent>((event, emit) {
       emit(state.copyWith(
-          wakures: event.wakures,
-          availableForBooking: state.availableForBooking));
+        wakures: event.wakures,
+      ));
     });
 
     _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
       emit(state.copyWith(
-          wakures: event.wakures,
-          availableForBooking: state.availableForBooking));
+        wakures: event.wakures,
+      ));
     }
   }
 }
