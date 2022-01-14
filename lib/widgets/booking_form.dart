@@ -8,8 +8,6 @@ import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 //import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:flutter_cupertino_localizations/flutter_cupertino_localizations.dart';
 
-
-
 class DateTimeForm extends StatefulWidget {
   @override
   _DateTimeFormState createState() => _DateTimeFormState();
@@ -59,24 +57,45 @@ class BasicDateField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
-      Row(
+      Column(
         children: [
           Text('Desde'),
-          Icon(Icons.calendar_today_rounded, color: Colors.grey,),
+          Stack(
+            children: [
+              SizedBox(
+                width: 20,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Icon(
+                Icons.calendar_today_rounded,
+                color: Colors.grey,
+              ),
+              SizedBox(
+                width: 20,
+              ),
+              Expanded(
+                child: DateTimeField(
+                  decoration: InputDecoration(
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.red))),
+                  format: format,
+                  onShowPicker: (context, currentValue) {
+                    return showDatePicker(
+                        context: context,
+                        firstDate: DateTime(1900),
+                        initialDate: currentValue ?? DateTime.now(),
+                        lastDate: DateTime(2100));
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 90,
+              ),
+            ],
+          ),
         ],
-      ),
-      DateTimeField(
-        decoration: InputDecoration(
-          
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red))) ,
-        format: format,
-        onShowPicker: (context, currentValue) {
-          return showDatePicker(
-              context: context,
-              firstDate: DateTime(1900),
-              initialDate: currentValue ?? DateTime.now(),
-              lastDate: DateTime(2100));
-        },
       ),
     ]);
   }
