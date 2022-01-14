@@ -51,6 +51,9 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         //icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
         icon: customMarker,
         position: LatLng(wakure.geolocation.lat, wakure.geolocation.lng),
+        infoWindow: InfoWindow(
+          title: wakure.name
+        )
       );
       listMarkers = [...listMarkers, marker];
     });
