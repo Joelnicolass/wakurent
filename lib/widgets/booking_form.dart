@@ -65,19 +65,13 @@ class BasicDateField extends StatelessWidget {
               SizedBox(
                 width: 20,
               ),
-              SizedBox(
-                width: 20,
-              ),
-              Icon(
-                Icons.calendar_today_rounded,
-                color: Colors.grey,
-              ),
-              SizedBox(
-                width: 20,
-              ),
+             
+             
               Expanded(
                 child: DateTimeField(
+                  
                   decoration: InputDecoration(
+                    icon: Icon(Icons.calendar_today_rounded),
                       enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.red))),
                   format: format,

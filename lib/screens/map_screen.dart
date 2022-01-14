@@ -37,7 +37,7 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     locationBloc = BlocProvider.of<LocationBloc>(context);
     locationBloc.startFollowingUser();
-    timer = Timer.periodic(Duration(seconds: 10), (Timer t) => addMarker());
+    timer = Timer.periodic(Duration(seconds: 3), (Timer t) => addMarker());
   }
 
   @override

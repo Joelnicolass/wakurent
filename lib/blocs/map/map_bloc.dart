@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/helpers/custom_image_marker.dart';
 import 'package:walkiler/models/wakure.dart';
 import 'package:walkiler/themes/themes.dart';
 
@@ -36,15 +37,19 @@ class MapBloc extends Bloc<MapEvent, MapState> {
 
   //create multiple markers
 
-  void _addMarker(AddMarkerEvent event, Emitter<MapState> emit) {
+  Future<void> _addMarker(AddMarkerEvent event, Emitter<MapState> emit) async {
+    
     //add markers
-
     List<Marker> listMarkers = [];
+
+    //Custom Marker
+    final customMarker = await getAssetImageMarker();
 
     event.wakures.forEach((wakure) {
       var marker = Marker(
         markerId: MarkerId(wakure.name),
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+        //icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueOrange),
+        icon: customMarker,
         position: LatLng(wakure.geolocation.lat, wakure.geolocation.lng),
       );
       listMarkers = [...listMarkers, marker];
