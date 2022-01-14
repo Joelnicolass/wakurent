@@ -29,12 +29,14 @@ environment:
 dependencies:
   bloc: ^8.0.1
   cupertino_icons: ^1.0.2
+  datetime_picker_formfield: ^2.0.0
   day_picker: ^2.1.0
   dio: ^4.0.4
   equatable: ^2.0.3
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.0
+  flutter_neat_and_clean_calendar: ^0.2.3+11
   flutter_neumorphic: ^3.2.0
   flutter_secure_storage: ^5.0.2
   geolocator: ^8.0.1

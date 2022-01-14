@@ -12,6 +12,7 @@ import 'package:walkiler/views/menu_view.dart';
 import 'package:walkiler/views/mis_wakure_view.dart';
 import 'package:walkiler/views/quick_booking_view.dart';
 import 'package:walkiler/views/register_view.dart';
+import 'package:walkiler/views/calendar.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
 
@@ -27,5 +28,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
         'quickBooking_view' : (_) => QuickBooking_View(),
         'addWakure_view'    : (_) => AddWakure_View(),
         'bookingConfig_view': (_) => BookingConfig_View(),
+        'calendar_view': (_) => Calendario(),
 
 };
