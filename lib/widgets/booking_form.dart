@@ -1,7 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 // For changing the language
@@ -22,22 +21,60 @@ class _DateTimeFormState extends State<DateTimeForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          BasicDateField(),
-          SizedBox(height: 5),
-          Clock24Example(),
-          SizedBox(height: 5),
-          SizedBox(height: 5),
-          ElevatedButton(
-            child: Text('Save'),
-            onPressed: () => formKey.currentState?.save(),
+          DateField(
+            label: 'Desde',
+            blocHandler: 'bookingBloc',
           ),
-          ElevatedButton(
-            child: Text('Reset'),
-            onPressed: () => formKey.currentState?.reset(),
+          SizedBox(height: 5),
+          ClockPicker(label: 'Horario', blocHandler: 'bookingBloc'),
+          SizedBox(height: 10),
+          // separator with gradient
+          Center(
+            child: Container(
+              height: 2,
+              width: 350,
+              //gradient vertical
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white54,
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
           ),
-          ElevatedButton(
-            child: Text('Validate'),
-            onPressed: () => formKey.currentState?.validate(),
+
+          SizedBox(height: 10),
+          DateField(
+            label: 'Hasta',
+            blocHandler: 'bookingBloc',
+          ),
+          SizedBox(height: 5),
+          ClockPicker(label: 'Horario', blocHandler: 'bookingBloc'),
+
+          // buttons
+          Padding(
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                NeumorphicButton(
+                  child: Text('Reservar'),
+                  onPressed: () => formKey.currentState?.save(),
+                ),
+                NeumorphicButton(
+                  child: Text('Reset'),
+                  onPressed: () => formKey.currentState?.reset(),
+                ),
+                NeumorphicButton(
+                  child: Text('Validate'),
+                  onPressed: () => formKey.currentState?.validate(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
@@ -45,8 +82,15 @@ class _DateTimeFormState extends State<DateTimeForm> {
   }
 }
 
-class BasicDateField extends StatelessWidget {
+class DateField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
+  final blocHandler;
+  final String label;
+
+  // constructor
+  DateField({Key? key, required this.blocHandler, required this.label})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -55,8 +99,11 @@ class BasicDateField extends StatelessWidget {
           SizedBox(width: 40),
           Expanded(
             child: DateTimeField(
+              onSaved: (newValue) {
+                print('onSaved: ' + newValue.toString().substring(0, 10));
+              },
               decoration: InputDecoration(
-                labelText: 'Desde',
+                labelText: label,
                 border: InputBorder.none,
                 filled: true,
                 fillColor: Colors.white10,
@@ -84,8 +131,15 @@ class BasicDateField extends StatelessWidget {
   }
 }
 
-class Clock24Example extends StatelessWidget {
+class ClockPicker extends StatelessWidget {
   final format = DateFormat("HH:mm");
+  final blocHandler;
+  final String label;
+
+  // constructor
+  ClockPicker({Key? key, required this.blocHandler, required this.label})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Column(children: <Widget>[
@@ -94,8 +148,11 @@ class Clock24Example extends StatelessWidget {
           SizedBox(width: 40),
           Expanded(
             child: DateTimeField(
+              onSaved: (newValue) {
+                print('HORA: ' + newValue.toString().substring(10, 16));
+              },
               decoration: InputDecoration(
-                labelText: 'Horario',
+                labelText: label,
                 border: InputBorder.none,
                 filled: true,
                 fillColor: Colors.white10,
