@@ -14,18 +14,16 @@ import 'package:walkiler/views/quick_booking_view.dart';
 import 'package:walkiler/views/register_view.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
-
-        'loading_screen'    : (context) => LoadingScreen(),
-        'menu_view'         : (_) => Menu_View(),
-        'login_screen'      : (_) => Login(),
-        'register_view'     : (_) => Register_View(),
-        'misWakure_view'    : (_) => MisWakure_View(),
-        'invitados_view'    : (_) => Invitados_View(),
-        'invitadosInfo_view': (_) => InvitadosInfo_View(),
-        'map_screen'        : (_) => MapScreen(),
-        'booking_view'      : (_) => Booking_View(),
-        'quickBooking_view' : (_) => QuickBooking_View(),
-        'addWakure_view'    : (_) => AddWakure_View(),
-        'bookingConfig_view': (_) => BookingConfig_View(),
-
+  'loading_screen': (context) => LoadingScreen(),
+  'menu_view': (_) => Menu_View(),
+  'login_screen': (_) => Login(),
+  'register_view': (_) => Register_View(),
+  'misWakure_view': (_) => MisWakure_View(),
+  'invitados_view': (_) => Invitados_View(),
+  'invitadosInfo_view': (_) => InvitadosInfo_View(),
+  'map_screen': (_) => MapScreen(),
+  'booking_view': (_) => Booking_View(),
+  'quickBooking_view': (_) => QuickBooking_View(),
+  'addWakure_view': (_) => AddWakure_View(),
+  'bookingConfig_view': (_) => BookingConfig_View(),
 };
