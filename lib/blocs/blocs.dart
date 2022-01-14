@@ -3,4 +3,3 @@ export 'package:walkiler/blocs/location/location_bloc.dart';
 export 'package:walkiler/blocs/map/map_bloc.dart';
 export 'package:walkiler/blocs/user/auth_bloc.dart';
 export 'package:walkiler/blocs/wakure/wakure_bloc.dart';
-export 'package:walkiler/blocs/datetime/datetime_bloc.dart';

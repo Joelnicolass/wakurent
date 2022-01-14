@@ -15,3 +15,12 @@ class OnGetWakuresEvent extends WakureEvent {
   @override
   List<Object> get props => [wakures];
 }
+
+class CheckAvailability extends WakureEvent {
+  final bool availabilityForBooking;
+
+  const CheckAvailability({required this.availabilityForBooking});
+
+  @override
+  List<Object> get props => [availabilityForBooking];
+}
