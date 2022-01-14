@@ -19,6 +19,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       event.password,
     );
 
+    print(response.data);
+
     switch (response.statusCode) {
       case 200:
         final User data = User.fromJson(response.toString());
