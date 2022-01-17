@@ -1,78 +1,105 @@
 // ignore_for_file: annotate_overrides
 
 import 'package:day_picker/model/day_in_week.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/models/models.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
-class MisWakure_View extends StatelessWidget {
-  
-
+class MisWakure_View extends StatefulWidget {
   MisWakure_View({Key? key}) : super(key: key);
+
+  @override
+  State<MisWakure_View> createState() => _MisWakure_ViewState();
+}
+
+class _MisWakure_ViewState extends State<MisWakure_View> {
+  Future<void> resWakures() async {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+    final httpRes = await WakureService.getWakures(authBloc.state.user!.id);
+    List<dynamic> jsonList = httpRes as List;
+    final wakures = ProcessResponse.getWakureList(jsonList);
+    wakureBloc.add(OnGetWakuresEvent(wakures: wakures));
+  }
+
+  @override
+  void initState() {
+    resWakures();
+
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
     //responsive
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.grey,
-        ),
-      ),
-      backgroundColor: NeumorphicTheme.baseColor(context),
-      body: Column(
-        children: <Widget>[
-          Text('Mis Wakure',
-              style: TextStyle(fontSize: 20, color: Colors.grey)),
-          SizedBox(
-            height: g.height * 0.02,
-          ),
-          Container(
-            height: g.height * 0.63,
-            child: ScrollConfiguration(
-              behavior: NoScrollGlow(),
-              child: ListView(
-                children: [
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                ],
-              ),
+    return BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
+      if (state.wakures.length < 1) {
+        return Container(
+          child: Text("cargando"),
+        );
+      } else {
+        return Scaffold(
+          appBar: NeumorphicAppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_outlined),
+              onPressed: () => Navigator.of(context).pop(),
             ),
-          )
-        ],
-      ),
-      floatingActionButton: NeumorphicFloatingActionButton(
-        style: NeumorphicStyle(
-            boxShape: NeumorphicBoxShape.circle(),
-            shape: NeumorphicShape.convex,
-            depth: 1.5,
-            intensity: 0.3),
-        onPressed: () {
-          Navigator.pushNamed(context, 'addWakure_view');
-        },
-        child: Icon(Icons.add, color: Colors.white54),
-      ),
-    );
+            iconTheme: const IconThemeData(
+              color: Colors.grey,
+            ),
+          ),
+          backgroundColor: NeumorphicTheme.baseColor(context),
+          body: Column(
+            children: <Widget>[
+              const Text('Mis Wakure',
+                  style: TextStyle(fontSize: 20, color: Colors.grey)),
+              SizedBox(
+                height: g.height * 0.02,
+              ),
+              SizedBox(
+                height: g.height * 0.63,
+                child: ScrollConfiguration(
+                    behavior: NoScrollGlow(),
+                    child: ListView.builder(
+                        itemCount: state.wakures.length,
+                        itemBuilder: (BuildContext ctxt, int index) {
+                          return wakure_card(
+                              wakureName: state.wakures[index].name.toString());
+                        })),
+              )
+            ],
+          ),
+          floatingActionButton: NeumorphicFloatingActionButton(
+            style: const NeumorphicStyle(
+                boxShape: NeumorphicBoxShape.circle(),
+                shape: NeumorphicShape.convex,
+                depth: 1.5,
+                intensity: 0.3),
+            onPressed: () {
+              Navigator.pushNamed(context, 'addWakure_view');
+            },
+            child: const Icon(Icons.add, color: Colors.white54),
+          ),
+        );
+      }
+    });
   }
 }
 
 class wakure_card extends StatelessWidget {
   const wakure_card({
     Key? key,
+    required this.wakureName,
   }) : super(key: key);
+
+  final String wakureName;
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +129,7 @@ class wakure_card extends StatelessWidget {
             child: Icon(Icons.electric_scooter, color: Colors.grey, size: 40),
           ),
           Text(
-            'Wakure1',
+            wakureName,
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
         ],

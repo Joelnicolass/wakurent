@@ -1,4 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
 
 import '../globals.dart' as g;
 
@@ -65,15 +67,16 @@ class add_wakure_form extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 left: 20,
                 right: 20,
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.wakureName = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -91,15 +94,16 @@ class add_wakure_form extends StatelessWidget {
                 ),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.only(
+            Padding(
+              padding: const EdgeInsets.only(
                 left: 20,
                 right: 20,
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.wakureCode = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.rojo,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -125,7 +129,15 @@ class add_wakure_form extends StatelessWidget {
                 horizontal: g.width * 0.2,
                 vertical: g.height * 0.015,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final wakureBloc = BlocProvider.of<WakureBloc>(context);
+                wakureBloc.add(
+                  SaveNewWakureEvent(
+                    wakureCode: g.wakureCode,
+                    wakureName: g.wakureName,
+                  ),
+                );
+              },
               style: NeumorphicStyle(
                 depth: 1.5,
                 intensity: 0.8,
@@ -141,10 +153,7 @@ class add_wakure_form extends StatelessWidget {
               ),
               child: const Text(
                 'Aceptar',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white
-                ),
+                style: TextStyle(fontSize: 20, color: Colors.white),
               ),
             ),
           ],
