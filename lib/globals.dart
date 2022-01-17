@@ -22,3 +22,6 @@ const ip = "192.168.1.52";
 
 String email = "";
 String password = "";
+
+String wakureName = "";
+String wakureCode = "";
