@@ -7,16 +7,14 @@ part 'wakure_state.dart';
 
 class WakureBloc extends Bloc<WakureEvent, WakureState> {
   WakureBloc() : super(WakureState()) {
-    on<OnGetWakuresEvent>((event, emit) {
-      emit(state.copyWith(
-        wakures: event.wakures,
-      ));
-    });
+    on<OnGetWakuresEvent>( _onGetWakuresEvent );
 
-    _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
+    
+  }
+  _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
+    print("evento " + event.wakures.toString());
       emit(state.copyWith(
         wakures: event.wakures,
       ));
     }
-  }
 }
