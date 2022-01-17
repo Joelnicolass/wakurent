@@ -2,7 +2,6 @@ import 'package:day_picker/day_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/widgets/booking_form.dart';
-import 'package:walkiler/widgets/time_picker.dart';
 
 import 'package:walkiler/globals.dart' as g;
 
@@ -71,11 +70,16 @@ class bookingForm_card extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [const SizedBox(height: 20), 
-          
-          Center(child: Text('Reserva', style: TextStyle(fontSize: 20, color: Colors.grey),)),
-          SizedBox(height: 50),
-          DateTimeForm()],
+          children: [
+            const SizedBox(height: 20),
+            Center(
+                child: Text(
+              'Reserva',
+              style: TextStyle(fontSize: 20, color: Colors.grey),
+            )),
+            SizedBox(height: 50),
+            DateTimeForm()
+          ],
         ),
       ),
     );

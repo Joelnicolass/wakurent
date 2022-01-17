@@ -1,11 +1,10 @@
 import 'dart:async';
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
-// For changing the language
-//import 'package:flutter_localizations/flutter_localizations.dart';
-// import 'package:flutter_cupertino_localizations/flutter_cupertino_localizations.dart';
+import 'package:walkiler/blocs/booking/booking_bloc.dart';
 
 class DateTimeForm extends StatefulWidget {
   @override
@@ -16,6 +15,46 @@ class _DateTimeFormState extends State<DateTimeForm> {
   final formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    final bookingBloc = BlocProvider.of<BookingBloc>(context);
+
+    // functions for changing state
+
+    void _saveTimeFrom(String time) {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SaveTimeFromEvent(timeFrom: time),
+      );
+    }
+
+    void _saveTimeTo(String time) {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SaveTimeToEvent(timeTo: time),
+      );
+    }
+
+    void _saveDateFrom(String date) {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SaveDateFromEvent(dateFrom: date),
+      );
+    }
+
+    void _saveDateTo(String date) {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SaveDateToEvent(dateTo: date),
+      );
+    }
+
+    void _saveAllDateTime() {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SaveAllDateTimeEvent(
+            endDate: '', endTime: '', startDate: '', startTime: ''),
+      );
+    }
+
     return Form(
       key: formKey,
       child: Column(
@@ -23,11 +62,15 @@ class _DateTimeFormState extends State<DateTimeForm> {
         children: <Widget>[
           DateField(
             label: 'Desde',
-            blocHandler: 'bookingBloc',
+            function: _saveDateFrom,
           ),
           SizedBox(height: 5),
-          ClockPicker(label: 'Horario', blocHandler: 'bookingBloc'),
+          ClockPicker(
+            label: 'Horario',
+            function: _saveTimeFrom,
+          ),
           SizedBox(height: 10),
+
           // separator with gradient
           Center(
             child: Container(
@@ -50,10 +93,10 @@ class _DateTimeFormState extends State<DateTimeForm> {
           SizedBox(height: 10),
           DateField(
             label: 'Hasta',
-            blocHandler: 'bookingBloc',
+            function: _saveDateTo,
           ),
           SizedBox(height: 5),
-          ClockPicker(label: 'Horario', blocHandler: 'bookingBloc'),
+          ClockPicker(label: 'Horario', function: _saveTimeTo),
 
           // buttons
           Padding(
@@ -67,11 +110,14 @@ class _DateTimeFormState extends State<DateTimeForm> {
                 ),
                 NeumorphicButton(
                   child: Text('Reset'),
-                  onPressed: () => formKey.currentState?.reset(),
+                  onPressed: () {
+                    _saveAllDateTime();
+                    formKey.currentState?.reset();
+                  },
                 ),
                 NeumorphicButton(
                   child: Text('Validate'),
-                  onPressed: () => formKey.currentState?.validate(),
+                  onPressed: () => formKey.currentState?.save(),
                 ),
               ],
             ),
@@ -84,11 +130,11 @@ class _DateTimeFormState extends State<DateTimeForm> {
 
 class DateField extends StatelessWidget {
   final format = DateFormat("yyyy-MM-dd");
-  final blocHandler;
+  final Function(String) function;
   final String label;
 
   // constructor
-  DateField({Key? key, required this.blocHandler, required this.label})
+  DateField({Key? key, required this.function, required this.label})
       : super(key: key);
 
   @override
@@ -99,8 +145,13 @@ class DateField extends StatelessWidget {
           SizedBox(width: 40),
           Expanded(
             child: DateTimeField(
+              onChanged: (value) {
+                if (value != null) {
+                  function(value.toString().substring(0, 10));
+                }
+              },
               onSaved: (newValue) {
-                print('onSaved: ' + newValue.toString().substring(0, 10));
+                print(BlocProvider.of<BookingBloc>(context).state);
               },
               decoration: InputDecoration(
                 labelText: label,
@@ -133,12 +184,15 @@ class DateField extends StatelessWidget {
 
 class ClockPicker extends StatelessWidget {
   final format = DateFormat("HH:mm");
-  final blocHandler;
+  final Function(String) function;
   final String label;
 
   // constructor
-  ClockPicker({Key? key, required this.blocHandler, required this.label})
-      : super(key: key);
+  ClockPicker({
+    Key? key,
+    required this.function,
+    required this.label,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -148,8 +202,13 @@ class ClockPicker extends StatelessWidget {
           SizedBox(width: 40),
           Expanded(
             child: DateTimeField(
+              onChanged: (value) {
+                if (value != null) {
+                  function(value.toString().substring(11, 16));
+                }
+              },
               onSaved: (newValue) {
-                print('HORA: ' + newValue.toString().substring(10, 16));
+                print(BlocProvider.of<BookingBloc>(context).state);
               },
               decoration: InputDecoration(
                 labelText: label,

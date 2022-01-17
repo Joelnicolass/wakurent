@@ -1,4 +1,5 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/booking/booking_bloc.dart';
 import 'package:walkiler/routes/routes.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,9 @@ void main() {
     providers: [
       BlocProvider(
         create: (context) => AuthBloc(),
+      ),
+      BlocProvider(
+        create: (context) => BookingBloc(),
       ),
       BlocProvider(
         create: (context) => GpsBloc(),
