@@ -11,6 +11,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
   WakureBloc() : super(WakureState()) {
     on<OnGetWakuresEvent>(_onGetWakuresEvent);
     on<SaveNewWakureEvent>(_saveWakure);
+    on<DeleteWakureEvent>(_deleteWakure);
   }
   _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
     print("evento " + event.wakures.toString());
@@ -19,6 +20,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
     ));
   }
 
+// add new wakure
   Future<void> _saveWakure(
       SaveNewWakureEvent event, Emitter<WakureState> emit) async {
     final Response response = await WakureService.saveWakure(
@@ -27,6 +29,14 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
     );
 
     //print(response.data);
-    
   }
+
+// delete wakure
+
+  Future<void> _deleteWakure(
+      DeleteWakureEvent event, Emitter<WakureState> emit) async {
+    final Response response = await WakureService.deleteWakure(
+      event.id,
+    );
+}
 }

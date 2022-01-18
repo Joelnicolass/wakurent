@@ -2,7 +2,9 @@ import 'package:dio/dio.dart';
 import '../globals.dart' as g;
 
 class WakureService {
-// get request with dio
+// ------- request with dio -------- //
+
+// get user Wakures
 
   static Future getWakures(String id) async {
     try {
@@ -17,6 +19,8 @@ class WakureService {
       print(e);
     }
   }
+
+// add new Wakure
 
   static Future saveWakure(String wakureName, String wakureCode) async {
     try {
@@ -34,6 +38,27 @@ class WakureService {
 
       if (response.statusCode == 200) {
         print('status 200 todo ok');
+      }
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+// delete wakure
+
+  static Future deleteWakure(String id) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+
+      response = await dio.delete(
+        'http://' + g.ip + ':5000/api/wakure/' + id );
+
+      if (response.statusCode == 200) {
+        print('status 200 wakure deleted');
       }
 
       return response;

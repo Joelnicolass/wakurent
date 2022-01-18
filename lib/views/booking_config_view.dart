@@ -1,49 +1,105 @@
-import 'package:day_picker/day_picker.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/models/models.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/booking_form.dart';
 
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/widgets/wakure_crud_menu.dart';
 
-class BookingConfig_View extends StatelessWidget {
+class BookingConfig_View extends StatefulWidget {
   const BookingConfig_View({Key? key}) : super(key: key);
 
   @override
+  State<BookingConfig_View> createState() => _BookingConfig_ViewState();
+}
+
+class _BookingConfig_ViewState extends State<BookingConfig_View> {
+  Future<void> resWakures() async {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+    final httpRes = await WakureService.getWakures(authBloc.state.user!.id);
+    List<dynamic> jsonList = httpRes as List;
+    final wakures = ProcessResponse.getWakureList(jsonList);
+    wakureBloc.add(OnGetWakuresEvent(wakures: wakures));
+
+    print(wakures[0].wakureId);
+  }
+
+  @override
+  void initState() {
+    resWakures();
+
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     //responsive
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
-    return Scaffold(
-      appBar: NeumorphicAppBar(
-        title: Row(
-          children: [
-            Icon(Icons.electric_scooter_outlined, color: Colors.grey, size: 30),
-            const SizedBox(width: 10),
-            Text('Wakure 1',
-                style: TextStyle(fontSize: 18, color: Colors.grey)),
-            GestureDetector(
-              child: Icon(
-                Icons.more_vert,
-                color: Colors.grey,
-              ),
-              onTap: () {},
+    return BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
+      if (state.wakures.length < 1) {
+        return Container(
+          child: Text("cargando"),
+        );
+      } else {
+        return Scaffold(
+          appBar: NeumorphicAppBar(
+            title: Row(
+              children: [
+                Icon(Icons.electric_scooter_outlined,
+                    color: Colors.grey, size: 30),
+                const SizedBox(width: 10),
+                Text('Wakure 1',
+                    style: TextStyle(fontSize: 18, color: Colors.grey)),
+                PopupMenuButton<IconMenu>(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  onSelected: (value) {
+                    switch (value) {
+                      case IconsMenu.edit:
+                        Text('Selected: Edit');
+                        break;
+                      case IconsMenu.delete:
+                        final wakureBloc = BlocProvider.of<WakureBloc>(context);
+                        wakureBloc.add(
+                          DeleteWakureEvent(id: state.wakures[0].wakureId),
+                        );
+                        // TODO : HACER UN CARTEL DE SEGURO DESEA ELIMINAR WAKURE?
+                        // TODO : QUE AL APRETAR EL BOTON LLEVE LA PANTALLA DE ATRAS Y SE ACTUALICE LA LISTA DE WAKURES
+                        break;
+                    }
+                  },
+                  itemBuilder: (context) => IconsMenu.items
+                      .map((item) => PopupMenuItem<IconMenu>(
+                            value: item,
+                            child: ListTile(
+                                leading: Icon(item.icon),
+                                title: Text(item.text)),
+                          ))
+                      .toList(),
+                )
+              ],
             ),
-          ],
-        ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        iconTheme: IconThemeData(
-          color: Colors.grey,
-        ),
-      ),
-      resizeToAvoidBottomInset: false,
-      body: const Center(
-        child: bookingForm_card(),
-      ),
-    );
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_outlined),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            iconTheme: IconThemeData(
+              color: Colors.grey,
+            ),
+          ),
+          resizeToAvoidBottomInset: false,
+          body: const Center(
+            child: bookingForm_card(),
+          ),
+        );
+      }
+    });
   }
 }
 
