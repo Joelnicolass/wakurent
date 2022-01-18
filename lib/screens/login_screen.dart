@@ -44,7 +44,10 @@ class loginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset('assets/marker.png', width: 40,),
+                Image.asset(
+                  'assets/marker.png',
+                  width: 40,
+                ),
                 Text(
                   'WAKURENT',
                   style: TextStyle(

@@ -15,14 +15,22 @@ class Register_View extends StatelessWidget {
     g.height = MediaQuery.of(context).size.height;
 
     return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) {
-        if (state.loggedIn == true) {
-          return Scaffold(
-            body: RoleSelector(),
-          );
-        } else {
-          return registerView();
-        }
+      builder: (contextAuth, stateAuth) {
+        return BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            if (state.userCreated == true) {
+              if (stateAuth.loggedIn == true) {
+                return RoleSelector();
+              } else {
+                BlocProvider.of<AuthBloc>(contextAuth)
+                    .add(LoginEvent(email: g.email, password: g.password));
+                return Center(child: CircularProgressIndicator());
+              }
+            } else {
+              return registerView();
+            }
+          },
+        );
       },
     );
   }
@@ -226,14 +234,6 @@ class addGuest_form extends StatelessWidget {
                     password: g.password,
                     address: g.address,
                     phone: g.phone,
-                  ),
-                );
-
-                final authBloc = BlocProvider.of<AuthBloc>(context);
-                authBloc.add(
-                  LoginEvent(
-                    email: g.email,
-                    password: g.password,
                   ),
                 );
               },

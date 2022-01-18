@@ -16,14 +16,16 @@ class SaveNewUserEvent extends UserEvent {
   final String phone;
 
   SaveNewUserEvent({
-      required this.name,
-      required this.surname,
-      required this.address,
-      required this.email,
-      required this.password,
-      required this.phone,
-      });
+    required this.name,
+    required this.surname,
+    required this.address,
+    required this.email,
+    required this.password,
+    required this.phone,
+  });
+}
 
-  @override
-  List<Object> get props => [name, surname, address, email, password, phone];
+// user created
+class UserCreatedEvent extends UserEvent {
+  UserCreatedEvent();
 }

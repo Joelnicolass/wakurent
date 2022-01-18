@@ -8,6 +8,9 @@ void main() {
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
+        create: (context) => UserBloc(),
+      ),
+      BlocProvider(
         create: (context) => AuthBloc(),
       ),
       BlocProvider(
@@ -24,9 +27,6 @@ void main() {
       ),
       BlocProvider(
         create: (context) => WakureBloc(),
-      ),
-      BlocProvider(
-        create: (context) => UserBloc(),
       ),
     ],
     child: const App(),
