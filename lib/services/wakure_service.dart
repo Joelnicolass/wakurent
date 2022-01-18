@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
 class WakureService {
@@ -8,6 +9,13 @@ class WakureService {
     try {
       Response response;
       var dio = Dio();
+
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
 
       response = await dio
           .get('http://' + g.ip + ':5000/api/users/' + id + '/wakures');
@@ -23,6 +31,13 @@ class WakureService {
       Response response;
       var dio = Dio();
       dio.options.contentType = "application/json; charset=utf-8";
+
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
 
       response = await dio.post(
         'http://' + g.ip + ':5000/api/wakure/new',

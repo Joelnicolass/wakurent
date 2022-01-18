@@ -1,4 +1,6 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/views/mis_wakure_view.dart';
 
@@ -23,7 +25,12 @@ class Menu_View extends StatelessWidget {
           Padding(
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  final authBloc = BlocProvider.of<AuthBloc>(context);
+                  authBloc.add(
+                    SignOutEvent(),
+                  );
+                },
                 child: const Icon(Icons.logout_rounded),
               )),
         ],

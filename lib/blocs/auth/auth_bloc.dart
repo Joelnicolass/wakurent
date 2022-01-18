@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/models/models.dart';
 import 'package:walkiler/services/services.dart';
 
@@ -11,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthState()) {
     on<LoginEvent>(_login);
     on<ClearErrorEvent>(_clearError);
+    on<SignOutEvent>(_signOut);
   }
 
   Future<void> _login(LoginEvent event, Emitter<AuthState> emit) async {
@@ -57,6 +59,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(
       loggedIn: state.loggedIn,
       user: state.user,
+      error: null,
+    ));
+  }
+
+  _signOut(SignOutEvent event, Emitter<AuthState> emit) {
+    //delete token from secure storage
+
+    SecureStorage.deleteToken();
+
+    emit(state.copyWith(
+      loggedIn: false,
+      user: null,
       error: null,
     ));
   }

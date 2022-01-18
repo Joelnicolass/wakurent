@@ -26,3 +26,12 @@ class ClearErrorEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+// signout event
+
+class SignOutEvent extends AuthEvent {
+  SignOutEvent();
+
+  @override
+  List<Object> get props => [];
+}

@@ -11,4 +11,9 @@ class SecureStorage {
     final token = await secureStorage.read(key: 'token');
     return token!;
   }
+
+  static void deleteToken() async {
+    final secureStorage = FlutterSecureStorage();
+    await secureStorage.delete(key: 'token');
+  }
 }
