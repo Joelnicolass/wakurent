@@ -1,4 +1,7 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/screens/role_selector.dart';
 
 import '../globals.dart' as g;
 
@@ -11,6 +14,27 @@ class Register_View extends StatelessWidget {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
+    return BlocBuilder<AuthBloc, AuthState>(
+      builder: (context, state) {
+        if (state.loggedIn == true) {
+          return Scaffold(
+            body: RoleSelector(),
+          );
+        } else {
+          return registerView();
+        }
+      },
+    );
+  }
+}
+
+class registerView extends StatelessWidget {
+  const registerView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
         leading: IconButton(
@@ -61,10 +85,11 @@ class addGuest_form extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
-              padding: EdgeInsets.only(left: 20, right: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.name = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -86,7 +111,8 @@ class addGuest_form extends StatelessWidget {
                 right: 20,
               ),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.surname = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -105,7 +131,8 @@ class addGuest_form extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.email = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -124,7 +151,8 @@ class addGuest_form extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.password = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -143,7 +171,8 @@ class addGuest_form extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.address = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -162,7 +191,8 @@ class addGuest_form extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: TextField(
-                decoration: InputDecoration(
+                onChanged: (value) => g.phone = value,
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
                       color: g.rojo,
@@ -178,7 +208,7 @@ class addGuest_form extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             NeumorphicButton(
@@ -186,7 +216,27 @@ class addGuest_form extends StatelessWidget {
                 horizontal: g.width * 0.2,
                 vertical: g.height * 0.015,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final userBloc = BlocProvider.of<UserBloc>(context);
+                userBloc.add(
+                  SaveNewUserEvent(
+                    name: g.name,
+                    surname: g.surname,
+                    email: g.email,
+                    password: g.password,
+                    address: g.address,
+                    phone: g.phone,
+                  ),
+                );
+
+                final authBloc = BlocProvider.of<AuthBloc>(context);
+                authBloc.add(
+                  LoginEvent(
+                    email: g.email,
+                    password: g.password,
+                  ),
+                );
+              },
               style: NeumorphicStyle(
                 depth: 1.5,
                 intensity: 0.8,

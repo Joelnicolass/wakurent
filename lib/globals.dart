@@ -19,10 +19,18 @@ const background = Color(0xff24272f);
 /* const ip = "192.168.1.36"; */
 const ip = "192.168.0.46";
 
-// forms
+//----------------- FORMS -----------------//
 
+// Login
 String email = "";
 String password = "";
 
+// Add Wakure
 String wakureName = "";
 String wakureCode = "";
+
+// Register
+String name = "";
+String surname = "";
+String address = "";
+String phone = "";

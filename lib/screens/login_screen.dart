@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:walkiler/blocs/user/auth_bloc.dart';
+import 'package:walkiler/blocs/auth/auth_bloc.dart';
 import 'package:walkiler/screens/role_selector.dart';
 
 import '../globals.dart' as g;
@@ -44,6 +44,7 @@ class loginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Image.asset('assets/marker.png', width: 40,),
                 Text(
                   'WAKURENT',
                   style: TextStyle(

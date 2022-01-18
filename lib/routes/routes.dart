@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:walkiler/screens/loading_screen.dart';
 import 'package:walkiler/screens/login_screen.dart';
 import 'package:walkiler/screens/map_screen.dart';
+import 'package:walkiler/screens/role_selector.dart';
 import 'package:walkiler/views/Booking_config_view.dart';
 import 'package:walkiler/views/add_wakure_view.dart';
 import 'package:walkiler/views/booking_view.dart';
@@ -28,4 +29,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'addWakure_view': (_) => AddWakure_View(),
   'bookingConfig_view': (_) => BookingConfig_View(),
   'calendar_view': (_) => Calendario(),
+  'role_selector': (_) => RoleSelector(),
 };
