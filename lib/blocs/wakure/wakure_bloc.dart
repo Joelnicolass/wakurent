@@ -26,7 +26,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       event.wakureCode,
     );
 
-    print(response.data);
+    //print(response.data);
     
   }
 }

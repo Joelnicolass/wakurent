@@ -3,12 +3,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/views/menu_view.dart';
+import '../globals.dart' as g;
 
 class RoleSelector extends StatelessWidget {
   const RoleSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     SecureStorage.getToken().then((token) {
       print(token);
     });
@@ -23,8 +25,20 @@ class RoleSelector extends StatelessWidget {
 
             case "CLIENT":
               return Scaffold(
+                //responsive
+
                 body: Center(
-                  child: Text("CLient"),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Hola, Cliente"),
+                      SizedBox(height: 20),
+                      NeumorphicButton(
+                          child: Text('Agregar Wakure'),
+                          onPressed: () =>
+                              Navigator.pushNamed(context, 'addWakure_view'))
+                    ],
+                  ),
                 ),
               );
             default:

@@ -1,9 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:walkiler/blocs/booking/booking_bloc.dart';
 import 'package:walkiler/routes/routes.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:walkiler/views/calendar.dart';
 import 'globals.dart' as g;
 
 void main() {
@@ -26,6 +24,9 @@ void main() {
       ),
       BlocProvider(
         create: (context) => WakureBloc(),
+      ),
+      BlocProvider(
+        create: (context) => UserBloc(),
       ),
     ],
     child: const App(),
