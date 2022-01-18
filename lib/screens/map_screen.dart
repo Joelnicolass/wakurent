@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:lottie/lottie.dart' as lottie;
 import 'package:walkiler/helpers/process_response.dart';
 
 import 'package:walkiler/services/wakure_service.dart';
@@ -37,7 +38,7 @@ class _MapScreenState extends State<MapScreen> {
     super.initState();
     locationBloc = BlocProvider.of<LocationBloc>(context);
     locationBloc.startFollowingUser();
-    timer = Timer.periodic(Duration(seconds: 3), (Timer t) => addMarker());
+    timer = Timer.periodic(Duration(seconds: 10), (Timer t) => addMarker());
   }
 
   @override
@@ -54,7 +55,11 @@ class _MapScreenState extends State<MapScreen> {
       body: BlocBuilder<LocationBloc, LocationState>(
         builder: (context, state) {
           if (state.lastKnownLocation == null) {
-            return const Center(child: const Text('Loading...'));
+            return Center(
+              child: lottie.Lottie.asset(
+                'assets/map_anim.json',
+              ),
+            );
           }
 
           return BlocBuilder<MapBloc, MapState>(builder: (context, mapState) {

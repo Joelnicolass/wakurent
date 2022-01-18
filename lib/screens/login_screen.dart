@@ -45,7 +45,7 @@ class loginView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  'WAKURE',
+                  'WAKURENT',
                   style: TextStyle(
                     fontFamily: 'Arial',
                     fontSize: g.width * 0.1,
@@ -108,10 +108,10 @@ class loginView extends StatelessWidget {
         },
         child: Container(
             child: GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context, 'register_view');
-              },
-              child: const Text('Crear una cuenta'))),
+                onTap: () {
+                  Navigator.pushNamed(context, 'register_view');
+                },
+                child: const Text('Crear una cuenta'))),
       ),
     );
   }
