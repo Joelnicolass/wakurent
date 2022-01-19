@@ -56,4 +56,32 @@ class WakureService {
       return e.response;
     }
   }
+
+//TODO revisar
+  static Future deleteWakure(String wakureCode) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
+
+      response = await dio.delete(
+        'http://' + g.ip + ':5000/api/wakure/' + wakureCode,
+      );
+
+      if (response.statusCode == 200) {
+        print('status 200 todo ok');
+      }
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }
