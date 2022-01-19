@@ -2,9 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
-import 'package:walkiler/helpers/process_response.dart';
-import 'package:walkiler/models/models.dart';
-import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/booking_form.dart';
 
 import 'package:walkiler/globals.dart' as g;
@@ -18,21 +15,9 @@ class BookingConfig_View extends StatefulWidget {
 }
 
 class _BookingConfig_ViewState extends State<BookingConfig_View> {
-  Future<void> resWakures() async {
-    final authBloc = BlocProvider.of<AuthBloc>(context);
-    final wakureBloc = BlocProvider.of<WakureBloc>(context);
-    final httpRes = await WakureService.getWakures(authBloc.state.user!.id);
-    List<dynamic> jsonList = httpRes as List;
-    final wakures = ProcessResponse.getWakureList(jsonList);
-    wakureBloc.add(OnGetWakuresEvent(wakures: wakures));
-
-    print(wakures[0].wakureId);
-  }
 
   @override
   void initState() {
-    resWakures();
-
     super.initState();
   }
 
@@ -65,12 +50,11 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
                         Text('Selected: Edit');
                         break;
                       case IconsMenu.delete:
-                        final wakureBloc = BlocProvider.of<WakureBloc>(context);
-                        wakureBloc.add(
-                          DeleteWakureEvent(id: state.wakures[0].wakureId),
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) =>
+                              _buildPopupDialog(context),
                         );
-                        // TODO : HACER UN CARTEL DE SEGURO DESEA ELIMINAR WAKURE?
-                        // TODO : QUE AL APRETAR EL BOTON LLEVE LA PANTALLA DE ATRAS Y SE ACTUALICE LA LISTA DE WAKURES
                         break;
                     }
                   },
@@ -140,4 +124,44 @@ class bookingForm_card extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _buildPopupDialog(BuildContext context) {
+  return AlertDialog(
+    title: const Text('Warning'),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: const <Widget>[
+        Text("Confirma que desea eliminar Wakure?"),
+      ],
+    ),
+    actions: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              final wakureBloc = BlocProvider.of<WakureBloc>(context);
+              final authBloc = BlocProvider.of<AuthBloc>(context);
+              wakureBloc.add(DeleteWakureEvent(
+                  id: wakureBloc.state.wakures[0].wakureId,
+                  user_id: authBloc.state.user!.id));
+              Navigator.pushNamed(context, 'misWakure_view');
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('SI'),
+          ),
+          SizedBox(width: 30),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('NO'),
+          ),
+        ],
+      )
+    ],
+  );
 }

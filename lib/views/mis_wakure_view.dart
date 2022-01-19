@@ -41,8 +41,56 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
 
     return BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
       if (state.wakures.length < 1) {
-        return Container(
-          child: Text("cargando"),
+        return Scaffold(
+          appBar: NeumorphicAppBar(
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_outlined),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            iconTheme: const IconThemeData(
+              color: Colors.grey,
+            ),
+          ),
+          backgroundColor: NeumorphicTheme.baseColor(context),
+          body: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("No tiene Wakures registrados"),
+                SizedBox(height: 20),
+                NeumorphicButton(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: g.width * 0.1,
+                    vertical: g.height * 0.015,
+                  ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, 'addWakure_view');
+                  },
+                  style: NeumorphicStyle(
+                    depth: 1.5,
+                    intensity: 0.8,
+                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+                    oppositeShadowLightSource: true,
+                    shape: NeumorphicShape.convex,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(25),
+                    )),
+                  ),
+                  child: const Text(
+                    'Agregar Wakure',
+                    style: TextStyle(
+                      fontSize: 20,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         );
       } else {
         return Scaffold(

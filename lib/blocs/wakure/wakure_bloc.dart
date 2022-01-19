@@ -37,6 +37,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       DeleteWakureEvent event, Emitter<WakureState> emit) async {
     final Response response = await WakureService.deleteWakure(
       event.id,
+      event.user_id
     );
-}
+  }
 }
