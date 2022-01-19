@@ -46,7 +46,10 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('menu_view', (route) => false);
+              },
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
@@ -98,7 +101,10 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('menu_view', (route) => false);
+              },
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
@@ -120,7 +126,9 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
                         itemCount: state.wakures.length,
                         itemBuilder: (BuildContext ctxt, int index) {
                           return wakure_card(
-                              wakureName: state.wakures[index].name.toString());
+                            wakureName: state.wakures[index].name.toString(),
+                            wakureId: state.wakures[index].wakureId,
+                          );
                         })),
               )
             ],
@@ -146,8 +154,10 @@ class wakure_card extends StatelessWidget {
   const wakure_card({
     Key? key,
     required this.wakureName,
+    required this.wakureId,
   }) : super(key: key);
 
+  final String wakureId;
   final String wakureName;
 
   @override
@@ -155,8 +165,10 @@ class wakure_card extends StatelessWidget {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
-        Navigator.pushNamed(context, 'bookingConfig_view',
-            arguments: {"title": wakureName});
+        Navigator.pushNamed(context, 'bookingConfig_view', arguments: {
+          "title": wakureName,
+          "wakureId": wakureId,
+        });
       },
       style: NeumorphicStyle(
         depth: 1.5,

@@ -139,6 +139,10 @@ class add_wakure_form extends StatelessWidget {
                     wakureName: g.wakureName,
                   ),
                 );
+
+                g.wakureCode = '';
+                g.wakureName = '';
+
                 Navigator.of(context).pop();
               },
               style: NeumorphicStyle(

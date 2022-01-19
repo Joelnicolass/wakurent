@@ -49,8 +49,10 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
                   case IconsMenu.delete:
                     showDialog(
                       context: context,
-                      builder: (BuildContext context) =>
-                          _buildPopupDialog(context),
+                      builder: (BuildContext context) => _buildPopupDialog(
+                        context,
+                        args['wakureId'],
+                      ),
                     );
                     break;
                 }
@@ -123,7 +125,11 @@ class bookingForm_card extends StatelessWidget {
   }
 }
 
-Widget _buildPopupDialog(BuildContext context) {
+Widget _buildPopupDialog(BuildContext context, String args) {
+  final String idWakure = args;
+
+  print(args);
+
   return AlertDialog(
     title: const Text('Warning'),
     content: Column(
@@ -142,8 +148,7 @@ Widget _buildPopupDialog(BuildContext context) {
               final wakureBloc = BlocProvider.of<WakureBloc>(context);
               final authBloc = BlocProvider.of<AuthBloc>(context);
               wakureBloc.add(DeleteWakureEvent(
-                  id: wakureBloc.state.wakures[0].wakureId,
-                  user_id: authBloc.state.user!.id));
+                  id: idWakure, user_id: authBloc.state.user!.id));
 
               wakureBloc.add(
                   RemoveWakureEvent(id: wakureBloc.state.wakures[0].wakureId));
