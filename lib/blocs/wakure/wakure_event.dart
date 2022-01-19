@@ -37,3 +37,16 @@ class DeleteWakureEvent extends WakureEvent {
   @override
   List<Object> get props => [id, user_id];
 }
+
+// remove wakure from list
+
+class RemoveWakureEvent extends WakureEvent {
+  final id;
+
+  RemoveWakureEvent({required this.id});
+
+  @override
+  List<Object> get props => [id];
+}
+
+// add wakure to list

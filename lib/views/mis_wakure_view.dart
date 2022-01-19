@@ -11,7 +11,9 @@ import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 class MisWakure_View extends StatefulWidget {
-  MisWakure_View({Key? key}) : super(key: key);
+  MisWakure_View({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<MisWakure_View> createState() => _MisWakure_ViewState();
@@ -30,7 +32,6 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
   @override
   void initState() {
     resWakures();
-
     super.initState();
   }
 
@@ -154,7 +155,8 @@ class wakure_card extends StatelessWidget {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
-        Navigator.pushNamed(context, 'bookingConfig_view');
+        Navigator.pushNamed(context, 'bookingConfig_view',
+            arguments: {"title": wakureName});
       },
       style: NeumorphicStyle(
         depth: 1.5,
