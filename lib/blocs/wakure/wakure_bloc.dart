@@ -12,6 +12,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
     on<OnGetWakuresEvent>(_onGetWakuresEvent);
     on<SaveNewWakureEvent>(_saveWakure);
     on<DeleteWakureEvent>(_deleteWakure);
+    on<EditWakureEvent>(_editWakure);
   }
   _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
     print("evento " + event.wakures.toString());
@@ -41,4 +42,21 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       event.user_id
     );
   }
+
+
+  // edit wakure
+
+  Future<void> _editWakure(
+      EditWakureEvent event, Emitter<WakureState> emit) async {
+    final Response response = await WakureService.editWakureName(
+      event.wakureId,
+      event.wakureName,
+      event.userId,
+      
+    );
+    print('editWakure desde bloc');
+    print(response);
+  }
 }
+
+

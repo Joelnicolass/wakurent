@@ -88,4 +88,27 @@ class WakureService {
       return e.response;
     }
   }
+
+// edit wakure name
+
+  static Future editWakureName(String wakureId, String wakureName, String userId) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+
+      response = await dio.put('http://' + g.ip + ':5000/api/users/' + userId + '/wakure/' + wakureId,
+      data: {
+        'name': wakureName,
+      } );
+
+      if (response.statusCode == 200) {
+        print('status 200 wakure name uploaded');
+      }
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }

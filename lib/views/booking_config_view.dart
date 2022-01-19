@@ -15,7 +15,6 @@ class BookingConfig_View extends StatefulWidget {
 }
 
 class _BookingConfig_ViewState extends State<BookingConfig_View> {
-
   @override
   void initState() {
     super.initState();
@@ -26,64 +25,60 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
-    return BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
-      if (state.wakures.length < 1) {
-        return Container(
-          child: Text("cargando"),
-        );
-      } else {
-        return Scaffold(
-          appBar: NeumorphicAppBar(
-            title: Row(
-              children: [
-                Icon(Icons.electric_scooter_outlined,
-                    color: Colors.grey, size: 30),
-                const SizedBox(width: 10),
-                Text('Wakure 1',
-                    style: TextStyle(fontSize: 18, color: Colors.grey)),
-                PopupMenuButton<IconMenu>(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(16)),
-                  onSelected: (value) {
-                    switch (value) {
-                      case IconsMenu.edit:
-                        Text('Selected: Edit');
-                        break;
-                      case IconsMenu.delete:
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) =>
-                              _buildPopupDialog(context),
-                        );
-                        break;
-                    }
-                  },
-                  itemBuilder: (context) => IconsMenu.items
-                      .map((item) => PopupMenuItem<IconMenu>(
-                            value: item,
-                            child: ListTile(
-                                leading: Icon(item.icon),
-                                title: Text(item.text)),
-                          ))
-                      .toList(),
-                )
-              ],
-            ),
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            iconTheme: IconThemeData(
-              color: Colors.grey,
-            ),
-          ),
-          resizeToAvoidBottomInset: false,
-          body: const Center(
-            child: bookingForm_card(),
-          ),
-        );
-      }
-    });
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+
+    return Scaffold(
+      appBar: NeumorphicAppBar(
+        title: Row(
+          children: [
+            Icon(Icons.electric_scooter_outlined, color: Colors.grey, size: 30),
+            const SizedBox(width: 10),
+            Text(wakureBloc.state.wakures.first.name.toString(),
+                style: TextStyle(fontSize: 18, color: Colors.grey)),
+            PopupMenuButton<IconMenu>(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16)),
+              onSelected: (value) {
+                switch (value) {
+                  case IconsMenu.edit:
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialogForm(context),
+                    );
+                    break;
+                  case IconsMenu.delete:
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialog(context),
+                    );
+                    break;
+                }
+              },
+              itemBuilder: (context) => IconsMenu.items
+                  .map((item) => PopupMenuItem<IconMenu>(
+                        value: item,
+                        child: ListTile(
+                            leading: Icon(item.icon), title: Text(item.text)),
+                      ))
+                  .toList(),
+            )
+          ],
+        ),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_outlined),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.grey,
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: const Center(
+        child: bookingForm_card(),
+      ),
+    );
   }
 }
 
@@ -126,6 +121,8 @@ class bookingForm_card extends StatelessWidget {
   }
 }
 
+// POP UP CONFIRM
+
 Widget _buildPopupDialog(BuildContext context) {
   return AlertDialog(
     title: const Text('Warning'),
@@ -147,7 +144,7 @@ Widget _buildPopupDialog(BuildContext context) {
               wakureBloc.add(DeleteWakureEvent(
                   id: wakureBloc.state.wakures[0].wakureId,
                   user_id: authBloc.state.user!.id));
-              Navigator.pushNamed(context, 'misWakure_view');
+              Navigator.popAndPushNamed(context, 'misWakure_view');
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('SI'),
@@ -159,6 +156,67 @@ Widget _buildPopupDialog(BuildContext context) {
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('NO'),
+          ),
+        ],
+      )
+    ],
+  );
+}
+
+// POP UP FORM
+
+Widget _buildPopupDialogForm(BuildContext context) {
+  return AlertDialog(
+    title: const Text('Nuevo nombre'),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.rojo,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.rojo,
+                width: 2,
+              ),
+            ),
+          ),
+          onChanged: (value) => g.newWakureName = value,
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              print(g.newWakureName);
+              final authBloc = BlocProvider.of<AuthBloc>(context);
+              final wakureBloc = BlocProvider.of<WakureBloc>(context);
+              wakureBloc.add(EditWakureEvent(
+                  wakureId: 'w0001',
+                  wakureName: g.newWakureName,
+                  userId: authBloc.state.user!.id),
+                  );
+
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CONFIRMAR'),
+          ),
+          SizedBox(width: 30),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CANCELAR'),
           ),
         ],
       )
