@@ -30,6 +30,8 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+
     return Scaffold(
       appBar: NeumorphicAppBar(
         title: Row(
@@ -44,7 +46,11 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
               onSelected: (value) {
                 switch (value) {
                   case IconsMenu.edit:
-                    Text('Selected: Edit');
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) =>
+                          _buildPopupDialogForm(context),
+                    );
                     break;
                   case IconsMenu.delete:
                     showDialog(
@@ -165,6 +171,68 @@ Widget _buildPopupDialog(BuildContext context, String args) {
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('NO'),
+          ),
+        ],
+      )
+    ],
+  );
+}
+
+// POP UP FORM
+
+Widget _buildPopupDialogForm(BuildContext context) {
+  return AlertDialog(
+    title: const Text('Nuevo nombre'),
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.rojo,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.rojo,
+                width: 2,
+              ),
+            ),
+          ),
+          onChanged: (value) => g.newWakureName = value,
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TextButton(
+            onPressed: () {
+              print(g.newWakureName);
+              final authBloc = BlocProvider.of<AuthBloc>(context);
+              final wakureBloc = BlocProvider.of<WakureBloc>(context);
+              wakureBloc.add(
+                EditWakureEvent(
+                    wakureId: 'w0001',
+                    wakureName: g.newWakureName,
+                    userId: authBloc.state.user!.id),
+              );
+
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CONFIRMAR'),
+          ),
+          SizedBox(width: 30),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CANCELAR'),
           ),
         ],
       )
