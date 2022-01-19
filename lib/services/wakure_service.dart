@@ -3,7 +3,9 @@ import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
 class WakureService {
-// get request with dio
+// ------- request with dio -------- //
+
+// get user Wakures
 
   static Future getWakures(String id) async {
     try {
@@ -25,6 +27,8 @@ class WakureService {
       print(e);
     }
   }
+
+// add new Wakure
 
   static Future saveWakure(String wakureName, String wakureCode) async {
     try {
@@ -57,8 +61,9 @@ class WakureService {
     }
   }
 
-//TODO revisar
-  static Future deleteWakure(String wakureCode) async {
+// delete wakure
+
+  static Future deleteWakure(String id) async {
     try {
       Response response;
       var dio = Dio();
@@ -71,12 +76,10 @@ class WakureService {
         'auth': token,
       };
 
-      response = await dio.delete(
-        'http://' + g.ip + ':5000/api/wakure/' + wakureCode,
-      );
+      response = await dio.delete('http://' + g.ip + ':5000/api/wakure/' + id);
 
       if (response.statusCode == 200) {
-        print('status 200 todo ok');
+        print('status 200 wakure deleted');
       }
 
       return response;
