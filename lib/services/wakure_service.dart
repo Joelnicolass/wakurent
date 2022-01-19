@@ -30,7 +30,8 @@ class WakureService {
 
 // add new Wakure
 
-  static Future saveWakure(String wakureName, String wakureCode) async {
+  static Future saveWakure(
+      String id, String wakureName, String wakureCode) async {
     try {
       Response response;
       var dio = Dio();
@@ -44,7 +45,7 @@ class WakureService {
       };
 
       response = await dio.post(
-        'http://' + g.ip + ':5000/api/wakure/new',
+        'http://' + g.ip + ':5000/api/users/' + id + '/addwakure',
         data: {
           "id": wakureCode,
           "name": wakureName,

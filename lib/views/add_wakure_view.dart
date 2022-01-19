@@ -130,9 +130,11 @@ class add_wakure_form extends StatelessWidget {
                 vertical: g.height * 0.015,
               ),
               onPressed: () {
+                final authBloc = BlocProvider.of<AuthBloc>(context);
                 final wakureBloc = BlocProvider.of<WakureBloc>(context);
                 wakureBloc.add(
                   SaveNewWakureEvent(
+                    id: authBloc.state.user!.id,
                     wakureCode: g.wakureCode,
                     wakureName: g.wakureName,
                   ),

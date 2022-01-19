@@ -19,11 +19,13 @@ class OnGetWakuresEvent extends WakureEvent {
 class SaveNewWakureEvent extends WakureEvent {
   final String wakureName;
   final String wakureCode;
+  final String id;
 
-  SaveNewWakureEvent({required this.wakureName, required this.wakureCode});
+  SaveNewWakureEvent(
+      {required this.wakureName, required this.wakureCode, required this.id});
 
   @override
-  List<Object> get props => [wakureName, wakureCode];
+  List<Object> get props => [wakureName, wakureCode, id];
 }
 
 class DeleteWakureEvent extends WakureEvent {

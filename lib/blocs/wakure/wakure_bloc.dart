@@ -24,6 +24,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
   Future<void> _saveWakure(
       SaveNewWakureEvent event, Emitter<WakureState> emit) async {
     final Response response = await WakureService.saveWakure(
+      event.id,
       event.wakureName,
       event.wakureCode,
     );
@@ -38,5 +39,5 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
     final Response response = await WakureService.deleteWakure(
       event.id,
     );
-}
+  }
 }
