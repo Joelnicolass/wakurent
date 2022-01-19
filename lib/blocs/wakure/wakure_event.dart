@@ -30,9 +30,10 @@ class SaveNewWakureEvent extends WakureEvent {
 
 class DeleteWakureEvent extends WakureEvent {
   final id;
+  final user_id;
 
-  DeleteWakureEvent({required this.id});
+  DeleteWakureEvent({required this.id, required this.user_id});
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => [id, user_id];
 }

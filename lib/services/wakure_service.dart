@@ -64,7 +64,7 @@ class WakureService {
 
 // delete wakure
 
-  static Future deleteWakure(String id) async {
+  static Future deleteWakure(String wakure_id, String user_id) async {
     try {
       Response response;
       var dio = Dio();
@@ -77,7 +77,7 @@ class WakureService {
         'auth': token,
       };
 
-      response = await dio.delete('http://' + g.ip + ':5000/api/wakure/' + id);
+      response = await dio.delete('http://' + g.ip + ':5000/api/users/' + user_id + '/wakure/' + wakure_id );
 
       if (response.statusCode == 200) {
         print('status 200 wakure deleted');
