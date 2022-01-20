@@ -19,6 +19,8 @@ class ProcessRequestGetWakure extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
         if (state.processRequest == false) {
+          final authBloc = BlocProvider.of<AuthBloc>(context);
+          authBloc.add(GetUserProfileEvent());
           return VerifyRole();
         } else {
           return Center(child: CircularProgressIndicator());
