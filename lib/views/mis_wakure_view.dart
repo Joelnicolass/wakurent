@@ -42,6 +42,8 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
 
     return BlocBuilder<WakureBloc, WakureState>(builder: (context, state) {
       if (state.wakures.length < 1) {
+        final authBloc = BlocProvider.of<AuthBloc>(context);
+
         return Scaffold(
           appBar: NeumorphicAppBar(
             leading: IconButton(

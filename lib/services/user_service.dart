@@ -36,4 +36,27 @@ class UserService {
       return e.response;
     }
   }
+
+  // get user by id
+
+  static getUser(String id) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
+      response = await dio.get(
+        'http://' + g.ip + ':5000/api/users/id/' + id,
+      );
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }

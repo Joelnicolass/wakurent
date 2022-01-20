@@ -23,8 +23,8 @@ const ip = "192.168.1.36";
 //----------------- FORMS -----------------//
 
 // Login
-String email = "";
-String password = "";
+String email = "lunisaya@faniot.com.ar";
+String password = "123456";
 
 // Add Wakure
 String wakureName = "";

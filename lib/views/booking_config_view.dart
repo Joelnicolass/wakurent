@@ -161,6 +161,8 @@ Widget _buildPopupDialog(BuildContext context, String args) {
               wakureBloc.add(DeleteWakureEvent(
                   id: idWakure, user_id: authBloc.state.user!.id));
 
+              authBloc.add(GetUserProfileEvent());
+
               Navigator.of(context).pushNamedAndRemoveUntil(
                   'processResponseGetWakure', (route) => false);
             },

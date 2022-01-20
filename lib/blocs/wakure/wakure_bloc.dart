@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:walkiler/models/models.dart';
 import 'package:walkiler/models/wakure.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/services/wakure_service.dart';
 
 part 'wakure_event.dart';
@@ -40,6 +42,7 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       emit(state.copyWith(
         wakures: state.wakures,
         processRequest: false,
+
         /* error: response.data['error'], */
       ));
     }
@@ -59,13 +62,6 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
         processRequest: false,
       ));
     }
-
-    //TODO CONTROL DE ERRORES
-    /* else {
-      emit(state.copyWith(
-        error: response.data['error'],
-      ));
-    } */
   }
 
   // edit wakure
@@ -81,6 +77,9 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
 
   Future<void> _processRequestEvent(
       ProcessRequestEvent event, Emitter<WakureState> emit) async {
-    emit(state.copyWith(processRequest: true, wakures: state.wakures));
+    emit(state.copyWith(
+      processRequest: true,
+      wakures: state.wakures,
+    ));
   }
 }

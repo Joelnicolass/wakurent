@@ -5,10 +5,7 @@ class WakureState extends Equatable {
   final List<Wakure> wakures;
   final bool processRequest;
 
-  WakureState(
-      {bool? processRequest,
-      Map<String, bool>? availableForBooking,
-      List<Wakure>? wakures})
+  WakureState({bool? processRequest, List<Wakure>? wakures})
       : wakures = wakures ?? [],
         processRequest = processRequest ?? false;
 

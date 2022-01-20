@@ -35,3 +35,16 @@ class SignOutEvent extends AuthEvent {
   @override
   List<Object> get props => [];
 }
+
+// get user profile event
+
+class GetUserProfileEvent extends AuthEvent {
+  GetUserProfileEvent();
+
+  @override
+  List<Object> get props => [];
+}
+
+class ProcessRequestEventAuth extends AuthEvent {
+  ProcessRequestEventAuth();
+}

@@ -21,7 +21,6 @@ class AuthService {
       if (response.statusCode == 200) {
         final token = response.headers['auth']!.first;
         SecureStorage.saveToken(token);
-        print('token guardado');
       }
 
       return response;

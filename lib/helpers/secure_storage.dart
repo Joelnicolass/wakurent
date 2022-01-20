@@ -16,4 +16,15 @@ class SecureStorage {
     final secureStorage = FlutterSecureStorage();
     await secureStorage.delete(key: 'token');
   }
+
+  static void saveUserId(String userId) async {
+    final secureStorage = FlutterSecureStorage();
+    await secureStorage.write(key: 'userId', value: userId);
+  }
+
+  static Future<String> getUserId() async {
+    final secureStorage = FlutterSecureStorage();
+    final userId = await secureStorage.read(key: 'userId');
+    return userId!;
+  }
 }
