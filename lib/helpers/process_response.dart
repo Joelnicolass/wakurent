@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:walkiler/models/user.dart';
 import 'package:walkiler/models/wakure.dart';
 
 class ProcessResponse {
@@ -27,5 +28,19 @@ class ProcessResponse {
     }
 
     return wakureList;
+  }
+
+  // return user (friend) from json list
+
+  static List<User> getFriendList(List<dynamic> jsonListFriend) {
+    List<User> friendList = [];
+
+    for (var e in jsonListFriend) {
+      final encode = json.encode(e);
+      final friend = User.fromJson(encode);
+      friendList.add(friend);
+    }
+
+    return friendList;
   }
 }

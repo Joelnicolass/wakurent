@@ -46,9 +46,13 @@ class registerView extends StatelessWidget {
     return Scaffold(
       appBar: NeumorphicAppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
+            icon: Icon(Icons.arrow_back_outlined),
+            onPressed: () {
+              final authBloc = BlocProvider.of<AuthBloc>(context);
+              authBloc.add(ClearErrorEvent());
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('login_screen', (route) => false);
+            }),
         iconTheme: IconThemeData(
           color: Colors.grey,
         ),

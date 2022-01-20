@@ -12,6 +12,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserState()) {
     on<AddFriend>(_addFriend);
     on<RegisterUserErrorsEvent>(_registerUserErrors);
+    on<ClearRegisterErrorEvent>(_clearRegisterError);
   }
 
   Future<void> _addFriend(
@@ -79,6 +80,14 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
+// clear errors msg from register
+
+  _clearRegisterError(ClearRegisterErrorEvent event, Emitter<UserState> emit) {
+    print('ClearRegisterErrorEvent');
+    emit(state.copyWith(
+      error: "",
+    ));
+  }
 
 }
 

@@ -1,11 +1,43 @@
 // ignore_for_file: annotate_overrides
 
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
-class Guests_View extends StatelessWidget {
+class Guests_View extends StatefulWidget {
   Guests_View({Key? key}) : super(key: key);
+
+  @override
+  State<Guests_View> createState() => _Guests_ViewState();
+}
+
+class _Guests_ViewState extends State<Guests_View> {
+
+  Future<void> resFriends() async {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final friendBloc = BlocProvider.of<FriendBloc>(context);
+    final httpRes = await FriendService.getFriends(authBloc.state.user!.id);
+    // List<dynamic> jsonList = httpRes as List;
+    // final friends = ProcessResponse.getFriendList(jsonList);
+    // friendBloc.add(OnGetFriendsEvent(friends: friends));
+
+    print('httpRes');
+    print(httpRes);
+  }
+
+  @override
+  void initState() {
+    resFriends();
+    
+    super.initState();
+  }
+
+
+
 
   Widget build(BuildContext context) {
     //responsive
@@ -36,15 +68,10 @@ class Guests_View extends StatelessWidget {
               behavior: NoScrollGlow(),
               child: ListView(
                 children: const [
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
-                  guest_card(),
+                  guest_card(friendName: 'Camiche1'),
+                  guest_card(friendName: 'Camiche2'),
+                  guest_card(friendName: 'Camiche3'),
+                  guest_card(friendName: 'Camiche4'),
                 ],
               ),
             ),
@@ -81,14 +108,17 @@ class Guests_View extends StatelessWidget {
 class guest_card extends StatelessWidget {
   const guest_card({
     Key? key,
+    required this.friendName,
   }) : super(key: key);
+
+  final String friendName;
 
   @override
   Widget build(BuildContext context) {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
-        Navigator.pushNamed(context, 'invitadosInfo_view');
+        Navigator.pushNamed(context, 'guestInfo_view');
       },
       style: NeumorphicStyle(
         depth: 1.5,
@@ -104,14 +134,14 @@ class guest_card extends StatelessWidget {
         )),
       ),
       child: Row(
-        children: const [
-          CircleAvatar(
+        children:[
+          const CircleAvatar(
             radius: 30,
             backgroundColor: Colors.transparent,
             child: Icon(Icons.person, color: Colors.grey, size: 35),
           ),
           Text(
-            'Invitado X',
+            friendName,
             style: TextStyle(color: Colors.white, fontSize: 16),
           ),
           SizedBox(

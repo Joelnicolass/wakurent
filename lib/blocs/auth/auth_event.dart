@@ -18,7 +18,7 @@ class LoginEvent extends AuthEvent {
   List<Object> get props => [email, password];
 }
 
-// event for reset error message
+// event for reset error message from Login
 
 class ClearErrorEvent extends AuthEvent {
   ClearErrorEvent();

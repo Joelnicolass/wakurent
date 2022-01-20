@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/auth/auth_bloc.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
 import 'package:lottie/lottie.dart' as lottie;
 
@@ -46,11 +47,9 @@ class loginView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
-              child: lottie.Lottie.asset(
-                'assets/map_login.json',
-                width: 200
-              ),
-            ),
+                  child:
+                      lottie.Lottie.asset('assets/map_login.json', width: 200),
+                ),
                 Text(
                   'WAKURENT',
                   style: TextStyle(
@@ -94,6 +93,8 @@ class loginView extends StatelessWidget {
       ),
       floatingActionButton: GestureDetector(
           onTap: () {
+            final userBloc = BlocProvider.of<UserBloc>(context);
+            userBloc.add(ClearRegisterErrorEvent());
             Navigator.pushNamed(context, 'register_view');
           },
           child: const Text('Crear una cuenta')),
@@ -189,7 +190,7 @@ class login_form extends StatelessWidget {
                     email: g.email,
                     password: g.password,
                   ),
-                  );
+                );
                 g.email = "";
                 g.password = "";
               },

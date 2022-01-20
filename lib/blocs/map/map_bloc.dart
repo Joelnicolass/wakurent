@@ -52,7 +52,7 @@ class MapBloc extends Bloc<MapEvent, MapState> {
         icon: customMarker,
         position: LatLng(wakure.geolocation.lat, wakure.geolocation.lng),
         infoWindow: InfoWindow(
-          title: wakure.name
+          title: wakure.name,
         )
       );
       listMarkers = [...listMarkers, marker];

@@ -7,7 +7,7 @@ abstract class UserEvent extends Equatable {
   List<Object> get props => [];
 }
 
-// save user
+// add a Friend
 
 class AddFriend extends UserEvent {
   final String name;
@@ -53,4 +53,14 @@ class RegisterUserErrorsEvent extends UserEvent {
   
     @override
   List<Object> get props => [name, surname, address, email, password, phone];
+}
+
+
+// event for reset error message from Register
+
+class ClearRegisterErrorEvent extends UserEvent {
+  ClearRegisterErrorEvent();
+
+  @override
+  List<Object> get props => [];
 }

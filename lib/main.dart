@@ -29,6 +29,9 @@ void main() {
       BlocProvider(
         create: (context) => WakureBloc(),
       ),
+      BlocProvider(
+        create: (context) => FriendBloc(),
+      ),
     ],
     child: const App(),
   ));

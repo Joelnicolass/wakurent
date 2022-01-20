@@ -1,12 +1,9 @@
 // ignore_for_file: annotate_overrides
-
-import 'package:day_picker/model/day_in_week.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/helpers/process_response.dart';
-import 'package:walkiler/models/models.dart';
 import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 

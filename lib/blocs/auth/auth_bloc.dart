@@ -60,10 +60,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   _clearError(ClearErrorEvent event, Emitter<AuthState> emit) {
+    print('ClearErrorEvent');
     emit(state.copyWith(
       loggedIn: state.loggedIn,
       user: state.user,
-      error: null,
+      error: "",
     ));
   }
 

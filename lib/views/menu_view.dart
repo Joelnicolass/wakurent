@@ -27,10 +27,10 @@ class Menu_View extends StatelessWidget {
               child: GestureDetector(
                 onTap: () {
                   final authBloc = BlocProvider.of<AuthBloc>(context);
-                  authBloc.add(
-                    SignOutEvent(),
-                  );
-                  Navigator.of(context).pushNamedAndRemoveUntil('login_screen', (route) => false);
+                  authBloc.add(SignOutEvent());
+                  authBloc.add(ClearErrorEvent());
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      'login_screen', (route) => false);
                 },
                 child: const Icon(Icons.logout_rounded),
               )),
@@ -52,7 +52,7 @@ class Menu_View extends StatelessWidget {
                 _menuCard(
                     labelName: "Mis Wakure",
                     icon: Icons.electric_scooter,
-                    route: () => goRoute('misWakure_view')),
+                    route: () => goRoute('my_wakures_view')),
               ],
             ),
             Row(
@@ -62,7 +62,7 @@ class Menu_View extends StatelessWidget {
                 _menuCard(
                     labelName: "Invitados",
                     icon: Icons.groups,
-                    route: () => goRoute('invitados_view')),
+                    route: () => goRoute('guests_view')),
                 _menuCard(
                     labelName: "Mapa",
                     icon: Icons.location_pin,
