@@ -55,13 +55,36 @@ class registerView extends StatelessWidget {
       ),
       resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
+        child: Stack(
           children: [
-            Text('Registro'),
-            const SizedBox(
-              height: 10,
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text('Registro'),
+                const SizedBox(
+                  height: 10,
+                ),
+                const addGuest_form(),
+              ],
             ),
-            const addGuest_form(),
+            BlocBuilder<UserBloc, UserState>(
+              builder: (context, state) {
+                if (state.error != null) {
+                  print(state.error!);
+                  return Positioned(
+                    bottom: g.height * 0.11,
+                    left: g.width * 0,
+                    child: Text(state.error!,
+                        style: const TextStyle(color: Colors.red)),
+                  );
+                } else {
+                  return const SizedBox(
+                    height: 0,
+                  );
+                }
+              },
+            )
           ],
         ),
       ),
@@ -236,6 +259,13 @@ class addGuest_form extends StatelessWidget {
                     phone: g.phone,
                   ),
                 );
+                userBloc.add(RegisterUserErrorsEvent(
+                    name: g.name,
+                    surname: g.surname,
+                    address: g.address,
+                    email: g.email,
+                    password: g.password,
+                    phone: g.phone));
               },
               style: NeumorphicStyle(
                 depth: 1.5,
