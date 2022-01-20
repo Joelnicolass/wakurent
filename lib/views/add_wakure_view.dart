@@ -132,6 +132,9 @@ class add_wakure_form extends StatelessWidget {
               onPressed: () {
                 final authBloc = BlocProvider.of<AuthBloc>(context);
                 final wakureBloc = BlocProvider.of<WakureBloc>(context);
+
+                wakureBloc.add(ProcessRequestEvent());
+
                 wakureBloc.add(
                   SaveNewWakureEvent(
                     id: authBloc.state.user!.id,
@@ -143,7 +146,8 @@ class add_wakure_form extends StatelessWidget {
                 g.wakureCode = '';
                 g.wakureName = '';
 
-                Navigator.of(context).pop();
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'processResponseAddWakure', (route) => false);
               },
               style: NeumorphicStyle(
                 depth: 1.5,

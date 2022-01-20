@@ -2,6 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
 import 'package:walkiler/views/mis_wakure_view.dart';
 import 'package:walkiler/widgets/booking_form.dart';
 
@@ -153,13 +155,14 @@ Widget _buildPopupDialog(BuildContext context, String args) {
             onPressed: () {
               final wakureBloc = BlocProvider.of<WakureBloc>(context);
               final authBloc = BlocProvider.of<AuthBloc>(context);
+
+              wakureBloc.add(ProcessRequestEvent());
+
               wakureBloc.add(DeleteWakureEvent(
                   id: idWakure, user_id: authBloc.state.user!.id));
 
-              wakureBloc.add(
-                  RemoveWakureEvent(id: wakureBloc.state.wakures[0].wakureId));
-
-              Navigator.popAndPushNamed(context, 'misWakure_view');
+              Navigator.of(context).pushNamedAndRemoveUntil(
+                  'processResponseGetWakure', (route) => false);
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('SI'),

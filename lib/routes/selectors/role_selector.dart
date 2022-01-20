@@ -3,14 +3,13 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/views/menu_view.dart';
-import '../globals.dart' as g;
+import '../../globals.dart' as g;
 
 class RoleSelector extends StatelessWidget {
   const RoleSelector({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     SecureStorage.getToken().then((token) {
       print(token);
     });

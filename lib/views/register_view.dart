@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
-import 'package:walkiler/screens/role_selector.dart';
+import 'package:walkiler/routes/selectors/role_selector.dart';
 
 import '../globals.dart' as g;
 

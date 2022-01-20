@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'package:walkiler/screens/loading_screen.dart';
+import 'package:walkiler/routes/selectors/loading_screen.dart';
+import 'package:walkiler/routes/selectors/process_request_add_wakure.dart';
 import 'package:walkiler/screens/login_screen.dart';
 import 'package:walkiler/screens/map_screen.dart';
-import 'package:walkiler/screens/role_selector.dart';
+import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
+import 'package:walkiler/routes/selectors/role_selector.dart';
 import 'package:walkiler/views/Booking_config_view.dart';
 import 'package:walkiler/views/add_wakure_view.dart';
 import 'package:walkiler/views/booking_view.dart';
@@ -30,4 +32,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'bookingConfig_view': (_) => BookingConfig_View(),
   'calendar_view': (_) => Calendario(),
   'role_selector': (_) => RoleSelector(),
+  'processResponseGetWakure': (_) => ProcessRequestGetWakure(),
+  'processResponseAddWakure': (_) => ProcessRequestAddWakure(),
 };

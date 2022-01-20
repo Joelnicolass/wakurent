@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/auth/auth_bloc.dart';
-import 'package:walkiler/screens/role_selector.dart';
+import 'package:walkiler/routes/selectors/role_selector.dart';
 
 import '../globals.dart' as g;
 
@@ -90,33 +90,10 @@ class loginView extends StatelessWidget {
         ),
       ),
       floatingActionButton: GestureDetector(
-        onTap: () {
-          //popup
-          showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Forgot Password'),
-                content: const Text('Please contact the admin'),
-                actions: [
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ],
-              );
-            },
-          );
-        },
-        child: Container(
-            child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, 'register_view');
-                },
-                child: const Text('Crear una cuenta'))),
-      ),
+          onTap: () {
+            Navigator.pushNamed(context, 'register_view');
+          },
+          child: const Text('Crear una cuenta')),
     );
   }
 }

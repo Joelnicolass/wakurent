@@ -12,13 +12,13 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
     on<OnGetWakuresEvent>(_onGetWakuresEvent);
     on<SaveNewWakureEvent>(_saveWakure);
     on<DeleteWakureEvent>(_deleteWakure);
-    on<RemoveWakureEvent>(_removeWakure);
     on<EditWakureEvent>(_editWakure);
+    on<ProcessRequestEvent>(_processRequestEvent);
   }
   _onGetWakuresEvent(OnGetWakuresEvent event, Emitter<WakureState> emit) {
-    print("evento " + event.wakures.toString());
     emit(state.copyWith(
       wakures: event.wakures,
+      processRequest: false,
     ));
   }
 
@@ -31,7 +31,18 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       event.wakureCode,
     );
 
-    //print(response.data);
+    if (response.statusCode == 200) {
+      emit(state.copyWith(
+        wakures: state.wakures,
+        processRequest: false,
+      ));
+    } else {
+      emit(state.copyWith(
+        wakures: state.wakures,
+        processRequest: false,
+        /* error: response.data['error'], */
+      ));
+    }
   }
 
 // delete wakure
@@ -40,13 +51,21 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       DeleteWakureEvent event, Emitter<WakureState> emit) async {
     final Response response =
         await WakureService.deleteWakure(event.id, event.user_id);
-  }
 
-  Future<void> _removeWakure(
-      RemoveWakureEvent event, Emitter<WakureState> emit) async {
-    emit(state.copyWith(
-      wakures: state.wakures.where((wakure) => wakure.id != event.id).toList(),
-    ));
+    if (response.statusCode == 200) {
+      emit(state.copyWith(
+        wakures:
+            state.wakures.where((wakure) => wakure.id != event.id).toList(),
+        processRequest: false,
+      ));
+    }
+
+    //TODO CONTROL DE ERRORES
+    /* else {
+      emit(state.copyWith(
+        error: response.data['error'],
+      ));
+    } */
   }
 
   // edit wakure
@@ -58,7 +77,10 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       event.wakureName,
       event.userId,
     );
-    print('editWakure desde bloc');
-    print(response);
+  }
+
+  Future<void> _processRequestEvent(
+      ProcessRequestEvent event, Emitter<WakureState> emit) async {
+    emit(state.copyWith(processRequest: true, wakures: state.wakures));
   }
 }
