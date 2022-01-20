@@ -51,7 +51,7 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) =>
-                          _buildPopupDialogForm(context),
+                          _buildPopupDialogForm(context, args['wakureId']),
                     );
                     break;
                   case IconsMenu.delete:
@@ -183,7 +183,9 @@ Widget _buildPopupDialog(BuildContext context, String args) {
 
 // POP UP FORM
 
-Widget _buildPopupDialogForm(BuildContext context) {
+Widget _buildPopupDialogForm(BuildContext context, String args) {
+  final String idWakure = args;
+
   return AlertDialog(
     title: const Text('Nuevo nombre'),
     content: Column(
@@ -219,12 +221,13 @@ Widget _buildPopupDialogForm(BuildContext context) {
               final wakureBloc = BlocProvider.of<WakureBloc>(context);
               wakureBloc.add(
                 EditWakureEvent(
-                    wakureId: 'w0001',
+                    wakureId: idWakure,
                     wakureName: g.newWakureName,
                     userId: authBloc.state.user!.id),
               );
 
-              Navigator.of(context).pop();
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil('misWakure_view', (route) => false);
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('CONFIRMAR'),

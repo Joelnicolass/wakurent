@@ -48,7 +48,7 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('menu_view', (route) => false);
+                    .pushNamedAndRemoveUntil('role_selector', (route) => false);
               },
             ),
             iconTheme: const IconThemeData(
@@ -103,7 +103,7 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('menu_view', (route) => false);
+                    .pushNamedAndRemoveUntil('role_selector', (route) => false);
               },
             ),
             iconTheme: const IconThemeData(

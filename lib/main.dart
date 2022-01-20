@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/routes/routes.dart';
 import 'package:walkiler/blocs/blocs.dart';
@@ -38,6 +39,11 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //fullscreen
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.immersiveSticky,
+    );
+
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Wakurent',
