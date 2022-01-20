@@ -77,15 +77,15 @@ class add_wakure_form extends StatelessWidget {
                 onChanged: (value) => g.wakureName = value,
                 style: const TextStyle(color: Colors.grey),
                 decoration: const InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -104,15 +104,15 @@ class add_wakure_form extends StatelessWidget {
                 onChanged: (value) => g.wakureCode = value,
                 style: const TextStyle(color: Colors.grey),
                 decoration: const InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),

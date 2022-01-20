@@ -4,7 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/process_response.dart';
 import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
-import 'package:walkiler/views/mis_wakure_view.dart';
+import 'package:walkiler/views/my_wakures_view.dart';
 import 'package:walkiler/widgets/booking_form.dart';
 
 import 'package:walkiler/globals.dart' as g;
@@ -181,7 +181,7 @@ Widget _buildPopupDialog(BuildContext context, String args) {
   );
 }
 
-// POP UP FORM
+// POP UP FORMred
 
 Widget _buildPopupDialogForm(BuildContext context, String args) {
   final String idWakure = args;
@@ -196,12 +196,12 @@ Widget _buildPopupDialogForm(BuildContext context, String args) {
           decoration: InputDecoration(
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: g.rojo,
+                color: g.red,
               ),
             ),
             focusedBorder: UnderlineInputBorder(
               borderSide: BorderSide(
-                color: g.rojo,
+                color: g.red,
                 width: 2,
               ),
             ),

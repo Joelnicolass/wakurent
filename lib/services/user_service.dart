@@ -36,4 +36,37 @@ class UserService {
       return e.response;
     }
   }
+
+
+static Future registerUser(String name, String surname, String address,
+      String phone, String email, String password) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      
+      response = await dio.post(
+        'http://' + g.ip + ':5000/api/auth/signup',
+        data: {
+          "name": name,
+          "surname": surname,
+          "address": address,
+          "email": email,
+          "password": password,
+          "phone": phone,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('status 200 user registrado con exito');
+      }
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+
+
 }

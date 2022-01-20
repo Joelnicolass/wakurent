@@ -58,7 +58,6 @@ class registerView extends StatelessWidget {
         child: Stack(
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text('Registro'),
@@ -123,12 +122,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -146,12 +145,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -166,12 +165,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -186,12 +185,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -206,12 +205,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -226,12 +225,12 @@ class addGuest_form extends StatelessWidget {
                 decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -240,7 +239,7 @@ class addGuest_form extends StatelessWidget {
               ),
             ),
             const SizedBox(
-              height: 20,
+              height: 10,
             ),
             NeumorphicButton(
               padding: EdgeInsets.symmetric(
@@ -249,16 +248,6 @@ class addGuest_form extends StatelessWidget {
               ),
               onPressed: () {
                 final userBloc = BlocProvider.of<UserBloc>(context);
-                userBloc.add(
-                  SaveNewUserEvent(
-                    name: g.name,
-                    surname: g.surname,
-                    email: g.email,
-                    password: g.password,
-                    address: g.address,
-                    phone: g.phone,
-                  ),
-                );
                 userBloc.add(RegisterUserErrorsEvent(
                     name: g.name,
                     surname: g.surname,

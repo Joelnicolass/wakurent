@@ -2,8 +2,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 
 import '../globals.dart' as g;
 
-class InvitadosInfo_View extends StatelessWidget {
-  const InvitadosInfo_View({Key? key}) : super(key: key);
+class GuestsInfo_View extends StatelessWidget {
+  const GuestsInfo_View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -56,20 +56,20 @@ class guestInfo_card extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
                 child: Row(
-                  children: const[
+                  children: const [
                     Icon(Icons.person, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
                     Text('Pedro Equis',
                         style: TextStyle(fontSize: 18, color: Colors.grey)),
                   ],
                 )),
-                 Padding(
+            Padding(
                 padding: const EdgeInsets.only(
                   left: 20,
                   right: 20,
                 ),
                 child: Row(
-                  children: const[
+                  children: const [
                     Icon(Icons.mail_rounded, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
                     Text('pedrox@mail.com',
@@ -82,7 +82,7 @@ class guestInfo_card extends StatelessWidget {
                   right: 20,
                 ),
                 child: Row(
-                  children: const[
+                  children: const [
                     Icon(Icons.map, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
                     Text('Calle 123',
@@ -92,7 +92,7 @@ class guestInfo_card extends StatelessWidget {
             Padding(
                 padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
                 child: Row(
-                  children: const[
+                  children: const [
                     Icon(Icons.phone, color: Colors.grey, size: 30),
                     SizedBox(width: 10),
                     Text('3764-232545',

@@ -4,8 +4,8 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
-class Invitados_View extends StatelessWidget {
-  Invitados_View({Key? key}) : super(key: key);
+class Guests_View extends StatelessWidget {
+  Guests_View({Key? key}) : super(key: key);
 
   Widget build(BuildContext context) {
     //responsive
@@ -36,20 +36,20 @@ class Invitados_View extends StatelessWidget {
               behavior: NoScrollGlow(),
               child: ListView(
                 children: const [
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
-                  invitado_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
+                  guest_card(),
                 ],
               ),
             ),
           ),
-          SizedBox(height: 20),
+          const SizedBox(height: 20),
           NeumorphicButton(
             margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
             onPressed: () {},
@@ -60,7 +60,7 @@ class Invitados_View extends StatelessWidget {
                 shape: NeumorphicShape.convex,
                 boxShape:
                     NeumorphicBoxShape.roundRect(BorderRadius.circular(25))),
-            child: Text('Ver solicitudes',
+            child: const Text('Ver solicitudes',
                 style: TextStyle(fontSize: 18, color: Colors.white)),
           )
         ],
@@ -78,8 +78,8 @@ class Invitados_View extends StatelessWidget {
   }
 }
 
-class invitado_card extends StatelessWidget {
-  const invitado_card({
+class guest_card extends StatelessWidget {
+  const guest_card({
     Key? key,
   }) : super(key: key);
 
