@@ -4,8 +4,8 @@ import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
 
-class ProcessRequestGetWakure extends StatelessWidget {
-  const ProcessRequestGetWakure({Key? key}) : super(key: key);
+class VerifyRole extends StatelessWidget {
+  const VerifyRole({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
