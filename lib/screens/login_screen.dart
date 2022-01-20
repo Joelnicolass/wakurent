@@ -2,6 +2,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/auth/auth_bloc.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
+import 'package:lottie/lottie.dart' as lottie;
 
 import '../globals.dart' as g;
 
@@ -44,19 +45,21 @@ class loginView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Image.asset(
-                  'assets/marker.png',
-                  width: 40,
-                ),
+                Center(
+              child: lottie.Lottie.asset(
+                'assets/map_login.json',
+                width: 200
+              ),
+            ),
                 Text(
                   'WAKURENT',
                   style: TextStyle(
                     fontFamily: 'Arial',
                     fontSize: g.width * 0.1,
-                    color: g.rojo,
+                    color: g.red,
                     shadows: [
                       Shadow(
-                        color: g.rojo,
+                        color: g.red,
                         blurRadius: g.width * 0.05,
                         offset: Offset(g.width * 0.001, g.width * 0.001),
                       ),
@@ -74,8 +77,8 @@ class loginView extends StatelessWidget {
               builder: (context, state) {
                 if (state.error != null) {
                   return Positioned(
-                    bottom: g.height * 0.11,
-                    left: g.width * 0,
+                    bottom: g.height * 0.12,
+                    left: g.width * 0.1,
                     child:
                         Text(state.error!, style: TextStyle(color: Colors.red)),
                   );
@@ -107,7 +110,7 @@ class login_form extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: g.width * 0.8,
-      height: g.height * 0.6,
+      height: g.height * 0.45,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -125,15 +128,15 @@ class login_form extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
               child: TextField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -157,12 +160,12 @@ class login_form extends StatelessWidget {
                 decoration: InputDecoration(
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -186,7 +189,9 @@ class login_form extends StatelessWidget {
                     email: g.email,
                     password: g.password,
                   ),
-                );
+                  );
+                g.email = "";
+                g.password = "";
               },
               style: NeumorphicStyle(
                 depth: 1.5,

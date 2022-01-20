@@ -4,7 +4,7 @@ import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
 import 'package:walkiler/views/menu_view.dart';
-import 'package:walkiler/views/mis_wakure_view.dart';
+import 'package:walkiler/views/my_wakures_view.dart';
 
 class ProcessRequestGetWakure extends StatelessWidget {
   const ProcessRequestGetWakure({Key? key}) : super(key: key);

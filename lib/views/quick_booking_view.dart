@@ -72,15 +72,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -98,15 +98,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -124,15 +124,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -150,15 +150,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -176,15 +176,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),
@@ -202,15 +202,15 @@ class _add_guest_formState extends State<add_guest_form> {
               child: TextField(
                 style: TextStyle(color: Colors.grey),
                 decoration: InputDecoration(
-                  fillColor: g.rojo,
+                  fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                     ),
                   ),
                   focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
-                      color: g.rojo,
+                      color: g.red,
                       width: 2,
                     ),
                   ),

@@ -9,7 +9,7 @@ abstract class UserEvent extends Equatable {
 
 // save user
 
-class SaveNewUserEvent extends UserEvent {
+class AddFriend extends UserEvent {
   final String name;
   final String surname;
   final String address;
@@ -17,7 +17,7 @@ class SaveNewUserEvent extends UserEvent {
   final String password;
   final String phone;
 
-  SaveNewUserEvent({
+  AddFriend({
     required this.name,
     required this.surname,
     required this.address,
