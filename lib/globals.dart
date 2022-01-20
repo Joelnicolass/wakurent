@@ -16,14 +16,14 @@ const background = Color(0xff24272f);
 
 // network
 
-const ip = "192.168.1.36";
+const ip = "192.168.1.52";
 // const ip = "192.168.0.46";
 
 //----------------- FORMS -----------------//
 
 // Login
-String email = "lunisaya@faniot.com.ar";
-String password = "123456";
+String email = "";
+String password = "";
 
 // Add Wakure
 String wakureName = "";
