@@ -15,18 +15,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     on<ClearRegisterErrorEvent>(_clearRegisterError);
   }
 
-  Future<void> _addFriend(
-      AddFriend event, Emitter<UserState> emit) async {
+  Future<void> _addFriend(AddFriend event, Emitter<UserState> emit) async {
     //AuthBloc reference
 
-    final Response response = await UserService.saveUser(
-      event.name,
-      event.surname,
-      event.address,
-      event.phone,
-      event.email,
-      event.password,
-    );
+    final Response response = await UserService.addFriend(state.user!.id,
+        event.name, event.surname, event.address, event.phone, event.email);
 
     if (response.statusCode == 200) {
       emit(state.copyWith(user: state.user, userCreated: true));
@@ -35,9 +28,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     }
   }
 
-
-  
-  Future<void> _registerUserErrors(RegisterUserErrorsEvent event, Emitter<UserState> emit) async {
+  Future<void> _registerUserErrors(
+      RegisterUserErrorsEvent event, Emitter<UserState> emit) async {
     final Response response = await UserService.registerUser(
       event.name,
       event.surname,
@@ -88,6 +80,4 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       error: "",
     ));
   }
-
 }
-

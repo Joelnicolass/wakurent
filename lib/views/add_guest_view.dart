@@ -1,9 +1,11 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:walkiler/blocs/blocs.dart';
 
 import '../globals.dart' as g;
 
-class QuickBooking_View extends StatelessWidget {
-  const QuickBooking_View({Key? key}) : super(key: key);
+class AddGuest_View extends StatelessWidget {
+  const AddGuest_View({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class QuickBooking_View extends StatelessWidget {
       body: Center(
         child: Column(
           children: const [
-            Text("Reserva Rápida",
+            Text("Nuevo Invitado",
                 style: TextStyle(fontSize: 20, color: Colors.grey)),
             SizedBox(
               height: 20,
@@ -141,7 +143,7 @@ class _add_guest_formState extends State<add_guest_form> {
                 ),
               ),
             ),
-             Padding(
+            Padding(
               padding: const EdgeInsets.only(
                 left: 20,
                 right: 20,
@@ -227,7 +229,15 @@ class _add_guest_formState extends State<add_guest_form> {
                 horizontal: g.width * 0.2,
                 vertical: g.height * 0.015,
               ),
-              onPressed: () {},
+              onPressed: () {
+                final userBloc = BlocProvider.of<UserBloc>(context);
+                userBloc.add(AddFriend(
+                    name: g.name,
+                    surname: g.surname,
+                    address: g.address,
+                    email: g.email,
+                    phone: g.phone));
+              },
               style: NeumorphicStyle(
                 depth: 1.5,
                 intensity: 0.8,
