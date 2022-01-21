@@ -58,7 +58,7 @@ class Booking_View extends StatelessWidget {
             depth: 1.5,
             intensity: 0.3),
         onPressed: () {
-          Navigator.pushNamed(context, 'quickBooking_view');
+          Navigator.pushNamed(context, 'add_guest_view');
         },
         child: const Icon(Icons.add, color: Colors.white54),
       ),

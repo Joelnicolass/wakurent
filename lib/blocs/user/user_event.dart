@@ -14,7 +14,6 @@ class AddFriend extends UserEvent {
   final String surname;
   final String address;
   final String email;
-  final String password;
   final String phone;
 
   AddFriend({
@@ -22,7 +21,6 @@ class AddFriend extends UserEvent {
     required this.surname,
     required this.address,
     required this.email,
-    required this.password,
     required this.phone,
   });
 }

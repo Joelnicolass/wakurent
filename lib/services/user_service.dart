@@ -86,4 +86,38 @@ class UserService {
       return e.response;
     }
   }
+
+  static Future addFriend(String name, String surname, String address,
+      String phone, String email, String id) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
+      response = await dio.post(
+        'http://' + g.ip + ':5000/api/users/friends/' + id + '/add',
+        data: {
+          "name": name,
+          "surname": surname,
+          "address": address,
+          "email": email,
+          "phone": phone,
+        },
+      );
+
+      if (response.statusCode == 200) {
+        print('status 200 - invitado creado y añadido a lista de amigos');
+      }
+
+      return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
 }

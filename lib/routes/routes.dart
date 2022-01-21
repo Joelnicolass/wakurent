@@ -13,7 +13,7 @@ import 'package:walkiler/views/guests_info_view.dart';
 import 'package:walkiler/views/guests_view.dart';
 import 'package:walkiler/views/menu_view.dart';
 import 'package:walkiler/views/my_wakures_view.dart';
-import 'package:walkiler/views/quick_booking_view.dart';
+import 'package:walkiler/views/add_guest_view.dart';
 import 'package:walkiler/views/register_view.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -26,7 +26,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'guestInfo_view': (_) => GuestsInfo_View(),
   'map_screen': (_) => MapScreen(),
   'booking_view': (_) => Booking_View(),
-  'quickBooking_view': (_) => QuickBooking_View(),
+  'add_guest_view': (_) => AddGuest_View(),
   'addWakure_view': (_) => AddWakure_View(),
   'bookingConfig_view': (_) => BookingConfig_View(),
   'role_selector': (_) => RoleSelector(),
