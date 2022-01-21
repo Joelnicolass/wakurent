@@ -40,7 +40,7 @@ class UserClass {
     required this.statusDb,
     required this.ownerProductsId,
     required this.clientProductsId,
-    required this.friendRentingId,
+    required this.ticketId,
     required this.friendsId,
     required this.v,
   });
@@ -56,7 +56,7 @@ class UserClass {
   bool statusDb;
   List<String> ownerProductsId;
   List<String> clientProductsId;
-  List<String> friendRentingId;
+  List<String> ticketId;
   List<String> friendsId;
 
   int v;
@@ -79,8 +79,7 @@ class UserClass {
             List<String>.from(json["owner_products_id"].map((x) => x)),
         clientProductsId:
             List<String>.from(json["client_products_id"].map((x) => x)),
-        friendRentingId:
-            List<String>.from(json["friend_renting_id"].map((x) => x)),
+        ticketId: List<String>.from(json["ticket_id"].map((x) => x)),
         friendsId: List<String>.from(json["friends_id"].map((x) => x)),
         v: json["__v"],
       );
@@ -98,7 +97,7 @@ class UserClass {
         "owner_products_id": List<dynamic>.from(ownerProductsId.map((x) => x)),
         "client_products_id":
             List<dynamic>.from(clientProductsId.map((x) => x)),
-        "friend_renting_id": List<dynamic>.from(friendRentingId.map((x) => x)),
+        "ticket_id": List<dynamic>.from(ticketId.map((x) => x)),
         "friends_id": List<dynamic>.from(friendsId.map((x) => x)),
         "__v": v,
       };

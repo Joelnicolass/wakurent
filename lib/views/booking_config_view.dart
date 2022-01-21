@@ -229,7 +229,7 @@ Widget _buildPopupDialogForm(BuildContext context, String args) {
               );
 
               Navigator.of(context)
-                  .pushNamedAndRemoveUntil('misWakure_view', (route) => false);
+                  .pushNamedAndRemoveUntil('my_wakures_view', (route) => false);
             },
             style: TextButton.styleFrom(primary: Colors.grey),
             child: const Text('CONFIRMAR'),

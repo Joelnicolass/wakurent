@@ -3,6 +3,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
+import 'package:walkiler/routes/selectors/role_selector_wakure.dart';
 
 class VerifyRole extends StatelessWidget {
   const VerifyRole({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class VerifyRole extends StatelessWidget {
     return Scaffold(
       body: BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
         return state.processRequest == false
-            ? RoleSelector()
+            ? RoleSelectorWakure()
             : Center(child: CircularProgressIndicator());
       }),
     );
