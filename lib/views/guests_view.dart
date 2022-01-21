@@ -5,6 +5,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/models/models.dart';
 import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
@@ -16,28 +17,21 @@ class Guests_View extends StatefulWidget {
 }
 
 class _Guests_ViewState extends State<Guests_View> {
-
   Future<void> resFriends() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final friendBloc = BlocProvider.of<FriendBloc>(context);
     final httpRes = await FriendService.getFriends(authBloc.state.user!.id);
     List<dynamic> jsonList = httpRes as List;
-    //final friends = ProcessResponse.getFriendList(jsonList);
-    // friendBloc.add(OnGetFriendsEvent(friends: friends));
-
-    print('jsonList');
-    print(jsonList);
+    final friends = ProcessResponse.getFriendList(jsonList);
+    friendBloc.add(OnGetFriendsEvent(friends: friends));
   }
 
   @override
   void initState() {
     resFriends();
-    
+
     super.initState();
   }
-
-
-
 
   Widget build(BuildContext context) {
     //responsive
@@ -134,7 +128,7 @@ class guest_card extends StatelessWidget {
         )),
       ),
       child: Row(
-        children:[
+        children: [
           const CircleAvatar(
             radius: 30,
             backgroundColor: Colors.transparent,

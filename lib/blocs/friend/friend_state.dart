@@ -1,16 +1,21 @@
 part of 'friend_bloc.dart';
 
 class FriendState extends Equatable {
-  final List<User> friends;
+  final List<UserClass> friends;
+  final bool processRequest;
 
-  FriendState({List<User>? friends}) : friends = friends ?? [];
+  FriendState({List<UserClass>? friends, bool? processRequest})
+      : friends = friends ?? [],
+        processRequest = processRequest ?? false;
 
   //create copywith
   FriendState copyWith({
-    List<User>? friends,
+    List<UserClass>? friends,
+    bool? processRequest,
   }) {
     return FriendState(
       friends: friends ?? this.friends,
+      processRequest: processRequest ?? this.processRequest,
     );
   }
 

@@ -7,12 +7,15 @@ abstract class FriendEvent extends Equatable {
   List<Object> get props => [];
 }
 
-
 class OnGetFriendsEvent extends FriendEvent {
-  final List<User> friends;
+  final List<UserClass> friends;
 
   const OnGetFriendsEvent({required this.friends});
 
   @override
   List<Object> get props => [friends];
+}
+
+class ProcessRequestFriendEvent extends FriendEvent {
+  ProcessRequestFriendEvent();
 }

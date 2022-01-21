@@ -32,12 +32,12 @@ class ProcessResponse {
 
   // return user (friend) from json list
 
-  static List<User> getFriendList(List<dynamic> jsonListFriend) {
-    List<User> friendList = [];
+  static List<UserClass> getFriendList(List<dynamic> jsonListFriend) {
+    List<UserClass> friendList = [];
 
     for (var e in jsonListFriend) {
       final encode = json.encode(e);
-      final friend = User.fromJson(encode);
+      final friend = UserClass.fromJson(encode);
       friendList.add(friend);
     }
 
