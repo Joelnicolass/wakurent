@@ -69,11 +69,12 @@ class _add_guest_formState extends State<add_guest_form> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(left: 20, right: 20, top: 5),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.name = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -98,8 +99,9 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.surname = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -124,8 +126,9 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.email = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -150,8 +153,9 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.password = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -176,8 +180,9 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.address = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -202,8 +207,9 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                style: TextStyle(color: Colors.grey),
-                decoration: InputDecoration(
+                onChanged: (value) => g.phone = value,
+                style: const TextStyle(color: Colors.grey),
+                decoration: const InputDecoration(
                   fillColor: g.red,
                   enabledBorder: UnderlineInputBorder(
                     borderSide: BorderSide(
@@ -221,7 +227,7 @@ class _add_guest_formState extends State<add_guest_form> {
                 ),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             NeumorphicButton(
@@ -230,12 +236,15 @@ class _add_guest_formState extends State<add_guest_form> {
                 vertical: g.height * 0.015,
               ),
               onPressed: () {
+                final authBloc = BlocProvider.of<AuthBloc>(context);
                 final userBloc = BlocProvider.of<UserBloc>(context);
                 userBloc.add(AddFriend(
+                    userId: authBloc.state.user!.id,
                     name: g.name,
                     surname: g.surname,
                     address: g.address,
                     email: g.email,
+                    password: g.password,
                     phone: g.phone));
               },
               style: NeumorphicStyle(

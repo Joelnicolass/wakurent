@@ -114,34 +114,59 @@ class _Guests_ViewState extends State<Guests_View> {
                 height: g.height * 0.02,
               ),
               SizedBox(
-                height: g.height * 0.63,
+                height: g.height * 0.80,
                 child: ScrollConfiguration(
                   behavior: NoScrollGlow(),
                   child: ListView.builder(
-                    itemCount: state.friends.length,
-                    itemBuilder: (BuildContext ctxt, int index) {
-                      return guest_card(
-                        friendName: state.friends[index].name.toString(),
+                      itemCount: state.friends.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        final item = state.friends[index].id.toString();
+
+                        return Dismissible(
+                          key: UniqueKey(),
+                          onDismissed: (direction) {
+                            // Remove the item from the data source.
+                            setState(() {
+                              //on event
+                              final authBloc =
+                                  BlocProvider.of<AuthBloc>(context);
+                              final friendBloc =
+                                  BlocProvider.of<FriendBloc>(context);
+                              //     friendBloc.add(ProcessRequestFriendEvent());
+                              friendBloc.add(DeleteFriendEvent(
+                                  userId: authBloc.state.user!.id,
+                                  friendId: state.friends[index].id));
+                              state.friends.removeAt(index);
+                            });
+                          },
+                          child: guest_card(
+                            friendName: state.friends[index].name.toString(),
+                            friendSurname:
+                                state.friends[index].surname.toString(),
+                            friendEmail: state.friends[index].email.toString(),
+                            friendAddress:
+                                state.friends[index].address.toString(),
+                            friendPhone: state.friends[index].phone.toString(),
+                          ),
                         );
-                    }
-                    ),
-                    ),        
-                  ),
+                      }),
+                ),
+              ),
               const SizedBox(height: 20),
-              NeumorphicButton(
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
-                onPressed: () {},
-                style: NeumorphicStyle(
-                    depth: 1.5,
-                    intensity: 0.3,
-                    oppositeShadowLightSource: true,
-                    shape: NeumorphicShape.convex,
-                    boxShape: NeumorphicBoxShape.roundRect(
-                        BorderRadius.circular(25))),
-                child: const Text('Ver solicitudes',
-                    style: TextStyle(fontSize: 18, color: Colors.white)),
-              )
+              // NeumorphicButton(
+              //   margin:
+              //       const EdgeInsets.symmetric(horizontal: 13, vertical: 15),
+              //   onPressed: () {},
+              //   style: NeumorphicStyle(
+              //       depth: 1.5,
+              //       intensity: 0.3,
+              //       oppositeShadowLightSource: true,
+              //       shape: NeumorphicShape.convex,
+              //       boxShape: NeumorphicBoxShape.roundRect(
+              //           BorderRadius.circular(25))),
+              //   child: const Text('Ver solicitudes',
+              //       style: TextStyle(fontSize: 18, color: Colors.white)),
+              // )
             ],
           ),
           floatingActionButton: NeumorphicFloatingActionButton(
@@ -165,46 +190,58 @@ class guest_card extends StatelessWidget {
   const guest_card({
     Key? key,
     required this.friendName,
+    required this.friendSurname,
+    required this.friendEmail,
+    required this.friendAddress,
+    required this.friendPhone,
   }) : super(key: key);
 
   final String friendName;
+  final String friendSurname;
+  final String friendEmail;
+  final String friendAddress;
+  final String friendPhone;
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicButton(
-      margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
-      onPressed: () {
-        Navigator.pushNamed(context, 'guestInfo_view');
-      },
-      style: NeumorphicStyle(
-        depth: 1.5,
-        intensity: 1,
-        shadowLightColor: Color.fromRGBO(255, 0, 0, 1),
-        oppositeShadowLightSource: true,
-        shape: NeumorphicShape.convex,
-        boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
-          topLeft: Radius.circular(25),
-          topRight: Radius.circular(0),
-          bottomLeft: Radius.circular(0),
-          bottomRight: Radius.circular(25),
-        )),
-      ),
-      child: Row(
-        children: [
-          const CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.transparent,
-            child: Icon(Icons.person, color: Colors.grey, size: 35),
-          ),
-          Text(
-            friendName,
-            style: TextStyle(color: Colors.white, fontSize: 16),
-          ),
-          SizedBox(
-            width: 180,
-          ),
-          Icon(Icons.delete, color: Colors.grey, size: 30)
-        ],
+    return ListTile(
+      title: NeumorphicButton(
+        margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
+        onPressed: () {
+          Navigator.pushNamed(context, 'guestInfo_view', arguments: {
+            "name": friendName,
+            "surname": friendSurname,
+            "email": friendEmail,
+            "address": friendAddress,
+            "phone": friendPhone,
+          });
+        },
+        style: NeumorphicStyle(
+          depth: 1.5,
+          intensity: 1,
+          shadowLightColor: Color.fromRGBO(255, 0, 0, 1),
+          oppositeShadowLightSource: true,
+          shape: NeumorphicShape.convex,
+          boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
+            topLeft: Radius.circular(25),
+            topRight: Radius.circular(0),
+            bottomLeft: Radius.circular(0),
+            bottomRight: Radius.circular(25),
+          )),
+        ),
+        child: Row(
+          children: [
+            const CircleAvatar(
+              radius: 30,
+              backgroundColor: Colors.transparent,
+              child: Icon(Icons.person, color: Colors.grey, size: 35),
+            ),
+            Text(
+              friendName + ' ' + friendSurname,
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }

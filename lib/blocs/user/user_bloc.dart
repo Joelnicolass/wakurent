@@ -16,10 +16,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future<void> _addFriend(AddFriend event, Emitter<UserState> emit) async {
-    //AuthBloc reference
-
-    final Response response = await UserService.addFriend(state.user!.id,
-        event.name, event.surname, event.address, event.phone, event.email);
+    final Response response = await UserService.addFriend(
+      event.userId,
+      event.name,
+      event.surname,
+      event.address,
+      event.password,
+      event.email,
+      event.phone,
+    );
 
     if (response.statusCode == 200) {
       emit(state.copyWith(user: state.user, userCreated: true));
