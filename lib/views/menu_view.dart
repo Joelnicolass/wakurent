@@ -1,7 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/helpers/secure_storage.dart';
+import 'package:walkiler/models/ticket.dart';
+import 'package:walkiler/services/booking_service.dart';
 import 'package:walkiler/views/my_wakures_view.dart';
 
 class Menu_View extends StatelessWidget {
@@ -68,7 +74,33 @@ class Menu_View extends StatelessWidget {
                     icon: Icons.location_pin,
                     route: () => goRoute('loading_screen')),
               ],
-            )
+            ),
+            NeumorphicButton(
+              onPressed: () async {
+                final authBloc = BlocProvider.of<AuthBloc>(context);
+                final id = authBloc.state.user!.id;
+
+                final httpRes = await BookingService.getAllTickets(id);
+
+                final List<dynamic> list = httpRes as List;
+
+                final tickets = ProcessResponse.getTicketList(list);
+
+                final clientList = ProcessResponse.getClientList(tickets);
+              },
+              style: const NeumorphicStyle(
+                boxShape: NeumorphicBoxShape.circle(),
+                shape: NeumorphicShape.convex,
+                color: Colors.red,
+              ),
+              child: const Text(
+                'test',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                ),
+              ),
+            ),
           ],
         ),
       ),

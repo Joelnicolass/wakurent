@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:walkiler/models/ticket.dart';
 import 'package:walkiler/models/user.dart';
 import 'package:walkiler/models/wakure.dart';
 
@@ -42,5 +43,40 @@ class ProcessResponse {
     }
 
     return friendList;
+  }
+
+  // return ticket list from json list
+
+  static List<Ticket> getTicketList(List<dynamic> jsonListTicket) {
+    List<Ticket> ticketList = [];
+
+    for (var e in jsonListTicket) {
+      final encode = json.encode(e);
+      final ticket = Ticket.fromJson(encode);
+      ticketList.add(ticket);
+    }
+
+    /* final List<Ticket> tickets = list.map((ticket) {
+                  ticket = ticket as Map<String, dynamic>;
+
+                  var jsonData = json.encode(ticket);
+
+                  return Ticket.fromJson(jsonData);
+                }).toList(); */
+
+    return ticketList;
+  }
+
+  // return client list from tickets
+
+  static List<Client> getClientList(List<Ticket> tickets) {
+    List<Client> clientList = [];
+
+    for (var i = 0; i < tickets.length; i++) {
+      Client client = tickets[i].client[i];
+      clientList.add(client);
+    }
+
+    return clientList;
   }
 }

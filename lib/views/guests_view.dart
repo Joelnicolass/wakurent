@@ -20,9 +20,12 @@ class _Guests_ViewState extends State<Guests_View> {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final friendBloc = BlocProvider.of<FriendBloc>(context);
     final httpRes = await FriendService.getFriends(authBloc.state.user!.id);
-    List<dynamic> jsonList = httpRes as List;
-    final friends = ProcessResponse.getFriendList(jsonList);
-    friendBloc.add(OnGetFriendsEvent(friends: friends));
+
+    if (httpRes != null) {
+      List<dynamic> jsonList = httpRes as List;
+      final friends = ProcessResponse.getFriendList(jsonList);
+      friendBloc.add(OnGetFriendsEvent(friends: friends));
+    }
   }
 
   @override
