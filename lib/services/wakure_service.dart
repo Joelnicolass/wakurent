@@ -22,6 +22,8 @@ class WakureService {
       response = await dio
           .get('http://' + g.ip + ':5000/api/users/' + id + '/wakures');
 
+      print(response);
+
       return response.data;
     } on Exception catch (e) {
       print(e);
@@ -77,7 +79,12 @@ class WakureService {
         'auth': token,
       };
 
-      response = await dio.delete('http://' + g.ip + ':5000/api/users/' + user_id + '/wakure/' + wakure_id );
+      response = await dio.delete('http://' +
+          g.ip +
+          ':5000/api/users/' +
+          user_id +
+          '/wakure/' +
+          wakure_id);
 
       if (response.statusCode == 200) {
         print('status 200 wakure deleted');
@@ -91,16 +98,23 @@ class WakureService {
 
 // edit wakure name
 
-  static Future editWakureName(String wakureId, String wakureName, String userId) async {
+  static Future editWakureName(
+      String wakureId, String wakureName, String userId) async {
     try {
       Response response;
       var dio = Dio();
       dio.options.contentType = "application/json; charset=utf-8";
 
-      response = await dio.put('http://' + g.ip + ':5000/api/users/' + userId + '/wakure/' + wakureId,
-      data: {
-        'name': wakureName,
-      } );
+      response = await dio.put(
+          'http://' +
+              g.ip +
+              ':5000/api/users/' +
+              userId +
+              '/wakure/' +
+              wakureId,
+          data: {
+            'name': wakureName,
+          });
 
       if (response.statusCode == 200) {
         print('status 200 wakure name uploaded');

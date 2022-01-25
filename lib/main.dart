@@ -47,21 +47,24 @@ class App extends StatelessWidget {
       SystemUiMode.immersiveSticky,
     );
 
-    return NeumorphicApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Wakurent',
-      themeMode: ThemeMode.dark,
-      darkTheme: const NeumorphicThemeData.dark(
-          defaultTextColor: Colors.white,
-          baseColor: g.background,
-          lightSource: LightSource.topLeft,
-          depth: 1.5,
-          intensity: 0.3,
-          shadowDarkColor: Colors.black87),
+    return WillPopScope(
+      onWillPop: () async => false,
+      child: NeumorphicApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Wakurent',
+        themeMode: ThemeMode.dark,
+        darkTheme: const NeumorphicThemeData.dark(
+            defaultTextColor: Colors.white,
+            baseColor: g.background,
+            lightSource: LightSource.topLeft,
+            depth: 1.5,
+            intensity: 0.3,
+            shadowDarkColor: Colors.black87),
 
-      // home: Menu_View(),
-      initialRoute: 'login_screen',
-      routes: appRoutes,
+        // home: Menu_View(),
+        initialRoute: 'login_screen',
+        routes: appRoutes,
+      ),
     );
   }
 }
