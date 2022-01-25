@@ -6,6 +6,8 @@ import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:walkiler/blocs/booking/booking_bloc.dart';
 
+import '../globals.dart' as g;
+
 class DateTimeForm extends StatefulWidget {
   @override
   _DateTimeFormState createState() => _DateTimeFormState();
@@ -16,6 +18,10 @@ class _DateTimeFormState extends State<DateTimeForm> {
   @override
   Widget build(BuildContext context) {
     final bookingBloc = BlocProvider.of<BookingBloc>(context);
+
+    //responsive
+    g.width = MediaQuery.of(context).size.width;
+    g.height = MediaQuery.of(context).size.height;
 
     // functions for changing state
 
@@ -101,29 +107,87 @@ class _DateTimeFormState extends State<DateTimeForm> {
           // buttons
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                NeumorphicButton(
-                  child: Text('Reservar'),
-                  onPressed: () => formKey.currentState?.save(),
+            child: Center(
+              child: Container(
+                width: g.width * 0.6,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    NeumorphicButton(
+                      padding: const EdgeInsets.only(
+                          left: 10, right: 5, top: 10, bottom: 10),
+                      child: Row(
+                        children: const [
+                          Icon(Icons.settings_backup_restore_rounded,
+                              color: Colors.grey),
+                          SizedBox(width: 5),
+                        ],
+                      ),
+                      style: button_style(),
+                      onPressed: () {
+                        _saveAllDateTime();
+                        formKey.currentState?.reset();
+                      },
+                    ),
+                    NeumorphicButton(
+                      padding: EdgeInsets.only(
+                          left: 45, right: 65, top: 10, bottom: 10),
+                      child: Row(
+                        children: [
+                          Icon(Icons.check_outlined, color: Colors.grey),
+                          SizedBox(width: 5),
+                          Text('Validar',
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 15)),
+                        ],
+                      ),
+                      style: button_style(),
+                      onPressed: () => formKey.currentState?.save(),
+                    ),
+                  ],
                 ),
-                NeumorphicButton(
-                  child: Text('Reset'),
-                  onPressed: () {
-                    _saveAllDateTime();
-                    formKey.currentState?.reset();
-                  },
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
+          Center(
+            child: Container(
+              width: g.width * 0.6,
+              child: NeumorphicButton(
+                padding: const EdgeInsets.only(
+                    left: 10, right: 18, top: 10, bottom: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(Icons.bookmark_added_rounded, color: Colors.grey),
+                    SizedBox(width: 5),
+                    Text('Reservar',
+                        style: TextStyle(color: Colors.white, fontSize: 15)),
+                  ],
                 ),
-                NeumorphicButton(
-                  child: Text('Validate'),
-                  onPressed: () => formKey.currentState?.save(),
-                ),
-              ],
+                onPressed: () => formKey.currentState?.save(),
+                style: button_style(),
+              ),
             ),
           ),
         ],
       ),
+    );
+  }
+
+  NeumorphicStyle button_style() {
+    return NeumorphicStyle(
+      depth: 1.5,
+      intensity: 0.8,
+      shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+      oppositeShadowLightSource: true,
+      shape: NeumorphicShape.convex,
+      boxShape: NeumorphicBoxShape.roundRect(const BorderRadius.only(
+        topLeft: Radius.circular(20),
+        topRight: Radius.circular(0),
+        bottomLeft: Radius.circular(0),
+        bottomRight: Radius.circular(20),
+      )),
     );
   }
 }

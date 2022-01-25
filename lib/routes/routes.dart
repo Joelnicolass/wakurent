@@ -15,6 +15,7 @@ import 'package:walkiler/views/menu_view.dart';
 import 'package:walkiler/views/my_wakures_view.dart';
 import 'package:walkiler/views/add_guest_view.dart';
 import 'package:walkiler/views/register_view.dart';
+import 'package:walkiler/views/add_booking_view.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
   'loading_screen': (context) => LoadingScreen(),
@@ -32,4 +33,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'role_selector': (_) => RoleSelector(),
   'processResponseGetWakure': (_) => ProcessRequestGetWakure(),
   'processResponseAddWakure': (_) => ProcessRequestAddWakure(),
+  'add_booking_view': (_) => AddBooking_View(),
 };
