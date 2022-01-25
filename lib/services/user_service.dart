@@ -87,10 +87,11 @@ class UserService {
     }
   }
 
-  static Future addFriend(String name, String surname, String address,
-      String phone, String email, String id) async {
+  static Future addFriend(String userId, String name, String surname,
+      String address, String password, String email, String phone) async {
     try {
       Response response;
+
       var dio = Dio();
       dio.options.contentType = "application/json; charset=utf-8";
       final token = await SecureStorage.getToken();
@@ -99,14 +100,15 @@ class UserService {
       dio.options.headers = {
         'auth': token,
       };
-      response = await dio.post(
-        'http://' + g.ip + ':5000/api/users/friends/' + id + '/add',
+      response = await dio.put(
+        'http://' + g.ip + ':5000/api/users/friends/' + userId + '/add',
         data: {
           "name": name,
           "surname": surname,
           "address": address,
           "email": email,
           "phone": phone,
+          "password": password,
         },
       );
 
@@ -119,5 +121,4 @@ class UserService {
       return e.response;
     }
   }
-
 }

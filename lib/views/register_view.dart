@@ -45,6 +45,13 @@ class registerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
+        title: Row(
+          children: const [
+            Icon(Icons.app_registration, color: Colors.grey, size: 30),
+            SizedBox(width: 10),
+            Text('Registro', style: TextStyle(fontSize: 18, color: Colors.grey)),
+          ],
+        ),
         leading: IconButton(
             icon: Icon(Icons.arrow_back_outlined),
             onPressed: () {
@@ -63,11 +70,8 @@ class registerView extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text('Registro'),
-                const SizedBox(
-                  height: 10,
-                ),
                 const addGuest_form(),
               ],
             ),
@@ -76,7 +80,7 @@ class registerView extends StatelessWidget {
                 if (state.error != null) {
                   print(state.error!);
                   return Positioned(
-                    bottom: g.height * 0.11,
+                    bottom: g.height * 0.06,
                     left: g.width * 0,
                     child: Text(state.error!,
                         style: const TextStyle(color: Colors.red)),

@@ -31,20 +31,17 @@ class Booking_View extends StatelessWidget {
             height: g.height * 0.02,
           ),
           Container(
-            height: g.height * 0.63,
+            height: g.height * 0.79,
             child: ScrollConfiguration(
               behavior: NoScrollGlow(),
               child: ListView(
                 children: const [
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
-                  wakure_card(),
+                  booking_card(),
+                  booking_card(),
+                  booking_card(),
+                  booking_card(),
+                  booking_card(),
+                  
                 ],
               ),
             ),
@@ -58,7 +55,7 @@ class Booking_View extends StatelessWidget {
             depth: 1.5,
             intensity: 0.3),
         onPressed: () {
-          Navigator.pushNamed(context, 'add_guest_view');
+          Navigator.pushNamed(context, 'add_booking_view');
         },
         child: const Icon(Icons.add, color: Colors.white54),
       ),
@@ -66,8 +63,8 @@ class Booking_View extends StatelessWidget {
   }
 }
 
-class wakure_card extends StatelessWidget {
-  const wakure_card({
+class booking_card extends StatelessWidget {
+  const booking_card({
     Key? key,
   }) : super(key: key);
 
@@ -95,10 +92,9 @@ class wakure_card extends StatelessWidget {
           Row(
             children: const [
               CircleAvatar(
-                radius: 30,
                 backgroundColor: Colors.transparent,
                 child:
-                    Icon(Icons.electric_scooter, color: Colors.grey, size: 40),
+                    Icon(Icons.electric_scooter, color: Colors.grey, size: 30,),
               ),
               Text(
                 'Wakure1',
@@ -108,9 +104,8 @@ class wakure_card extends StatelessWidget {
                 width: 70,
               ),
               CircleAvatar(
-                radius: 30,
                 backgroundColor: Colors.transparent,
-                child: Icon(Icons.person, color: Colors.grey, size: 40),
+                child: Icon(Icons.person, color: Colors.grey, size: 30),
               ),
               Text(
                 'Usuario1',
@@ -124,15 +119,30 @@ class wakure_card extends StatelessWidget {
           Row(
             children: const [
               Text(
-                'Desde: 12/02/2021',
+                'Desde',
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               SizedBox(
-                width: 60,
+                width: 129,
               ),
               Text(
-                'Hasta 13/02/2021',
+                'Hasta',
                 style: TextStyle(color: Colors.white, fontSize: 16),
+              ),
+            ],
+          ),
+                Row(
+            children: const [
+              Text(
+                '12/02/2021 - 08:30 hs.',
+                style: TextStyle(color: Colors.white, fontSize: 14),
+              ),
+              SizedBox(
+                width: 30,
+              ),
+              Text(
+                '13/02/2021 - 20:00 hs.',
+                style: TextStyle(color: Colors.white, fontSize: 14),
               ),
             ],
           ),
