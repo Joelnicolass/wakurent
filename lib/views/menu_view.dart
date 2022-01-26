@@ -85,8 +85,6 @@ class Menu_View extends StatelessWidget {
                 final List<dynamic> list = httpRes as List;
 
                 final tickets = ProcessResponse.getTicketList(list);
-
-                final clientList = ProcessResponse.getClientList(tickets);
               },
               style: const NeumorphicStyle(
                 boxShape: NeumorphicBoxShape.circle(),

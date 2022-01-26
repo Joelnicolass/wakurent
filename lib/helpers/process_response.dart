@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:walkiler/models/client.dart';
 import 'package:walkiler/models/ticket.dart';
 import 'package:walkiler/models/user.dart';
 import 'package:walkiler/models/wakure.dart';
