@@ -165,7 +165,7 @@ class wakure_card extends StatelessWidget {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 5),
       onPressed: () {
-        Navigator.pushNamed(context, 'bookingConfig_view', arguments: {
+        Navigator.pushNamed(context, 'wakure_info_view', arguments: {
           "title": wakureName,
           "wakureId": wakureId,
         });

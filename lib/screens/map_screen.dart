@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -45,7 +44,6 @@ class _MapScreenState extends State<MapScreen> {
   void dispose() {
     locationBloc.stopFollowingUser();
     timer?.cancel();
-    print('dispose');
     super.dispose();
   }
 
@@ -72,34 +70,11 @@ class _MapScreenState extends State<MapScreen> {
                     initialLocation: state.lastKnownLocation!,
                     markers: markers.values.toSet(),
                   ),
-                  //crear boton
-                  Positioned(
-                    bottom: 20,
-                    left: 0,
-                    right: 0,
-                    child: Neumorphic(
-                      style: NeumorphicStyle(
-                        boxShape: NeumorphicBoxShape.circle(),
-                        depth: 10,
-                        color: Colors.white,
-                      ),
-                      child: Container(
-                        height: 50,
-                        width: 50,
-                        child: Center(
-                          child: IconButton(
-                            icon: Icon(Icons.add),
-                            onPressed: () async {},
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
                   Positioned(
                     top: 30,
                     left: 10,
                     child: IconButton(
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.arrow_back_outlined,
                         color: Colors.white,
                       ),

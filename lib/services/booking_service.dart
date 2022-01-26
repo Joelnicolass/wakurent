@@ -18,7 +18,8 @@ class BookingService {
       response = await dio.get(
         'http://' + g.ip + ':5000/api/booking/' + id + '/all',
       );
-
+      print('responde.data desde el service');
+      print(response.data);
       return response.data;
     } on DioError catch (e) {
       return e.response;
