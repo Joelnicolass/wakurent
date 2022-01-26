@@ -4,9 +4,14 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
-class Booking_View extends StatelessWidget {
+class Booking_View extends StatefulWidget {
   Booking_View({Key? key}) : super(key: key);
 
+  @override
+  State<Booking_View> createState() => _Booking_ViewState();
+}
+
+class _Booking_ViewState extends State<Booking_View> {
   Widget build(BuildContext context) {
     //responsive
     g.width = MediaQuery.of(context).size.width;
