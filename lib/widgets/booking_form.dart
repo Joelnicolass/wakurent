@@ -149,10 +149,16 @@ class _DateTimeFormState extends State<DateTimeForm> {
                       ),
                       style: button_style(),
                       onPressed: () {
-                        formKey.currentState?.save();
-                        final authBloc = BlocProvider.of<AuthBloc>(context);
                         final bookingBloc =
                             BlocProvider.of<BookingBloc>(context);
+                        final authBloc = BlocProvider.of<AuthBloc>(context);
+                        /* bookingBloc.add(SaveAllDateTimeEvent(
+                            startDate: bookingBloc.state.dateFrom,
+                            endDate: bookingBloc.state.dateTo,
+                            startTime: bookingBloc.state.timeFrom,
+                            endTime: bookingBloc.state.timeTo,
+                            wakureList: [])); */
+                        formKey.currentState?.save();
                         bookingBloc.add(
                           VerifyAvailability(id: authBloc.state.user!.id),
                         );

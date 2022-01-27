@@ -180,14 +180,20 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                             } else {
                               String itemSelect =
                                   bookingBloc.state.selectedItem;
-                              if (bookingBloc.state.selectedItem == '') {
+
+                              bool itemExist = bookingBloc.state.wakureList
+                                  .any((element) => element.name == itemSelect);
+
+                              if (bookingBloc.state.selectedItem == '' ||
+                                  !itemExist) {
                                 itemSelect =
                                     bookingBloc.state.wakureList[0].name;
                                 bookingBloc.add(
                                   SelectedItemEvent(
                                       item:
                                           bookingBloc.state.wakureList[0].name,
-                                      id: bookingBloc.state.wakureList[0].id),
+                                      id: bookingBloc
+                                          .state.wakureList[0].wakureId),
                                 );
                               }
 
