@@ -20,7 +20,6 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<VerifyAvailability>(_verifyAvailability);
     on<SelectedItemWakureEvent>(_selectedItemWakureEvent);
     on<SelectedItemClientEvent>(_selectedItemClientEvent);
-    on<SelectedItemEvent>(_selectedItemEvent);
     on<SelectedDayEvent>(_selectedDayEvent);
   }
 
