@@ -91,3 +91,11 @@ class StateBtnReservationEvent extends BookingEvent {
     required this.state,
   });
 }
+
+class SelectedDayEvent extends BookingEvent {
+  final List<String> day;
+
+  SelectedDayEvent({
+    required this.day,
+  });
+}

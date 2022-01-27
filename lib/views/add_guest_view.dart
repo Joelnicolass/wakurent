@@ -153,33 +153,6 @@ class _add_guest_formState extends State<add_guest_form> {
                 top: 10,
               ),
               child: TextField(
-                onChanged: (value) => g.password = value,
-                style: const TextStyle(color: Colors.grey),
-                decoration: const InputDecoration(
-                  fillColor: g.red,
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.red,
-                    ),
-                  ),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(
-                      color: g.red,
-                      width: 2,
-                    ),
-                  ),
-                  hintText: 'Contraseña',
-                  hintStyle: TextStyle(fontSize: 18, color: Colors.grey),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 20,
-                right: 20,
-                top: 10,
-              ),
-              child: TextField(
                 onChanged: (value) => g.address = value,
                 style: const TextStyle(color: Colors.grey),
                 decoration: const InputDecoration(
@@ -244,7 +217,7 @@ class _add_guest_formState extends State<add_guest_form> {
                     surname: g.surname,
                     address: g.address,
                     email: g.email,
-                    password: g.password,
+                    password: 'WAKURECLIENT',
                     phone: g.phone));
               },
               style: NeumorphicStyle(

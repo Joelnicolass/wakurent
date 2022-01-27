@@ -189,10 +189,6 @@ class _DateTimeFormState extends State<DateTimeForm> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Center(
-                            child:
-                                Text('Error', style: TextStyle(fontSize: 20)),
-                          ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
