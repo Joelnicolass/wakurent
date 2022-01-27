@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
@@ -289,7 +287,25 @@ class DateField extends StatelessWidget {
                     context: context,
                     firstDate: DateTime(1900),
                     initialDate: currentValue ?? DateTime.now(),
-                    lastDate: DateTime(2100));
+                    lastDate: DateTime(2100),
+                    helpText: 'SELECCIONAR DÍA',
+                    cancelText: 'CANCELAR',
+                    builder: (context, child) {
+                      return Theme(
+                        data: ThemeData.dark().copyWith(
+                          timePickerTheme:
+                              TimePickerThemeData(backgroundColor: Colors.blue),
+                          colorScheme: ColorScheme.dark(
+                            primary: const Color(0xffE10B17),
+                            onPrimary: Colors.white,
+                            surface: g.background,
+                            onSurface: Colors.white,
+                          ),
+                          dialogBackgroundColor: g.background,
+                        ),
+                        child: child!,
+                      );
+                    });
               },
             ),
           ),
@@ -325,6 +341,7 @@ class ClockPicker extends StatelessWidget {
               onChanged: (value) {
                 if (value != null) {
                   function(value.toString().substring(11, 16));
+                  print(value);
                 }
               },
               onSaved: (newValue) {
@@ -343,14 +360,23 @@ class ClockPicker extends StatelessWidget {
               format: format,
               onShowPicker: (context, currentValue) async {
                 final time = await showTimePicker(
-                  context: context,
-                  initialTime:
-                      TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
-                  builder: (context, child) => MediaQuery(
-                      data: MediaQuery.of(context)
-                          .copyWith(alwaysUse24HourFormat: true),
-                      child: child!),
-                );
+                    context: context,
+                    initialTime:
+                        TimeOfDay.fromDateTime(currentValue ?? DateTime.now()),
+                    helpText: 'SELECCIONAR HORA',
+                    cancelText: 'CANCELAR',
+                    builder: (context, child) {
+                      return Theme(
+                        data: ThemeData.dark().copyWith(
+                          timePickerTheme: TimePickerThemeData(
+                              backgroundColor: g.background),
+                          colorScheme: ColorScheme.dark(
+                            primary: const Color(0xffE10B17),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    });
                 return DateTimeField.convert(time);
               },
             ),
