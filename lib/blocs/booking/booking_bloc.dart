@@ -18,7 +18,8 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<SaveTimeFromEvent>(_saveTimeFromEvent);
     on<SaveTimeToEvent>(_saveTimeToEvent);
     on<VerifyAvailability>(_verifyAvailability);
-    on<SelectedItemEvent>(_selectedItemEvent);
+    on<SelectedItemWakureEvent>(_selectedItemWakureEvent);
+    on<SelectedItemClientEvent>(_selectedItemClientEvent);
   }
 
   void _saveAllDateTimeEvent(
@@ -114,11 +115,19 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   }
 
   // event selected item
-  _selectedItemEvent(
-      SelectedItemEvent event, Emitter<BookingState> emit) async {
+  _selectedItemWakureEvent(
+      SelectedItemWakureEvent event, Emitter<BookingState> emit) async {
     emit(state.copyWith(
-      selectedItem: event.item,
-      selectedItemId: event.id,
+      selectedItemWakure: event.item,
+      selectedItemWakureId: event.id,
+    ));
+  }
+
+  _selectedItemClientEvent(
+      SelectedItemClientEvent event, Emitter<BookingState> emit) async {
+    emit(state.copyWith(
+      selectedItemClient: event.item,
+      selectedItemClientId: event.id,
     ));
   }
 }

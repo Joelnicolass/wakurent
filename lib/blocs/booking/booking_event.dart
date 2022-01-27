@@ -62,11 +62,21 @@ class VerifyAvailability extends BookingEvent {
   });
 }
 
-class SelectedItemEvent extends BookingEvent {
+class SelectedItemWakureEvent extends BookingEvent {
   final String item;
   final String id;
 
-  SelectedItemEvent({
+  SelectedItemWakureEvent({
+    required this.item,
+    required this.id,
+  });
+}
+
+class SelectedItemClientEvent extends BookingEvent {
+  final String item;
+  final String id;
+
+  SelectedItemClientEvent({
     required this.item,
     required this.id,
   });

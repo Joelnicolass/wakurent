@@ -26,8 +26,6 @@ class _AddBooking_ViewState extends State<AddBooking_View> {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
-    final wakureBloc = BlocProvider.of<WakureBloc>(context);
-
     return Scaffold(
       appBar: NeumorphicAppBar(
         title: Row(
@@ -78,10 +76,8 @@ class bookingForm_card extends StatefulWidget {
 class _bookingForm_cardState extends State<bookingForm_card> {
   @override
   Widget build(BuildContext context) {
-    String users = 'User1';
-
     final bookingBloc = BlocProvider.of<BookingBloc>(context);
-    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+    final friendBloc = BlocProvider.of<FriendBloc>(context);
 
     return Container(
       width: g.width * 0.9,
@@ -112,28 +108,88 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                       SizedBox(width: 20),
                       Container(
                         width: g.width * 0.52,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: users,
-                            isExpanded: true,
-                            icon:
-                                const Icon(Icons.arrow_drop_down, color: g.red),
-                            dropdownColor: g.background,
-                            style: TextStyle(
-                                color: Colors.grey[400], fontSize: 18),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                users = newValue!;
-                              });
-                            },
-                            items: <String>['User1', 'User2', 'User3', 'User4']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
+                        child: BlocConsumer<FriendBloc, FriendState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            if (state.friends.isEmpty) {
+                              return DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  hint: Text('No hay invitados registrados',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[700])),
+                                  value: null,
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_drop_down,
+                                      color: Colors.grey),
+                                  dropdownColor: g.background,
+                                  style: TextStyle(
+                                      color: Colors.grey[400], fontSize: 18),
+                                  onChanged: (String? newValue) {
+                                    setState(() {});
+                                  },
+                                  items: [],
+                                ),
                               );
-                            }).toList(),
-                          ),
+                            } else {
+                              String itemSelect =
+                                  bookingBloc.state.selectedItemClient;
+
+                              print('itemSelect: $itemSelect');
+
+                              bool itemExist = friendBloc.state.friends
+                                  .any((friend) => friend.name == itemSelect);
+
+                              if (bookingBloc.state.selectedItemClient == '' ||
+                                  !itemExist) {
+                                itemSelect = friendBloc.state.friends[0].name;
+                                bookingBloc.add(
+                                  SelectedItemClientEvent(
+                                      item: friendBloc.state.friends[0].name,
+                                      id: friendBloc.state.friends[0].id),
+                                );
+                              }
+
+                              return DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: itemSelect,
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_drop_down,
+                                      color: g.red),
+                                  dropdownColor: g.background,
+                                  style: TextStyle(
+                                      color: Colors.grey[400], fontSize: 18),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      String idClientSelected;
+
+                                      for (UserClass f
+                                          in friendBloc.state.friends) {
+                                        if (f.name == newValue) {
+                                          idClientSelected = f.id;
+                                          bookingBloc.add(
+                                            SelectedItemClientEvent(
+                                                item: newValue!,
+                                                id: idClientSelected),
+                                          );
+                                        }
+                                      }
+
+                                      itemSelect = newValue!;
+                                    });
+                                  },
+                                  items: friendBloc.state.friends
+                                      .map<DropdownMenuItem<String>>(
+                                          (UserClass friend) {
+                                    return DropdownMenuItem<String>(
+                                      value: friend.name,
+                                      child: Text(friend.name),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],
@@ -179,17 +235,17 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                               );
                             } else {
                               String itemSelect =
-                                  bookingBloc.state.selectedItem;
+                                  bookingBloc.state.selectedItemWakure;
 
                               bool itemExist = bookingBloc.state.wakureList
-                                  .any((element) => element.name == itemSelect);
+                                  .any((wakure) => wakure.name == itemSelect);
 
-                              if (bookingBloc.state.selectedItem == '' ||
+                              if (bookingBloc.state.selectedItemWakure == '' ||
                                   !itemExist) {
                                 itemSelect =
                                     bookingBloc.state.wakureList[0].name;
                                 bookingBloc.add(
-                                  SelectedItemEvent(
+                                  SelectedItemWakureEvent(
                                       item:
                                           bookingBloc.state.wakureList[0].name,
                                       id: bookingBloc
@@ -215,7 +271,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                                         if (w.name == newValue) {
                                           idWakureSelected = w.wakureId;
                                           bookingBloc.add(
-                                            SelectedItemEvent(
+                                            SelectedItemWakureEvent(
                                                 item: newValue!,
                                                 id: idWakureSelected),
                                           );

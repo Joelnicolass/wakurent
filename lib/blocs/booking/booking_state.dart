@@ -13,8 +13,10 @@ class BookingState extends Equatable {
   final List<Wakure> wakureList;
   final bool validate;
   final bool stateBtnReservation;
-  final String selectedItem;
-  final String selectedItemId;
+  final String selectedItemWakure;
+  final String selectedItemWakureId;
+  final String selectedItemClient;
+  final String selectedItemClientId;
 
   BookingState({
     String? dateFrom,
@@ -28,8 +30,10 @@ class BookingState extends Equatable {
     List<Wakure>? wakureList,
     bool? validate,
     bool? stateBtnReservation,
-    String? selectedItem,
-    String? selectedItemId,
+    String? selectedItemWakure,
+    String? selectedItemWakureId,
+    String? selectedItemClient,
+    String? selectedItemClientId,
   })  : dateFrom = dateFrom ?? '',
         dateTo = dateTo ?? '',
         timeFrom = timeFrom ?? '',
@@ -41,8 +45,10 @@ class BookingState extends Equatable {
         wakureList = wakureList ?? [],
         validate = validate ?? false,
         stateBtnReservation = stateBtnReservation ?? false,
-        selectedItem = selectedItem ?? '',
-        selectedItemId = selectedItemId ?? '';
+        selectedItemWakure = selectedItemWakure ?? '',
+        selectedItemWakureId = selectedItemWakureId ?? '',
+        selectedItemClient = selectedItemClient ?? '',
+        selectedItemClientId = selectedItemClientId ?? '';
 
   //copyWith
   BookingState copyWith({
@@ -57,8 +63,10 @@ class BookingState extends Equatable {
     List<Wakure>? wakureList,
     bool? validate,
     bool? stateBtnReservation,
-    String? selectedItem,
-    String? selectedItemId,
+    String? selectedItemWakure,
+    String? selectedItemWakureId,
+    String? selectedItemClient,
+    String? selectedItemClientId,
   }) =>
       BookingState(
         dateFrom: dateFrom ?? this.dateFrom,
@@ -72,8 +80,10 @@ class BookingState extends Equatable {
         wakureList: wakureList ?? this.wakureList,
         validate: validate ?? this.validate,
         stateBtnReservation: stateBtnReservation ?? this.stateBtnReservation,
-        selectedItem: selectedItem ?? this.selectedItem,
-        selectedItemId: selectedItemId ?? this.selectedItemId,
+        selectedItemWakure: selectedItemWakure ?? this.selectedItemWakure,
+        selectedItemWakureId: selectedItemWakureId ?? this.selectedItemWakureId,
+        selectedItemClient: selectedItemClient ?? this.selectedItemClient,
+        selectedItemClientId: selectedItemClientId ?? this.selectedItemClientId,
       );
 
   @override
@@ -89,7 +99,9 @@ class BookingState extends Equatable {
         wakureList,
         validate,
         stateBtnReservation,
-        selectedItem,
-        selectedItemId,
+        selectedItemWakure,
+        selectedItemWakureId,
+        selectedItemClient,
+        selectedItemClientId,
       ];
 }
