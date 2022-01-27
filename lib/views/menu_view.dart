@@ -75,30 +75,6 @@ class Menu_View extends StatelessWidget {
                     route: () => goRoute('loading_screen')),
               ],
             ),
-            NeumorphicButton(
-              onPressed: () async {
-                final authBloc = BlocProvider.of<AuthBloc>(context);
-                final id = authBloc.state.user!.id;
-
-                final httpRes = await BookingService.getAllTickets(id);
-
-                final List<dynamic> list = httpRes as List;
-
-                final tickets = ProcessResponse.getTicketList(list);
-              },
-              style: const NeumorphicStyle(
-                boxShape: NeumorphicBoxShape.circle(),
-                shape: NeumorphicShape.convex,
-                color: Colors.red,
-              ),
-              child: const Text(
-                'test',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                ),
-              ),
-            ),
           ],
         ),
       ),

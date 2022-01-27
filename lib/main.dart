@@ -32,6 +32,9 @@ void main() {
       BlocProvider(
         create: (context) => FriendBloc(),
       ),
+      BlocProvider(
+        create: (context) => TicketBloc(),
+      ),
     ],
     child: const App(),
   ));

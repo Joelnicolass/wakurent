@@ -8,6 +8,8 @@ import 'dart:convert';
 
 import 'package:walkiler/models/models.dart';
 
+import 'client.dart';
+
 class Ticket {
   Ticket({
     required this.id,

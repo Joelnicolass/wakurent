@@ -2,22 +2,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
-import 'package:walkiler/helpers/process_response.dart';
-import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
-import 'package:walkiler/views/my_wakures_view.dart';
-import 'package:walkiler/widgets/booking_form.dart';
 
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/widgets/daypicker.dart';
 import 'package:walkiler/widgets/wakure_crud_menu.dart';
 
-class BookingConfig_View extends StatefulWidget {
-  const BookingConfig_View({Key? key}) : super(key: key);
+class WakureInfo_View extends StatefulWidget {
+  const WakureInfo_View({Key? key}) : super(key: key);
 
   @override
-  State<BookingConfig_View> createState() => _BookingConfig_ViewState();
+  State<WakureInfo_View> createState() => _WakureInfo_ViewState();
 }
 
-class _BookingConfig_ViewState extends State<BookingConfig_View> {
+class _WakureInfo_ViewState extends State<WakureInfo_View> {
   @override
   void initState() {
     super.initState();
@@ -88,22 +85,24 @@ class _BookingConfig_ViewState extends State<BookingConfig_View> {
       ),
       resizeToAvoidBottomInset: false,
       body: const Center(
-        child: bookingForm_card(),
+        child: wakure_info_card(),
       ),
     );
   }
 }
 
-class bookingForm_card extends StatelessWidget {
-  const bookingForm_card({
+class wakure_info_card extends StatelessWidget {
+  const wakure_info_card({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+
     return Container(
       width: g.width * 0.9,
-      height: g.height * 0.8,
+      height: g.height * 0.6,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -114,19 +113,109 @@ class bookingForm_card extends StatelessWidget {
             bottomRight: Radius.circular(0),
           )),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 20),
-            Center(
-                child: Text(
-              'Reserva',
-              style: TextStyle(fontSize: 20, color: Colors.grey),
-            )),
-            SizedBox(height: 50),
-            DateTimeForm()
-          ],
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                
+                Container(
+                    child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(left: 22.0),
+                      child: Text(
+                        'Días habilitados',
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                    ),
+                    DayPicker_View(),
+                  ],
+                )),
+                const SizedBox(height: 50),
+                NeumorphicButton(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: g.width * 0.05,
+                    vertical: g.height * 0.015,
+                  ),
+                  onPressed: () {},
+                  style: NeumorphicStyle(
+                    depth: 1.5,
+                    intensity: 0.8,
+                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+                    oppositeShadowLightSource: true,
+                    shape: NeumorphicShape.convex,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(25),
+                    )),
+                  ),
+                  child: Container(
+                    width: g.width * 0.28,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'Ir al mapa',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(Icons.location_searching_rounded,
+                            color: Colors.grey),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
+                NeumorphicButton(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: g.width * 0.08,
+                    vertical: g.height * 0.015,
+                  ),
+                  onPressed: () {},
+                  style: NeumorphicStyle(
+                    depth: 1.5,
+                    intensity: 0.8,
+                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+                    oppositeShadowLightSource: true,
+                    shape: NeumorphicShape.convex,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(25),
+                    )),
+                  ),
+                  child: Container(
+                    width: g.width * 0.23,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Text(
+                          'Apagar',
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                        ),
+                        SizedBox(width: 10),
+                        Icon(Icons.power_settings_new_rounded,
+                            color: Colors.grey),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

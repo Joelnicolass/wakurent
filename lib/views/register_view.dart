@@ -49,7 +49,8 @@ class registerView extends StatelessWidget {
           children: const [
             Icon(Icons.app_registration, color: Colors.grey, size: 30),
             SizedBox(width: 10),
-            Text('Registro', style: TextStyle(fontSize: 18, color: Colors.grey)),
+            Text('Registro',
+                style: TextStyle(fontSize: 18, color: Colors.grey)),
           ],
         ),
         leading: IconButton(
