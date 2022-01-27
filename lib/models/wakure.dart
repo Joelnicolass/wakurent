@@ -11,6 +11,7 @@ class Wakure {
     required this.wakureId,
     required this.name,
     required this.hasOwner,
+    required this.availablesDays,
     required this.statusDb,
     required this.v,
   });
@@ -20,6 +21,7 @@ class Wakure {
   String wakureId;
   String name;
   bool hasOwner;
+  List<int> availablesDays;
   bool statusDb;
   int v;
 
@@ -33,6 +35,7 @@ class Wakure {
         wakureId: json["id"],
         name: json["name"],
         hasOwner: json["hasOwner"],
+        availablesDays: List<int>.from(json["availablesDays"].map((x) => x)),
         statusDb: json["statusDB"],
         v: json["__v"],
       );
@@ -43,6 +46,7 @@ class Wakure {
         "id": wakureId,
         "name": name,
         "hasOwner": hasOwner,
+        "availablesDays": List<dynamic>.from(availablesDays.map((x) => x)),
         "statusDB": statusDb,
         "__v": v,
       };
@@ -72,3 +76,31 @@ class Geolocation {
         "lng": lng,
       };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// To parse this JSON data, do
+//
+//     final ticket = ticketFromMap(jsonString);
+
