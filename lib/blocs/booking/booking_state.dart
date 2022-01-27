@@ -17,7 +17,7 @@ class BookingState extends Equatable {
   final String selectedItemWakureId;
   final String selectedItemClient;
   final String selectedItemClientId;
-  final List<String> selectedDay;
+  final List<int> selectedDay;
 
   BookingState({
     String? dateFrom,
@@ -35,7 +35,7 @@ class BookingState extends Equatable {
     String? selectedItemWakureId,
     String? selectedItemClient,
     String? selectedItemClientId,
-    List<String>? selectedDay,
+    List<int>? selectedDay,
   })  : dateFrom = dateFrom ?? '',
         dateTo = dateTo ?? '',
         timeFrom = timeFrom ?? '',
@@ -70,7 +70,7 @@ class BookingState extends Equatable {
     String? selectedItemWakureId,
     String? selectedItemClient,
     String? selectedItemClientId,
-    List<String>? selectedDay,
+    List<int>? selectedDay,
   }) =>
       BookingState(
         dateFrom: dateFrom ?? this.dateFrom,

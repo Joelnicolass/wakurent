@@ -120,7 +120,6 @@ class wakure_info_card extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                
                 Container(
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,13 +135,13 @@ class wakure_info_card extends StatelessWidget {
                   ],
                 )),
                 const SizedBox(height: 50),
-                 NeumorphicButton(
+                NeumorphicButton(
                   padding: EdgeInsets.symmetric(
                     horizontal: g.width * 0.05,
                     vertical: g.height * 0.015,
                   ),
                   onPressed: () {
-                    //TODO
+                    //TODO ///////////////////////////////////////////////////////
                   },
                   style: NeumorphicStyle(
                     depth: 1.5,
