@@ -61,3 +61,13 @@ class VerifyAvailability extends BookingEvent {
     required this.id,
   });
 }
+
+class SelectedItemEvent extends BookingEvent {
+  final String item;
+  final String id;
+
+  SelectedItemEvent({
+    required this.item,
+    required this.id,
+  });
+}

@@ -80,6 +80,9 @@ class _bookingForm_cardState extends State<bookingForm_card> {
   Widget build(BuildContext context) {
     String users = 'User1';
 
+    final bookingBloc = BlocProvider.of<BookingBloc>(context);
+    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+
     return Container(
       width: g.width * 0.9,
       height: g.height * 0.8,
@@ -175,7 +178,19 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                                 ),
                               );
                             } else {
-                              String itemSelect = state.wakureList[0].name;
+                              String itemSelect =
+                                  bookingBloc.state.selectedItem;
+                              if (bookingBloc.state.selectedItem == '') {
+                                itemSelect =
+                                    bookingBloc.state.wakureList[0].name;
+                                bookingBloc.add(
+                                  SelectedItemEvent(
+                                      item:
+                                          bookingBloc.state.wakureList[0].name,
+                                      id: bookingBloc.state.wakureList[0].id),
+                                );
+                              }
+
                               return DropdownButtonHideUnderline(
                                 child: DropdownButton<String>(
                                   value: itemSelect,
@@ -187,8 +202,21 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                                       color: Colors.grey[400], fontSize: 18),
                                   onChanged: (String? newValue) {
                                     setState(() {
+                                      String idWakureSelected;
+
+                                      for (Wakure w
+                                          in bookingBloc.state.wakureList) {
+                                        if (w.name == newValue) {
+                                          idWakureSelected = w.wakureId;
+                                          bookingBloc.add(
+                                            SelectedItemEvent(
+                                                item: newValue!,
+                                                id: idWakureSelected),
+                                          );
+                                        }
+                                      }
+
                                       itemSelect = newValue!;
-                                      print(newValue);
                                     });
                                   },
                                   items: state.wakureList
@@ -213,7 +241,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
             SizedBox(
               height: 30,
             ),
-            DateTimeForm()
+            DateTimeForm(),
           ],
         ),
       ),

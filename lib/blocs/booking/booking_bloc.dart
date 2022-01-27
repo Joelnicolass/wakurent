@@ -12,15 +12,16 @@ part 'booking_state.dart';
 
 class BookingBloc extends Bloc<BookingEvent, BookingState> {
   BookingBloc() : super(BookingState()) {
-    on<SaveAllDateTimeEvent>(_SaveAllDateTimeEvent);
+    on<SaveAllDateTimeEvent>(_saveAllDateTimeEvent);
     on<SaveDateFromEvent>(_saveDateFromEvent);
     on<SaveDateToEvent>(_saveDateToEvent);
     on<SaveTimeFromEvent>(_saveTimeFromEvent);
     on<SaveTimeToEvent>(_saveTimeToEvent);
     on<VerifyAvailability>(_verifyAvailability);
+    on<SelectedItemEvent>(_selectedItemEvent);
   }
 
-  void _SaveAllDateTimeEvent(
+  void _saveAllDateTimeEvent(
       SaveAllDateTimeEvent event, Emitter<BookingState> emit) {
     //copywith
     emit(state.copyWith(
@@ -109,6 +110,15 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     //copywith
     emit(state.copyWith(
       wakureList: wakures,
+    ));
+  }
+
+  // event selected item
+  _selectedItemEvent(
+      SelectedItemEvent event, Emitter<BookingState> emit) async {
+    emit(state.copyWith(
+      selectedItem: event.item,
+      selectedItemId: event.id,
     ));
   }
 }

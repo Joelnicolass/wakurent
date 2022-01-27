@@ -132,8 +132,9 @@ class _DateTimeFormState extends State<DateTimeForm> {
                       ),
                       style: button_style(),
                       onPressed: () {
-                        _saveAllDateTime();
-                        formKey.currentState?.reset();
+                        print(bookingBloc.state.selectedItemId);
+                        /* _saveAllDateTime();
+                        formKey.currentState?.reset(); */
                       },
                     ),
                     NeumorphicButton(
