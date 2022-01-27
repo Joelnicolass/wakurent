@@ -45,7 +45,8 @@ class _AddBooking_ViewState extends State<AddBooking_View> {
                   endTime: '',
                   startDate: '',
                   startTime: '',
-                  wakureList: <Wakure>[]),
+                  wakureList: <Wakure>[],
+                  stateBtnReservation: false),
             );
 
             // back to previous page cleaning context

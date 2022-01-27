@@ -62,7 +62,8 @@ class _DateTimeFormState extends State<DateTimeForm> {
             endTime: '',
             startDate: '',
             startTime: '',
-            wakureList: <Wakure>[]),
+            wakureList: <Wakure>[],
+            stateBtnReservation: false),
       );
     }
 

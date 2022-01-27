@@ -13,6 +13,7 @@ class SaveAllDateTimeEvent extends BookingEvent {
   final String startTime;
   final String endTime;
   final List<Wakure> wakureList;
+  final bool stateBtnReservation;
 
   SaveAllDateTimeEvent({
     required this.startDate,
@@ -20,6 +21,7 @@ class SaveAllDateTimeEvent extends BookingEvent {
     required this.startTime,
     required this.endTime,
     required this.wakureList,
+    required this.stateBtnReservation,
   });
 }
 
@@ -79,5 +81,13 @@ class SelectedItemClientEvent extends BookingEvent {
   SelectedItemClientEvent({
     required this.item,
     required this.id,
+  });
+}
+
+class StateBtnReservationEvent extends BookingEvent {
+  final bool state;
+
+  StateBtnReservationEvent({
+    required this.state,
   });
 }

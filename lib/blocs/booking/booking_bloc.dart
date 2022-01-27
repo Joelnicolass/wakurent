@@ -30,7 +30,8 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         dateTo: event.endDate,
         timeFrom: event.startTime,
         timeTo: event.endTime,
-        wakureList: event.wakureList));
+        wakureList: event.wakureList,
+        stateBtnReservation: event.stateBtnReservation));
   }
 
   // event dateFrom
@@ -102,16 +103,30 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
       timeTo,
     );
 
+    if (req == null) {
+      emit(state.copyWith(wakureList: [], stateBtnReservation: false));
+      return;
+    }
+
     final wakuresAvailables = req['wakuresAvailable'] as List;
     // final wakuresUnavailables = req['wakuresUnavailable'] as List;
 
     final List<Wakure> wakures =
         ProcessResponse.getWakureList(wakuresAvailables);
 
-    //copywith
+    if (wakures.length >= 1) {
+      print('hay uno o mas wakures disponibles');
+      emit(state.copyWith(
+        wakureList: wakures,
+        stateBtnReservation: true,
+      ));
+      return;
+    }
     emit(state.copyWith(
       wakureList: wakures,
+      stateBtnReservation: false,
     ));
+    return;
   }
 
   // event selected item
