@@ -6,6 +6,7 @@ import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/helpers/process_response.dart';
 import 'package:walkiler/services/booking_service.dart';
+import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 class Booking_View extends StatefulWidget {
@@ -16,6 +17,8 @@ class Booking_View extends StatefulWidget {
 }
 
 class _Booking_ViewState extends State<Booking_View> {
+
+  //getTickets
   Future<void> resTickets() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final id = authBloc.state.user!.id;
@@ -28,9 +31,23 @@ class _Booking_ViewState extends State<Booking_View> {
     ticketBloc.add(OnGetTicketsEvent(tickets: tickets));
   }
 
+  // get friends
+  Future<void> resFriends() async {
+    final authBloc = BlocProvider.of<AuthBloc>(context);
+    final friendBloc = BlocProvider.of<FriendBloc>(context);
+    final httpRes = await FriendService.getFriends(authBloc.state.user!.id);
+
+    if (httpRes != null) {
+      List<dynamic> jsonList = httpRes as List;
+      final friends = ProcessResponse.getFriendList(jsonList);
+      friendBloc.add(OnGetFriendsEvent(friends: friends));
+    }
+  }
+
   @override
   void initState() {
     resTickets();
+    resFriends();
     super.initState();
   }
 
@@ -98,7 +115,7 @@ class _Booking_ViewState extends State<Booking_View> {
           ),
         );
       } else {
-        return Scaffold(
+          return Scaffold(
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),

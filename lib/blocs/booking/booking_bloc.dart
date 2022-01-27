@@ -19,6 +19,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<SaveTimeToEvent>(_saveTimeToEvent);
     on<VerifyAvailability>(_verifyAvailability);
     on<SelectedItemEvent>(_selectedItemEvent);
+    on<SelectedDayEvent>(_selectedDayEvent);
   }
 
   void _saveAllDateTimeEvent(
@@ -119,6 +120,14 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     emit(state.copyWith(
       selectedItem: event.item,
       selectedItemId: event.id,
+    ));
+  }
+
+  // selected Day of Week for available Wakures
+  _selectedDayEvent(
+      SelectedDayEvent event, Emitter<BookingState> emit) async {
+    emit(state.copyWith(
+      selectedDay: event.day,
     ));
   }
 }

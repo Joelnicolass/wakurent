@@ -16,6 +16,7 @@ class Guests_View extends StatefulWidget {
 }
 
 class _Guests_ViewState extends State<Guests_View> {
+  
   Future<void> resFriends() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final friendBloc = BlocProvider.of<FriendBloc>(context);

@@ -136,6 +136,41 @@ class wakure_info_card extends StatelessWidget {
                   ],
                 )),
                 const SizedBox(height: 50),
+                 NeumorphicButton(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: g.width * 0.05,
+                    vertical: g.height * 0.015,
+                  ),
+                  onPressed: () {
+                    //TODO
+                  },
+                  style: NeumorphicStyle(
+                    depth: 1.5,
+                    intensity: 0.8,
+                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+                    oppositeShadowLightSource: true,
+                    shape: NeumorphicShape.convex,
+                    boxShape:
+                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
+                      topLeft: Radius.circular(25),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(0),
+                      bottomRight: Radius.circular(25),
+                    )),
+                  ),
+                  child: Container(
+                    width: g.width * 0.28,
+                    child: const Center(
+                      child: Text(
+                        'CONFIRMAR',
+                        style: TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 50),
                 NeumorphicButton(
                   padding: EdgeInsets.symmetric(
                     horizontal: g.width * 0.05,

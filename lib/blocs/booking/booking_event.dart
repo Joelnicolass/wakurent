@@ -71,3 +71,11 @@ class SelectedItemEvent extends BookingEvent {
     required this.id,
   });
 }
+
+class SelectedDayEvent extends BookingEvent {
+  final List<String> day;
+
+  SelectedDayEvent({
+    required this.day,
+  });
+}

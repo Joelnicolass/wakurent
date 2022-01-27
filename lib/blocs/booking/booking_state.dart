@@ -15,6 +15,7 @@ class BookingState extends Equatable {
   final bool stateBtnReservation;
   final String selectedItem;
   final String selectedItemId;
+  final List<String> selectedDay;
 
   BookingState({
     String? dateFrom,
@@ -30,6 +31,7 @@ class BookingState extends Equatable {
     bool? stateBtnReservation,
     String? selectedItem,
     String? selectedItemId,
+    List<String>? selectedDay,
   })  : dateFrom = dateFrom ?? '',
         dateTo = dateTo ?? '',
         timeFrom = timeFrom ?? '',
@@ -42,7 +44,8 @@ class BookingState extends Equatable {
         validate = validate ?? false,
         stateBtnReservation = stateBtnReservation ?? false,
         selectedItem = selectedItem ?? '',
-        selectedItemId = selectedItemId ?? '';
+        selectedItemId = selectedItemId ?? '',
+        selectedDay = selectedDay ?? [];
 
   //copyWith
   BookingState copyWith({
@@ -59,6 +62,7 @@ class BookingState extends Equatable {
     bool? stateBtnReservation,
     String? selectedItem,
     String? selectedItemId,
+    List<String>? selectedDay,
   }) =>
       BookingState(
         dateFrom: dateFrom ?? this.dateFrom,
@@ -74,6 +78,7 @@ class BookingState extends Equatable {
         stateBtnReservation: stateBtnReservation ?? this.stateBtnReservation,
         selectedItem: selectedItem ?? this.selectedItem,
         selectedItemId: selectedItemId ?? this.selectedItemId,
+        selectedDay: selectedDay ?? this.selectedDay,
       );
 
   @override
@@ -91,5 +96,6 @@ class BookingState extends Equatable {
         stateBtnReservation,
         selectedItem,
         selectedItemId,
+        selectedDay,
       ];
 }
