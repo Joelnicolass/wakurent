@@ -12,12 +12,14 @@ class SaveAllDateTimeEvent extends BookingEvent {
   final String endDate;
   final String startTime;
   final String endTime;
+  final List<Wakure> wakureList;
 
   SaveAllDateTimeEvent({
     required this.startDate,
     required this.endDate,
     required this.startTime,
     required this.endTime,
+    required this.wakureList,
   });
 }
 
@@ -50,5 +52,12 @@ class SaveTimeToEvent extends BookingEvent {
 
   SaveTimeToEvent({
     required this.timeTo,
+  });
+}
+
+class VerifyAvailability extends BookingEvent {
+  final String id;
+  VerifyAvailability({
+    required this.id,
   });
 }

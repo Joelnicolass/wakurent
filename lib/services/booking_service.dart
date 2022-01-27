@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
@@ -89,6 +90,35 @@ class BookingService {
       );
 
       return response;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+  // get available wakures
+
+  static Future verifyAvailability(String userId, String dateFrom,
+      String dateTo, String timeFrom, String TimeTo) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
+      response = await dio.post(
+          'http://' + g.ip + ':5000/api/booking/' + userId + '/verify',
+          data: {
+            'dateFrom': dateFrom,
+            'dateTo': dateTo,
+            'timeFrom': timeFrom,
+            'timeTo': TimeTo,
+          });
+
+      return response.data;
     } on DioError catch (e) {
       return e.response;
     }

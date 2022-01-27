@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:intl/intl.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
+import 'package:lottie/lottie.dart';
+import 'package:walkiler/blocs/auth/auth_bloc.dart';
 import 'package:walkiler/blocs/booking/booking_bloc.dart';
+import 'package:walkiler/models/models.dart';
 
 import '../globals.dart' as g;
 
@@ -57,7 +60,11 @@ class _DateTimeFormState extends State<DateTimeForm> {
       final bookingBloc = BlocProvider.of<BookingBloc>(context);
       bookingBloc.add(
         SaveAllDateTimeEvent(
-            endDate: '', endTime: '', startDate: '', startTime: ''),
+            endDate: '',
+            endTime: '',
+            startDate: '',
+            startTime: '',
+            wakureList: <Wakure>[]),
       );
     }
 
@@ -142,7 +149,16 @@ class _DateTimeFormState extends State<DateTimeForm> {
                         ],
                       ),
                       style: button_style(),
-                      onPressed: () => formKey.currentState?.save(),
+                      onPressed: () {
+                        formKey.currentState?.save();
+                        final authBloc = BlocProvider.of<AuthBloc>(context);
+                        final bookingBloc =
+                            BlocProvider.of<BookingBloc>(context);
+                        bookingBloc.add(
+                          VerifyAvailability(id: authBloc.state.user!.id),
+                        );
+                        //TODO cambiar estado al boton de reservar si hay wakures disponibles
+                      },
                     ),
                   ],
                 ),
@@ -165,7 +181,47 @@ class _DateTimeFormState extends State<DateTimeForm> {
                         style: TextStyle(color: Colors.white, fontSize: 15)),
                   ],
                 ),
-                onPressed: () => formKey.currentState?.save(),
+                onPressed: () {
+                  final bookingBloc = BlocProvider.of<BookingBloc>(context);
+                  if (bookingBloc.state.stateBtnReservation == false) {
+                    // popup for alert
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Center(
+                            child:
+                                Text('Error', style: TextStyle(fontSize: 20)),
+                          ),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Lottie.asset(
+                                'assets/alert.json',
+                                width: g.width * 0.4,
+                                height: g.height * 0.2,
+                              ),
+                              Text('Debe validar antes de reservar'),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            FlatButton(
+                              child: Text('Ok'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                    return;
+                  } else {
+                    print('se reserva');
+                    formKey.currentState?.save();
+                    //TODO hacer post a api
+                  }
+                },
                 style: button_style(),
               ),
             ),

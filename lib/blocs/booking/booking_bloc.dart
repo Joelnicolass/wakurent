@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/helpers/process_response.dart';
+import 'package:walkiler/models/models.dart';
+import 'package:walkiler/services/booking_service.dart';
 
 part 'booking_event.dart';
 part 'booking_state.dart';
@@ -11,6 +17,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<SaveDateToEvent>(_saveDateToEvent);
     on<SaveTimeFromEvent>(_saveTimeFromEvent);
     on<SaveTimeToEvent>(_saveTimeToEvent);
+    on<VerifyAvailability>(_verifyAvailability);
   }
 
   void _SaveAllDateTimeEvent(
@@ -20,7 +27,8 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         dateFrom: event.startDate,
         dateTo: event.endDate,
         timeFrom: event.startTime,
-        timeTo: event.endTime));
+        timeTo: event.endTime,
+        wakureList: event.wakureList));
   }
 
   // event dateFrom
@@ -65,5 +73,42 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
         dateTo: state.dateTo,
         timeFrom: state.timeFrom,
         timeTo: event.timeTo));
+  }
+
+  // event verify availability
+
+  Future<void> _verifyAvailability(
+      VerifyAvailability event, Emitter<BookingState> emit) async {
+    final id = event.id;
+    final dateFrom = state.dateFrom;
+    final dateTo = state.dateTo;
+    final timeFrom = state.timeFrom;
+    final timeTo = state.timeTo;
+
+    if (dateFrom == "" || dateTo == "" || timeFrom == "" || timeTo == "") {
+      emit(state.copyWith(
+        wakureList: [],
+      ));
+      return;
+    }
+
+    final req = await BookingService.verifyAvailability(
+      id,
+      dateFrom,
+      dateTo,
+      timeFrom,
+      timeTo,
+    );
+
+    final wakuresAvailables = req['wakuresAvailable'] as List;
+    // final wakuresUnavailables = req['wakuresUnavailable'] as List;
+
+    final List<Wakure> wakures =
+        ProcessResponse.getWakureList(wakuresAvailables);
+
+    //copywith
+    emit(state.copyWith(
+      wakureList: wakures,
+    ));
   }
 }

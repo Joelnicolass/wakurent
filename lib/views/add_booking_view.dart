@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/models/models.dart';
 import 'package:walkiler/widgets/booking_form.dart';
 
 import 'package:walkiler/globals.dart' as g;
@@ -39,6 +40,16 @@ class _AddBooking_ViewState extends State<AddBooking_View> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_outlined),
           onPressed: () {
+            final bookingBloc = BlocProvider.of<BookingBloc>(context);
+            bookingBloc.add(
+              SaveAllDateTimeEvent(
+                  endDate: '',
+                  endTime: '',
+                  startDate: '',
+                  startTime: '',
+                  wakureList: <Wakure>[]),
+            );
+
             // back to previous page cleaning context
             Navigator.pop(context);
           },
@@ -68,7 +79,6 @@ class _bookingForm_cardState extends State<bookingForm_card> {
   @override
   Widget build(BuildContext context) {
     String users = 'User1';
-    String wakures = 'Wakure1';
 
     return Container(
       width: g.width * 0.9,
@@ -135,32 +145,64 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: [
-                      Container(child: Icon(Icons.electric_scooter_rounded, color: Colors.grey)),
+                      Container(
+                          child: Icon(Icons.electric_scooter_rounded,
+                              color: Colors.grey)),
                       SizedBox(width: 20),
                       Container(
                         width: g.width * 0.52,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: wakures,
-                            isExpanded: true,
-                            icon:
-                                const Icon(Icons.arrow_drop_down, color: g.red),
-                            dropdownColor: g.background,
-                            style: TextStyle(
-                                color: Colors.grey[400], fontSize: 18),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                users = newValue!;
-                              });
-                            },
-                            items: <String>['Wakure1', 'Wakure2', 'Wakure3', 'Wakure4']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
+                        child: BlocConsumer<BookingBloc, BookingState>(
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            if (state.wakureList.isEmpty) {
+                              return DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  hint: Text('No hay wakures disponibles',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.grey[700])),
+                                  value: null,
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_drop_down,
+                                      color: Colors.grey),
+                                  dropdownColor: g.background,
+                                  style: TextStyle(
+                                      color: Colors.grey[400], fontSize: 18),
+                                  onChanged: (String? newValue) {
+                                    setState(() {});
+                                  },
+                                  items: [],
+                                ),
                               );
-                            }).toList(),
-                          ),
+                            } else {
+                              String itemSelect = state.wakureList[0].name;
+                              return DropdownButtonHideUnderline(
+                                child: DropdownButton<String>(
+                                  value: itemSelect,
+                                  isExpanded: true,
+                                  icon: const Icon(Icons.arrow_drop_down,
+                                      color: g.red),
+                                  dropdownColor: g.background,
+                                  style: TextStyle(
+                                      color: Colors.grey[400], fontSize: 18),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      itemSelect = newValue!;
+                                      print(newValue);
+                                    });
+                                  },
+                                  items: state.wakureList
+                                      .map<DropdownMenuItem<String>>(
+                                          (Wakure wakure) {
+                                    return DropdownMenuItem<String>(
+                                      value: wakure.name,
+                                      child: Text(wakure.name),
+                                    );
+                                  }).toList(),
+                                ),
+                              );
+                            }
+                          },
                         ),
                       ),
                     ],
