@@ -178,4 +178,31 @@ class BookingService {
       return e.response;
     }
   }
+  // save available days
+
+  static Future saveAvailableDays(
+      String userId, String wakureId, List<int> days) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      final token = await SecureStorage.getToken();
+
+      // dio option send ath token
+      dio.options.headers = {
+        'auth': token,
+      };
+      response = await dio.put(
+        'http://' + g.ip + ':5000/api/booking/' + userId + '/availabledays',
+        data: {
+          'wakureId': wakureId,
+          'days': days,
+        },
+      );
+
+      return response.data;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
 }

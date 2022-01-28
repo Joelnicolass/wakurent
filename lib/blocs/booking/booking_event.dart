@@ -114,3 +114,15 @@ class ProcessRequest extends BookingEvent {
     required this.state,
   });
 }
+
+class SaveAvailableDaysEvent extends BookingEvent {
+  final List<int> days;
+  final wakureId;
+  final userId;
+
+  SaveAvailableDaysEvent({
+    required this.days,
+    required this.wakureId,
+    required this.userId,
+  });
+}

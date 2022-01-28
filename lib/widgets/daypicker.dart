@@ -9,8 +9,6 @@ import 'package:walkiler/services/booking_service.dart';
 import '../globals.dart' as g;
 
 class DayPicker_View extends StatefulWidget {
-  //TODO get available days from server
-
   String wakureId;
 
   DayPicker_View({Key? key, required this.wakureId}) : super(key: key);
@@ -20,13 +18,10 @@ class DayPicker_View extends StatefulWidget {
 }
 
 class _DayPicker_ViewState extends State<DayPicker_View> {
-  // List<DayInWeek> days = DaysHandler.getListDaysInWeekFromListInt([1, 3, 4, 6]);
-
   void getSelectedDays() {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final bookingBloc = BlocProvider.of<BookingBloc>(context);
     final id = authBloc.state.user!.id;
-    //bookingBloc.add(ProcessRequest(state: true));
     bookingBloc.add(GetAvailableDaysEvent(id: id, wakureId: widget.wakureId));
   }
 
@@ -47,7 +42,7 @@ class _DayPicker_ViewState extends State<DayPicker_View> {
     return BlocBuilder<BookingBloc, BookingState>(
       builder: (context, state) {
         if (state.processRequest == true) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(
               valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
             ),

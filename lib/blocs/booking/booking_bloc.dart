@@ -22,6 +22,7 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<SelectedItemClientEvent>(_selectedItemClientEvent);
     on<SelectedDayEvent>(_selectedDayEvent);
     on<GetAvailableDaysEvent>(_getAvailableDaysEvent);
+    on<SaveAvailableDaysEvent>(_saveAvailableDaysEvent);
 
     on<ProcessRequest>(_processRequest);
   }
@@ -174,6 +175,35 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
       processRequest: false,
       availableDays: daysNumber,
     ));
+  }
+
+  // save available days
+  _saveAvailableDaysEvent(
+      SaveAvailableDaysEvent event, Emitter<BookingState> emit) async {
+    emit(state.copyWith(
+      processRequest: true,
+    ));
+
+    final String userId = event.userId;
+    final String wakureId = event.wakureId;
+    final List<int> days = event.days;
+
+    final req = await BookingService.saveAvailableDays(userId, wakureId, days);
+
+    if (req == null) {
+      emit(state.copyWith(
+        processRequest: false,
+      ));
+      return;
+    }
+
+    emit(state.copyWith(
+      availableDays: event.days,
+      selectedDays: [],
+      processRequest: false,
+    ));
+
+    return;
   }
 
   // process request

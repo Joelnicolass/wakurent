@@ -146,7 +146,13 @@ class wakure_info_card extends StatelessWidget {
                     vertical: g.height * 0.015,
                   ),
                   onPressed: () {
-                    //TODO ///////////////////////////////////////////////////////
+                    final bookingBloc = BlocProvider.of<BookingBloc>(context);
+                    final days = bookingBloc.state.selectedDays;
+                    final authBloc = BlocProvider.of<AuthBloc>(context);
+                    final userId = authBloc.state.user!.id;
+                    bookingBloc.add(SaveAvailableDaysEvent(
+                        days: days, wakureId: wakureId, userId: userId));
+                    print(days);
                   },
                   style: NeumorphicStyle(
                     depth: 1.5,
