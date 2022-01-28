@@ -16,7 +16,6 @@ class Guests_View extends StatefulWidget {
 }
 
 class _Guests_ViewState extends State<Guests_View> {
-  
   Future<void> resFriends() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final friendBloc = BlocProvider.of<FriendBloc>(context);
@@ -50,7 +49,8 @@ class _Guests_ViewState extends State<Guests_View> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
-                  Navigator.pushNamed(context, 'menu_view');
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('menu_view', (route) => false);
               },
             ),
             iconTheme: const IconThemeData(
@@ -103,7 +103,8 @@ class _Guests_ViewState extends State<Guests_View> {
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () =>  Navigator.of(context)
+                    .pushNamedAndRemoveUntil('menu_view', (route) => false)
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
