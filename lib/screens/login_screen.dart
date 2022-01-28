@@ -91,13 +91,13 @@ class loginView extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: GestureDetector(
-          onTap: () {
-            final userBloc = BlocProvider.of<UserBloc>(context);
-            userBloc.add(ClearRegisterErrorEvent());
-            Navigator.pushNamed(context, 'register_view');
-          },
-          child: const Text('Crear una cuenta')),
+      // floatingActionButton: GestureDetector(
+      //     onTap: () {
+      //       final userBloc = BlocProvider.of<UserBloc>(context);
+      //       userBloc.add(ClearRegisterErrorEvent());
+      //       Navigator.pushNamed(context, 'register_view');
+      //     },
+      //     child: const Text('Crear una cuenta')),
     );
   }
 }
@@ -214,10 +214,13 @@ class login_form extends StatelessWidget {
                 ),
               ),
             ),
-            // create button
-            const SizedBox(
-              height: 20,
-            ),
+            GestureDetector(
+                onTap: () {
+                  final userBloc = BlocProvider.of<UserBloc>(context);
+                  userBloc.add(ClearRegisterErrorEvent());
+                  Navigator.pushNamed(context, 'register_view');
+                },
+                child: const Text('Crear una cuenta', style: TextStyle(decoration: TextDecoration.underline, color: Colors.grey),)),
           ],
         ),
       ),
