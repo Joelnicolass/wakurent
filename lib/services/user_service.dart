@@ -87,6 +87,8 @@ class UserService {
     }
   }
 
+  // add newFriend
+
   static Future addFriend(String userId, String name, String surname,
       String address, String password, String email, String phone) async {
     try {
@@ -121,4 +123,7 @@ class UserService {
       return e.response;
     }
   }
+
+  // TODO  ---> ADD QUICKFRIEND (QR id)
+
 }

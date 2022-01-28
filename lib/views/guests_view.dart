@@ -50,7 +50,7 @@ class _Guests_ViewState extends State<Guests_View> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
-                Navigator.pop(context);
+                  Navigator.pushNamed(context, 'menu_view');
               },
             ),
             iconTheme: const IconThemeData(
@@ -125,7 +125,6 @@ class _Guests_ViewState extends State<Guests_View> {
                       itemCount: state.friends.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         final item = state.friends[index].id.toString();
-
                         return Dismissible(
                           key: UniqueKey(),
                           onDismissed: (direction) {

@@ -20,5 +20,5 @@ class FriendState extends Equatable {
   }
 
   @override
-  List<Object> get props => [friends];
+  List<Object> get props => [friends, processRequest];
 }

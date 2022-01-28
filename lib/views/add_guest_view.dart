@@ -40,16 +40,11 @@ class AddGuest_View extends StatelessWidget {
   }
 }
 
-class add_guest_form extends StatefulWidget {
+class add_guest_form extends StatelessWidget {
   const add_guest_form({
     Key? key,
   }) : super(key: key);
 
-  @override
-  State<add_guest_form> createState() => _add_guest_formState();
-}
-
-class _add_guest_formState extends State<add_guest_form> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -210,8 +205,11 @@ class _add_guest_formState extends State<add_guest_form> {
               ),
               onPressed: () {
                 final authBloc = BlocProvider.of<AuthBloc>(context);
-                final userBloc = BlocProvider.of<UserBloc>(context);
-                userBloc.add(AddFriend(
+                final friendBloc = BlocProvider.of<FriendBloc>(context);
+
+                friendBloc.add(ProcessRequestFriendEvent());
+
+                friendBloc.add(AddFriend(
                     userId: authBloc.state.user!.id,
                     name: g.name,
                     surname: g.surname,
@@ -219,6 +217,17 @@ class _add_guest_formState extends State<add_guest_form> {
                     email: g.email,
                     password: 'WAKURECLIENT',
                     phone: g.phone));
+
+                //reset data
+                g.name = '';
+                g.surname = '';
+                g.address = '';
+                g.email = '';
+                g.password = '';
+                g.phone = '';
+
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    'processResponseAddFriend', (route) => false);
               },
               style: NeumorphicStyle(
                 depth: 1.5,
