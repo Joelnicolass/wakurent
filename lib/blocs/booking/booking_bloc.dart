@@ -21,6 +21,9 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
     on<SelectedItemWakureEvent>(_selectedItemWakureEvent);
     on<SelectedItemClientEvent>(_selectedItemClientEvent);
     on<SelectedDayEvent>(_selectedDayEvent);
+    on<GetAvailableDaysEvent>(_getAvailableDaysEvent);
+
+    on<ProcessRequest>(_processRequest);
   }
 
   void _saveAllDateTimeEvent(
@@ -150,7 +153,33 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
   // selected Day of Week for available Wakures
   _selectedDayEvent(SelectedDayEvent event, Emitter<BookingState> emit) async {
     emit(state.copyWith(
-      selectedDay: event.day,
+      selectedDays: event.day,
+    ));
+  }
+
+  // get available days
+  _getAvailableDaysEvent(
+      GetAvailableDaysEvent event, Emitter<BookingState> emit) async {
+    final availableDays =
+        await BookingService.getAvailableDays(event.id, event.wakureId);
+
+    // convert to list int
+    final daysList = availableDays['availablesDays'] as List;
+
+    final daysNumber = daysList.map((e) {
+      return int.parse("$e");
+    }).toList();
+
+    emit(state.copyWith(
+      processRequest: false,
+      availableDays: daysNumber,
+    ));
+  }
+
+  // process request
+  _processRequest(ProcessRequest event, Emitter<BookingState> emit) async {
+    emit(state.copyWith(
+      processRequest: true,
     ));
   }
 }

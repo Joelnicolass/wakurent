@@ -84,21 +84,24 @@ class _WakureInfo_ViewState extends State<WakureInfo_View> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: const Center(
-        child: wakure_info_card(),
+      body: Center(
+        child: wakure_info_card(
+          wakureId: args['wakureId'],
+        ),
       ),
     );
   }
 }
 
 class wakure_info_card extends StatelessWidget {
-  const wakure_info_card({
-    Key? key,
-  }) : super(key: key);
+  String wakureId;
+
+  wakure_info_card({Key? key, required this.wakureId}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final wakureBloc = BlocProvider.of<WakureBloc>(context);
+    final bookingBloc = BlocProvider.of<BookingBloc>(context);
+    bookingBloc.add(ProcessRequest(state: true));
 
     return Container(
       width: g.width * 0.9,
@@ -131,7 +134,9 @@ class wakure_info_card extends StatelessWidget {
                         style: TextStyle(fontSize: 16, color: Colors.grey),
                       ),
                     ),
-                    DayPicker_View(),
+                    DayPicker_View(
+                      wakureId: wakureId,
+                    ),
                   ],
                 )),
                 const SizedBox(height: 50),

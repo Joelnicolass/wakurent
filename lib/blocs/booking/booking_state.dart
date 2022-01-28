@@ -17,7 +17,9 @@ class BookingState extends Equatable {
   final String selectedItemWakureId;
   final String selectedItemClient;
   final String selectedItemClientId;
-  final List<int> selectedDay;
+  final List<int> selectedDays;
+  final List<int> availableDays;
+  final bool processRequest;
 
   BookingState({
     String? dateFrom,
@@ -35,7 +37,9 @@ class BookingState extends Equatable {
     String? selectedItemWakureId,
     String? selectedItemClient,
     String? selectedItemClientId,
-    List<int>? selectedDay,
+    List<int>? selectedDays,
+    List<int>? availableDays,
+    bool? processRequest,
   })  : dateFrom = dateFrom ?? '',
         dateTo = dateTo ?? '',
         timeFrom = timeFrom ?? '',
@@ -51,7 +55,9 @@ class BookingState extends Equatable {
         selectedItemWakureId = selectedItemWakureId ?? '',
         selectedItemClient = selectedItemClient ?? '',
         selectedItemClientId = selectedItemClientId ?? '',
-        selectedDay = selectedDay ?? [];
+        selectedDays = selectedDays ?? [],
+        availableDays = availableDays ?? [],
+        processRequest = processRequest ?? false;
 
   //copyWith
   BookingState copyWith({
@@ -70,7 +76,9 @@ class BookingState extends Equatable {
     String? selectedItemWakureId,
     String? selectedItemClient,
     String? selectedItemClientId,
-    List<int>? selectedDay,
+    List<int>? selectedDays,
+    List<int>? availableDays,
+    bool? processRequest,
   }) =>
       BookingState(
         dateFrom: dateFrom ?? this.dateFrom,
@@ -88,7 +96,9 @@ class BookingState extends Equatable {
         selectedItemWakureId: selectedItemWakureId ?? this.selectedItemWakureId,
         selectedItemClient: selectedItemClient ?? this.selectedItemClient,
         selectedItemClientId: selectedItemClientId ?? this.selectedItemClientId,
-        selectedDay: selectedDay ?? this.selectedDay,
+        selectedDays: selectedDays ?? this.selectedDays,
+        availableDays: availableDays ?? this.availableDays,
+        processRequest: processRequest ?? this.processRequest,
       );
 
   @override
@@ -108,6 +118,8 @@ class BookingState extends Equatable {
         selectedItemWakureId,
         selectedItemClient,
         selectedItemClientId,
-        selectedDay,
+        selectedDays,
+        availableDays,
+        processRequest,
       ];
 }

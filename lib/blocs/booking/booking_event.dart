@@ -99,3 +99,18 @@ class SelectedDayEvent extends BookingEvent {
     required this.day,
   });
 }
+
+class GetAvailableDaysEvent extends BookingEvent {
+  final String id;
+  final String wakureId;
+
+  GetAvailableDaysEvent({required this.id, required this.wakureId});
+}
+
+class ProcessRequest extends BookingEvent {
+  final bool state;
+
+  ProcessRequest({
+    required this.state,
+  });
+}
