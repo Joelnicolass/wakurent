@@ -48,7 +48,9 @@ class _DayPicker_ViewState extends State<DayPicker_View> {
       builder: (context, state) {
         if (state.processRequest == true) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+            ),
           );
         }
 
@@ -72,7 +74,12 @@ class _DayPicker_ViewState extends State<DayPicker_View> {
                   borderRadius: BorderRadius.circular(30.0),
                 ),
                 onSelect: (values) {
-                  bookingBloc.add(SelectedDayEvent(day: values));
+                  List<int> days = [];
+                  values.forEach((value) {
+                    days.add(DaysHandler.getSelectedDayfromString(value));
+                  });
+                  bookingBloc.add(SelectedDayEvent(day: days));
+                  print(days);
                 },
               ),
             ),

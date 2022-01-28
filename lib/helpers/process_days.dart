@@ -1,6 +1,36 @@
 import 'package:day_picker/model/day_in_week.dart';
 
 class DaysHandler {
+  static int getSelectedDayfromString(String day) {
+    int selectedDay = 0;
+    switch (day) {
+      case 'Dom':
+        selectedDay = 0;
+        break;
+      case 'Lun':
+        selectedDay = 1;
+        break;
+      case 'Mar':
+        selectedDay = 2;
+        break;
+      case 'Mie':
+        selectedDay = 3;
+        break;
+      case 'Jue':
+        selectedDay = 4;
+        break;
+      case 'Vie':
+        selectedDay = 5;
+        break;
+      case 'Sab':
+        selectedDay = 6;
+        break;
+      default:
+        break;
+    }
+    return selectedDay;
+  }
+
   static List<int> getSelectedDays(List<DayInWeek> daysString) {
     List<int> selectedDays = [];
 
