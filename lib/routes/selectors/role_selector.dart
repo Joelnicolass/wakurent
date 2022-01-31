@@ -24,18 +24,42 @@ class RoleSelector extends StatelessWidget {
 
             case "CLIENT":
               return Scaffold(
-                //responsive
-
                 body: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text("Hola, Cliente"),
+                      Text("Bienvenido/a"),
                       SizedBox(height: 20),
                       NeumorphicButton(
-                          child: Text('Agregar Wakure'),
-                          onPressed: () =>
-                              Navigator.pushNamed(context, 'addWakure_view'))
+                        padding: EdgeInsets.symmetric(
+                          horizontal: g.width * 0.1,
+                          vertical: g.height * 0.015,
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, 'addWakure_view');
+                        },
+                        style: NeumorphicStyle(
+                          depth: 1.5,
+                          intensity: 0.8,
+                          shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
+                          oppositeShadowLightSource: true,
+                          shape: NeumorphicShape.convex,
+                          boxShape: NeumorphicBoxShape.roundRect(
+                              const BorderRadius.only(
+                            topLeft: Radius.circular(25),
+                            topRight: Radius.circular(0),
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(25),
+                          )),
+                        ),
+                        child: const Text(
+                          'Agregar Wakure',
+                          style: TextStyle(
+                            fontSize: 20,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),

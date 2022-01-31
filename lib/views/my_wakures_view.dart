@@ -121,7 +121,6 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
                 height: g.height * 0.63,
                 child: ScrollConfiguration(
                     behavior: NoScrollGlow(),
-                    //TODO
                     child: ListView.builder(
                         itemCount: state.wakures.length,
                         itemBuilder: (BuildContext ctxt, int index) {

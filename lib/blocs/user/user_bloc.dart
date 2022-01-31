@@ -9,30 +9,11 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
+
   UserBloc() : super(UserState()) {
-    on<AddFriend>(_addFriend);
     on<RegisterUserErrorsEvent>(_registerUserErrors);
     on<ClearRegisterErrorEvent>(_clearRegisterError);
   }
-
-  Future<void> _addFriend(AddFriend event, Emitter<UserState> emit) async {
-    final Response response = await UserService.addFriend(
-      event.userId,
-      event.name,
-      event.surname,
-      event.address,
-      event.password,
-      event.email,
-      event.phone,
-    );
-
-    if (response.statusCode == 200) {
-      emit(state.copyWith(user: state.user, userCreated: true));
-    } else {
-      emit(state.copyWith(user: state.user, userCreated: false));
-    }
-  }
-
   Future<void> _registerUserErrors(
       RegisterUserErrorsEvent event, Emitter<UserState> emit) async {
     final Response response = await UserService.registerUser(
