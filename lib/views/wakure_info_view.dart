@@ -152,7 +152,6 @@ class wakure_info_card extends StatelessWidget {
                     final userId = authBloc.state.user!.id;
                     bookingBloc.add(SaveAvailableDaysEvent(
                         days: days, wakureId: wakureId, userId: userId));
-                    print(days);
                   },
                   style: NeumorphicStyle(
                     depth: 1.5,
