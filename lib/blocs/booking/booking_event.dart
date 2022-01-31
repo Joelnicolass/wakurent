@@ -12,6 +12,7 @@ class SaveAllDateTimeEvent extends BookingEvent {
   final String endDate;
   final String startTime;
   final String endTime;
+  final String price;
   final List<Wakure> wakureList;
   final bool stateBtnReservation;
 
@@ -20,6 +21,7 @@ class SaveAllDateTimeEvent extends BookingEvent {
     required this.endDate,
     required this.startTime,
     required this.endTime,
+    required this.price,
     required this.wakureList,
     required this.stateBtnReservation,
   });
@@ -54,6 +56,14 @@ class SaveTimeToEvent extends BookingEvent {
 
   SaveTimeToEvent({
     required this.timeTo,
+  });
+}
+
+class SavePriceEvent extends BookingEvent {
+  final String price;
+
+  SavePriceEvent({
+    required this.price,
   });
 }
 
@@ -125,4 +135,26 @@ class SaveAvailableDaysEvent extends BookingEvent {
     required this.wakureId,
     required this.userId,
   });
+}
+
+// add booking, generate ticket
+class AddBookingEvent extends BookingEvent {
+  final userId;
+  final clientId;
+  final wakureId;
+  final price;
+  final dateFrom;
+  final dateTo;
+  final timeFrom;
+  final timeTo;
+
+  AddBookingEvent(
+      {required this.userId,
+      required this.clientId,
+      required this.wakureId,
+      required this.price,
+      required this.dateFrom,
+      required this.dateTo,
+      required this.timeFrom,
+      required this.timeTo});
 }

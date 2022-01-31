@@ -17,7 +17,6 @@ class Booking_View extends StatefulWidget {
 }
 
 class _Booking_ViewState extends State<Booking_View> {
-
   //getTickets
   Future<void> resTickets() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
@@ -115,11 +114,12 @@ class _Booking_ViewState extends State<Booking_View> {
           ),
         );
       } else {
-          return Scaffold(
+        return Scaffold(
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context)
+                  .pushNamedAndRemoveUntil('menu_view', (route) => false),
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
@@ -140,7 +140,6 @@ class _Booking_ViewState extends State<Booking_View> {
                   child: ListView.builder(
                       itemCount: state.tickets.length,
                       itemBuilder: (BuildContext ctxt, int index) {
-
                         return booking_card(
                           clientName: state.tickets[index].client[0].name,
                           clientSurname: state.tickets[index].client[0].surname,

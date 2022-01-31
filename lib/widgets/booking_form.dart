@@ -62,8 +62,18 @@ class _DateTimeFormState extends State<DateTimeForm> {
             endTime: '',
             startDate: '',
             startTime: '',
+            price: '',
             wakureList: <Wakure>[],
             stateBtnReservation: false),
+      );
+    }
+
+    void _savePrice(String priceBooking) {
+      final bookingBloc = BlocProvider.of<BookingBloc>(context);
+      bookingBloc.add(
+        SavePriceEvent(
+          price: priceBooking,
+        ),
       );
     }
 
@@ -76,20 +86,20 @@ class _DateTimeFormState extends State<DateTimeForm> {
             label: 'Desde',
             function: _saveDateFrom,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: g.height * 0.01),
           ClockPicker(
             label: 'Horario',
             function: _saveTimeFrom,
           ),
-          SizedBox(height: 10),
+          SizedBox(height: g.height * 0.01),
 
           // separator with gradient
           Center(
             child: Container(
-              height: 2,
-              width: 350,
+              height: g.height * 0.001,
+              width: g.width * 0.8,
               //gradient vertical
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -102,17 +112,37 @@ class _DateTimeFormState extends State<DateTimeForm> {
             ),
           ),
 
-          SizedBox(height: 10),
+          SizedBox(height: g.height * 0.01),
           DateField(
             label: 'Hasta',
             function: _saveDateTo,
           ),
-          SizedBox(height: 5),
+          SizedBox(height: g.height * 0.01),
           ClockPicker(label: 'Horario', function: _saveTimeTo),
+          SizedBox(height: g.height * 0.01),
+          Center(
+            child: Container(
+              height: g.height * 0.001,
+              width: g.width * 0.8,
+              //gradient vertical
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Colors.white54,
+                    Colors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          SizedBox(height: g.height * 0.01),
 
-          // buttons
+          PriceField(function: _savePrice, label: 'Precio'),
+
           Padding(
-            padding: const EdgeInsets.only(left: 20, right: 20, top: 40),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 20),
             child: Center(
               child: Container(
                 width: g.width * 0.6,
@@ -141,7 +171,7 @@ class _DateTimeFormState extends State<DateTimeForm> {
                       child: Row(
                         children: [
                           Icon(Icons.check_outlined, color: Colors.grey),
-                          SizedBox(width: 5),
+                          SizedBox(width: g.height * 0.01),
                           Text('Validar',
                               style:
                                   TextStyle(color: Colors.white, fontSize: 15)),
@@ -157,7 +187,6 @@ class _DateTimeFormState extends State<DateTimeForm> {
                         bookingBloc.add(
                           VerifyAvailability(id: authBloc.state.user!.id),
                         );
-                        //TODO cambiar estado al boton de reservar si hay wakures disponibles
                       },
                     ),
                   ],
@@ -165,7 +194,7 @@ class _DateTimeFormState extends State<DateTimeForm> {
               ),
             ),
           ),
-          SizedBox(height: 20),
+          SizedBox(height: g.height * 0.02),
           Center(
             child: Container(
               width: g.width * 0.6,
@@ -213,10 +242,31 @@ class _DateTimeFormState extends State<DateTimeForm> {
                     );
                     return;
                   } else {
-                    print('se reserva');
                     formKey.currentState?.save();
-                    //TODO hacer post a api
+
+                    final userId =
+                        BlocProvider.of<AuthBloc>(context).state.user!.id;
+                    final clientId = bookingBloc.state.selectedItemClientId;
+                    final wakureId = bookingBloc.state.selectedItemWakureId;
+                    final price = bookingBloc.state.price;
+                    final dateFrom = bookingBloc.state.dateFrom;
+                    final dateTo = bookingBloc.state.dateTo;
+                    final timeFrom = bookingBloc.state.timeFrom;
+                    final timeTo = bookingBloc.state.timeTo;
+
+                    bookingBloc.add(AddBookingEvent(
+                        userId: userId,
+                        clientId: clientId,
+                        wakureId: wakureId,
+                        price: price,
+                        dateFrom: dateFrom,
+                        dateTo: dateTo,
+                        timeFrom: timeFrom,
+                        timeTo: timeTo));
                   }
+
+                  Navigator.of(context).pushNamedAndRemoveUntil(
+                      'processResponseAddBooking', (route) => false);
                 },
                 style: button_style(),
               ),
@@ -258,7 +308,7 @@ class DateField extends StatelessWidget {
     return Column(children: <Widget>[
       Row(
         children: [
-          SizedBox(width: 40),
+          SizedBox(width: g.height * 0.06),
           Expanded(
             child: DateTimeField(
               onChanged: (value) {
@@ -284,17 +334,17 @@ class DateField extends StatelessWidget {
                 return showDatePicker(
                     context: context,
                     firstDate: DateTime(1900),
-                    initialDate: currentValue ?? DateTime.now(),
+                    initialDate: DateTime.now(),
                     lastDate: DateTime(2100),
                     helpText: 'SELECCIONAR DÍA',
                     cancelText: 'CANCELAR',
                     builder: (context, child) {
                       return Theme(
                         data: ThemeData.dark().copyWith(
-                          timePickerTheme:
-                              TimePickerThemeData(backgroundColor: Colors.blue),
-                          colorScheme: ColorScheme.dark(
-                            primary: const Color(0xffE10B17),
+                          timePickerTheme: const TimePickerThemeData(
+                              backgroundColor: Colors.blue),
+                          colorScheme: const ColorScheme.dark(
+                            primary: Color(0xffE10B17),
                             onPrimary: Colors.white,
                             surface: g.background,
                             onSurface: Colors.white,
@@ -308,7 +358,7 @@ class DateField extends StatelessWidget {
             ),
           ),
           SizedBox(
-            width: 70,
+            width: g.width * 0.17,
           ),
         ],
       ),
@@ -333,7 +383,7 @@ class ClockPicker extends StatelessWidget {
     return Column(children: <Widget>[
       Row(
         children: [
-          SizedBox(width: 40),
+          SizedBox(width: g.height * 0.06),
           Expanded(
             child: DateTimeField(
               onChanged: (value) {
@@ -379,7 +429,70 @@ class ClockPicker extends StatelessWidget {
               },
             ),
           ),
-          SizedBox(width: 70),
+          SizedBox(width: g.width * 0.17),
+        ],
+      ),
+    ]);
+  }
+}
+
+class PriceField extends StatelessWidget {
+  final Function(String) function;
+  final String label;
+
+  // constructor
+  PriceField({Key? key, required this.function, required this.label})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: <Widget>[
+      Row(
+        children: [
+          SizedBox(width: g.width * 0.1),
+          Expanded(
+            child: FormField(
+              builder: (FormFieldState<String> state) {
+                return InputDecorator(
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    filled: true,
+                    fillColor: Colors.white10,
+                    icon: Icon(
+                      Icons.attach_money,
+                      color: Colors.grey,
+                    ),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Expanded(
+                        child: TextFormField(
+                          onSaved: (newValue) {
+                            print(BlocProvider.of<BookingBloc>(context).state);
+                          },
+                          onChanged: (value) {
+                            if (value != null) {
+                              function(value);
+                            }
+                          },
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            filled: true,
+                            fillColor: Colors.white10,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+          SizedBox(
+            width: g.width * 0.17,
+          ),
         ],
       ),
     ]);

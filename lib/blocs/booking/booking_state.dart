@@ -6,6 +6,7 @@ class BookingState extends Equatable {
   final String dateTo;
   final String timeFrom;
   final String timeTo;
+  final String price;
   final String clientId;
   final String wakureId;
   final String message;
@@ -26,6 +27,7 @@ class BookingState extends Equatable {
     String? dateTo,
     String? timeFrom,
     String? timeTo,
+    String? price,
     String? clientId,
     String? wakureId,
     String? message,
@@ -44,6 +46,7 @@ class BookingState extends Equatable {
         dateTo = dateTo ?? '',
         timeFrom = timeFrom ?? '',
         timeTo = timeTo ?? '',
+        price = price ?? '',
         clientId = clientId ?? '',
         wakureId = wakureId ?? '',
         message = message ?? '',
@@ -65,6 +68,7 @@ class BookingState extends Equatable {
     String? dateTo,
     String? timeFrom,
     String? timeTo,
+    String? price,
     String? clientId,
     String? wakureId,
     String? message,
@@ -85,6 +89,7 @@ class BookingState extends Equatable {
         dateTo: dateTo ?? this.dateTo,
         timeFrom: timeFrom ?? this.timeFrom,
         timeTo: timeTo ?? this.timeTo,
+        price: price ?? this.price,
         clientId: clientId ?? this.clientId,
         wakureId: wakureId ?? this.wakureId,
         message: message ?? this.message,
@@ -107,6 +112,7 @@ class BookingState extends Equatable {
         dateTo,
         timeFrom,
         timeTo,
+        price,
         clientId,
         wakureId,
         message,

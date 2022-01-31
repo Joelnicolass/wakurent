@@ -45,6 +45,7 @@ class _AddBooking_ViewState extends State<AddBooking_View> {
                   endTime: '',
                   startDate: '',
                   startTime: '',
+                  price: '',
                   wakureList: <Wakure>[],
                   stateBtnReservation: false),
             );
@@ -82,7 +83,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
 
     return Container(
       width: g.width * 0.9,
-      height: g.height * 0.8,
+      height: g.height * 0.85,
       child: Neumorphic(
         style: NeumorphicStyle(
           shape: NeumorphicShape.concave,
@@ -100,13 +101,13 @@ class _bookingForm_cardState extends State<bookingForm_card> {
             const SizedBox(height: 20),
             Center(
               child: Container(
-                width: 300,
+                width: g.width * 0.7,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
                     children: [
                       Container(child: Icon(Icons.person, color: Colors.grey)),
-                      SizedBox(width: 20),
+                      SizedBox(width: g.width * 0.02),
                       Container(
                         width: g.width * 0.52,
                         child: BlocConsumer<FriendBloc, FriendState>(
@@ -200,7 +201,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
             ),
             Center(
               child: Container(
-                width: 300,
+                width: g.width * 0.7,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: Row(
@@ -208,7 +209,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                       Container(
                           child: Icon(Icons.electric_scooter_rounded,
                               color: Colors.grey)),
-                      SizedBox(width: 20),
+                      SizedBox(width: g.width * 0.02),
                       Container(
                         width: g.width * 0.52,
                         child: BlocConsumer<BookingBloc, BookingState>(
@@ -302,7 +303,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
               ),
             ),
             SizedBox(
-              height: 30,
+              height: g.height * 0.02,
             ),
             DateTimeForm(),
           ],
