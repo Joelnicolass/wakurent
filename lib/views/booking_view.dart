@@ -10,6 +10,8 @@ import 'package:walkiler/services/booking_service.dart';
 import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
+import 'package:animate_do/animate_do.dart';
+
 class Booking_View extends StatefulWidget {
   Booking_View({Key? key}) : super(key: key);
 
@@ -140,24 +142,28 @@ class _Booking_ViewState extends State<Booking_View> {
                   child: ListView.builder(
                       itemCount: state.tickets.length,
                       itemBuilder: (BuildContext ctxt, int index) {
-                        return booking_card(
-                          clientName: state.tickets[index].client[0].name,
-                          clientSurname: state.tickets[index].client[0].surname,
-                          clientEmail: state.tickets[index].client[0].email,
-                          clientAddress: state.tickets[index].client[0].address,
-                          clientPhone: state.tickets[index].client[0].phone,
-                          ticketPrice: state.tickets[index].price,
-                          ticketId: state.tickets[index].id,
-                          ticketStatus: state.tickets[index].status,
-                          wakureName: state.tickets[index].wakure[0].name,
-                          dateFrom: state.tickets[index].dateFrom
-                              .toString()
-                              .substring(0, 10),
-                          dateTo: state.tickets[index].dateTo
-                              .toString()
-                              .substring(0, 10),
-                          timeFrom: state.tickets[index].timeFrom.toString(),
-                          timeTo: state.tickets[index].timeTo.toString(),
+                        return SlideInRight(
+                          child: booking_card(
+                            clientName: state.tickets[index].client[0].name,
+                            clientSurname:
+                                state.tickets[index].client[0].surname,
+                            clientEmail: state.tickets[index].client[0].email,
+                            clientAddress:
+                                state.tickets[index].client[0].address,
+                            clientPhone: state.tickets[index].client[0].phone,
+                            ticketPrice: state.tickets[index].price,
+                            ticketId: state.tickets[index].id,
+                            ticketStatus: state.tickets[index].status,
+                            wakureName: state.tickets[index].wakure[0].name,
+                            dateFrom: state.tickets[index].dateFrom
+                                .toString()
+                                .substring(0, 10),
+                            dateTo: state.tickets[index].dateTo
+                                .toString()
+                                .substring(0, 10),
+                            timeFrom: state.tickets[index].timeFrom.toString(),
+                            timeTo: state.tickets[index].timeTo.toString(),
+                          ),
                         );
                       }),
                 ),
