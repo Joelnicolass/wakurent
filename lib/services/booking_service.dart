@@ -71,7 +71,8 @@ class BookingService {
   // change status ticket
 
   static Future changeState(
-      String userId, String status, String ticketId) async {
+  
+      String ticketId, String userId, String status, ) async {
     try {
       Response response;
       var dio = Dio();
@@ -82,14 +83,17 @@ class BookingService {
       dio.options.headers = {
         'auth': token,
       };
-      response = await dio.post(
+      response = await dio.put(
         'http://' + g.ip + ':5000/api/booking/' + userId + '/updatestatus',
         data: {
           'id_ticket': ticketId,
           'status': status,
+
+          
         },
       );
-
+      print('response');
+      print(response);
       return response;
     } on DioError catch (e) {
       return e.response;

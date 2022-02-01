@@ -16,6 +16,7 @@ import 'package:walkiler/views/my_wakures_view.dart';
 import 'package:walkiler/views/add_guest_view.dart';
 import 'package:walkiler/views/register_view.dart';
 import 'package:walkiler/views/add_booking_view.dart';
+import 'package:walkiler/views/ticket_view.dart';
 import 'package:walkiler/views/wakure_info_view.dart';
 
 final Map<String, Widget Function(BuildContext)> appRoutes = {
@@ -36,5 +37,6 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'processResponseAddWakure': (_) => ProcessRequestAddWakure(),
   'processResponseAddFriend': (_) => ProcessRequestAddFriend(),
   'add_booking_view': (_) => AddBooking_View(),
+  'ticket_view': (_) => Ticket_View(),
 
 };

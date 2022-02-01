@@ -17,4 +17,14 @@ class OnGetTicketsEvent extends TicketEvent {
   List<Object> get props => [tickets];
 }
 
-// add new ticket
+// change status
+class ChangeStatusEvent extends TicketEvent {
+  final String status;
+  final String ticketId;
+  final String userId;
+
+  const ChangeStatusEvent({required this.status, required this.ticketId, required this.userId});
+
+  @override
+  List<Object> get props => [status, ticketId, userId];
+}

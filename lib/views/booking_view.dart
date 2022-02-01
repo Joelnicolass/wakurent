@@ -3,6 +3,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/helpers/process_response.dart';
 import 'package:walkiler/services/booking_service.dart';
@@ -17,7 +18,6 @@ class Booking_View extends StatefulWidget {
 }
 
 class _Booking_ViewState extends State<Booking_View> {
-
   //getTickets
   Future<void> resTickets() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
@@ -115,7 +115,7 @@ class _Booking_ViewState extends State<Booking_View> {
           ),
         );
       } else {
-          return Scaffold(
+        return Scaffold(
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),
@@ -140,10 +140,15 @@ class _Booking_ViewState extends State<Booking_View> {
                   child: ListView.builder(
                       itemCount: state.tickets.length,
                       itemBuilder: (BuildContext ctxt, int index) {
-
                         return booking_card(
                           clientName: state.tickets[index].client[0].name,
                           clientSurname: state.tickets[index].client[0].surname,
+                          clientEmail: state.tickets[index].client[0].email,
+                          clientAddress: state.tickets[index].client[0].address,
+                          clientPhone: state.tickets[index].client[0].phone,
+                          ticketPrice: state.tickets[index].price,
+                          ticketId: state.tickets[index].id,
+                          ticketStatus: state.tickets[index].status,
                           wakureName: state.tickets[index].wakure[0].name,
                           dateFrom: state.tickets[index].dateFrom
                               .toString()
@@ -176,7 +181,7 @@ class _Booking_ViewState extends State<Booking_View> {
   }
 }
 
-class booking_card extends StatelessWidget {
+class booking_card extends StatefulWidget {
   const booking_card({
     Key? key,
     required this.clientName,
@@ -186,6 +191,12 @@ class booking_card extends StatelessWidget {
     required this.dateTo,
     required this.timeFrom,
     required this.timeTo,
+    required this.clientEmail,
+    required this.clientAddress,
+    required this.clientPhone,
+    required this.ticketPrice,
+    required this.ticketId,
+    required this.ticketStatus,
   }) : super(key: key);
 
   final String clientName;
@@ -195,13 +206,55 @@ class booking_card extends StatelessWidget {
   final String dateTo;
   final String timeFrom;
   final String timeTo;
+  final String clientEmail;
+  final String clientAddress;
+  final String clientPhone;
+  final int ticketPrice;
+  final String ticketId;
+  final String ticketStatus;
 
   @override
+  State<booking_card> createState() => _booking_cardState();
+}
+
+class _booking_cardState extends State<booking_card> {
+  @override
   Widget build(BuildContext context) {
+    final ticketBloc = BlocProvider.of<TicketBloc>(context);
+    Color color = Colors.yellow;
+
+    setState(() {
+      if (ticketBloc.state.status == 'PENDING') {
+        color = Colors.yellow;
+      }
+      if (ticketBloc.state.status == 'CONFIRMED') {
+        color = Colors.green;
+      }
+      if (ticketBloc.state.status == 'CANCELLED') {
+        color = Colors.red;
+      }
+    });
+
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      onPressed: () {},
+      onPressed: () {
+        Navigator.pushNamed(context, 'ticket_view', arguments: {
+          'clientName': widget.clientName,
+          'clientSurname': widget.clientSurname,
+          'wakureName': widget.wakureName,
+          'dateFrom': widget.dateFrom,
+          'dateTo': widget.dateTo,
+          'timeFrom': widget.timeFrom,
+          'timeTo': widget.timeTo,
+          'clientEmail': widget.clientEmail,
+          'clientAddress': widget.clientAddress,
+          'clientPhone': widget.clientPhone,
+          'ticketPrice': widget.ticketPrice,
+          'ticketId': widget.ticketId,
+          'ticketStatus': widget.ticketStatus,
+        });
+      },
       style: NeumorphicStyle(
         depth: 1.5,
         intensity: 1,
@@ -228,18 +281,18 @@ class booking_card extends StatelessWidget {
                 ),
               ),
               Text(
-                wakureName,
+                widget.wakureName,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               SizedBox(
-                width: g.width * 0.08,
+                width: g.width * 0.21,
               ),
               CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: Icon(Icons.person, color: Colors.grey, size: 30),
               ),
               Text(
-                clientName + ' ' + clientSurname,
+                widget.clientName + ' ' + widget.clientSurname,
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
             ],
@@ -268,7 +321,7 @@ class booking_card extends StatelessWidget {
                             color: Colors.grey, size: 18),
                         SizedBox(width: 5),
                         Text(
-                          dateFrom,
+                          widget.dateFrom,
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
@@ -281,7 +334,7 @@ class booking_card extends StatelessWidget {
                         Icon(Icons.access_time, color: Colors.grey, size: 18),
                         SizedBox(width: 5),
                         Text(
-                          timeFrom,
+                          widget.timeFrom,
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
@@ -310,7 +363,7 @@ class booking_card extends StatelessWidget {
                             color: Colors.grey, size: 18),
                         SizedBox(width: 5),
                         Text(
-                          dateTo,
+                          widget.dateTo,
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
@@ -323,7 +376,7 @@ class booking_card extends StatelessWidget {
                         Icon(Icons.access_time, color: Colors.grey, size: 18),
                         SizedBox(width: 5),
                         Text(
-                          timeTo,
+                          widget.timeTo,
                           style: TextStyle(color: Colors.white, fontSize: 14),
                         ),
                       ],
@@ -331,6 +384,38 @@ class booking_card extends StatelessWidget {
                   ],
                 ),
               ),
+            ],
+          ),
+          SizedBox(height: 30),
+          Row(
+            children: [
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: const [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 1.0),
+                      child: Icon(Icons.attach_money_sharp,
+                          size: 20, color: Colors.grey),
+                    ),
+                    Text('550', style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ),
+              SizedBox(width: 180),
+              Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Icon(Icons.circle, size: 10, color: color),
+                    ),
+                    Text(ticketBloc.state.status,
+                        style: TextStyle(fontSize: 16)),
+                  ],
+                ),
+              )
             ],
           ),
         ],

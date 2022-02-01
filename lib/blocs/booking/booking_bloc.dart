@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/process_response.dart';
 import 'package:walkiler/models/models.dart';
 import 'package:walkiler/services/booking_service.dart';

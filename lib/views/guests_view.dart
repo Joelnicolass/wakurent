@@ -102,10 +102,9 @@ class _Guests_ViewState extends State<Guests_View> {
         return Scaffold(
           appBar: NeumorphicAppBar(
             leading: IconButton(
-              icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () =>  Navigator.of(context)
-                    .pushNamedAndRemoveUntil('menu_view', (route) => false)
-            ),
+                icon: const Icon(Icons.arrow_back_outlined),
+                onPressed: () => Navigator.of(context)
+                    .pushNamedAndRemoveUntil('menu_view', (route) => false)),
             iconTheme: const IconThemeData(
               color: Colors.grey,
             ),
