@@ -417,7 +417,7 @@ class _booking_cardState extends State<booking_card> {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(Icons.circle, size: 10, color: color),
                     ),
-                    Text(ticketBloc.state.status,
+                    Text(widget.ticketStatus,
                         style: TextStyle(fontSize: 16)),
                   ],
                 ),
