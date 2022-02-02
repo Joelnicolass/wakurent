@@ -149,14 +149,13 @@ class _Booking_ViewState extends State<Booking_View> {
                             onDismissed: (direction) {
                               // Remove the item from the data source.
                               setState(() {
-                                g.ticketState = 'ARCHIVED';
                                 final authBloc =
                                     BlocProvider.of<AuthBloc>(context);
                                 final ticketBloc =
                                     BlocProvider.of<TicketBloc>(context);
                                 ticketBloc.add(
                                   ChangeStatusEvent(
-                                    status: g.ticketState,
+                                    status: 'ARCHIVED',
                                     ticketId: state.tickets[index].id,
                                     userId: authBloc.state.user!.id,
                                   ),
@@ -257,7 +256,7 @@ class _booking_cardState extends State<booking_card> {
       if (widget.ticketStatus == 'PENDING') {
         color = Colors.yellow;
       }
-      if (widget.ticketStatus == 'CONFIRMED') {
+      if (widget.ticketStatus == 'PAID') {
         color = Colors.green;
       }
       if (widget.ticketStatus == 'CANCELLED') {
@@ -269,6 +268,9 @@ class _booking_cardState extends State<booking_card> {
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       onPressed: () {
+        ticketBloc.add(SelectedItemTicketEvent(
+            item: widget.ticketStatus, ticketId: widget.ticketId));
+
         Navigator.pushNamed(context, 'ticket_view', arguments: {
           'clientName': widget.clientName,
           'clientSurname': widget.clientSurname,

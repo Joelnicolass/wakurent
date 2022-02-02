@@ -12,7 +12,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     on<OnGetTicketsEvent>(_onGetTickets);
     on<ChangeStatusEvent>(_changeStatus);
     on<ProcessRequestTicketEvent>(_processRequestTicket);
-     on<SelectedItemTicketEvent>(_selectedItemTicket);
+    on<SelectedItemTicketEvent>(_selectedItemTicket);
   }
 
   // get Tickets
@@ -50,7 +50,6 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     ));
   }
 
-  
   // event selected item
   _selectedItemTicket(
       SelectedItemTicketEvent event, Emitter<TicketState> emit) async {

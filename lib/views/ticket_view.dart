@@ -50,8 +50,10 @@ class _Ticket_ViewState extends State<Ticket_View> {
         ),
       ),
       resizeToAvoidBottomInset: false,
-      body: const Center(
-        child: ticket_card(),
+      body: Center(
+        child: ticket_card(
+          args: args,
+        ),
       ),
     );
   }
@@ -60,6 +62,7 @@ class _Ticket_ViewState extends State<Ticket_View> {
 class ticket_card extends StatefulWidget {
   const ticket_card({
     Key? key,
+    required Map<String, dynamic> args,
   }) : super(key: key);
 
   @override
@@ -67,24 +70,22 @@ class ticket_card extends StatefulWidget {
 }
 
 class _ticket_cardState extends State<ticket_card> {
-  // String itemSelect = 'PENDING';
   @override
   Widget build(BuildContext context) {
     final ticketBloc = BlocProvider.of<TicketBloc>(context);
 
     Color color = Colors.yellow;
 
-    
-    setState((){
-    if (ticketBloc.state.status == 'PENDING') {
-      color = Colors.yellow;
-    }
-    if (ticketBloc.state.status  == 'CONFIRMED') {
-      color = Colors.green;
-    }
-    if (ticketBloc.state.status  == 'CANCELLED') {
-      color = Colors.red;
-    }
+    setState(() {
+      if (ticketBloc.state.status == 'PENDING') {
+        color = Colors.yellow;
+      }
+      if (ticketBloc.state.status == 'PAID') {
+        color = Colors.green;
+      }
+      if (ticketBloc.state.status == 'CANCELLED') {
+        color = Colors.red;
+      }
     });
 
     final Map<String, dynamic> args =
@@ -147,12 +148,11 @@ class _ticket_cardState extends State<ticket_card> {
                                 String itemSelect =
                                     ticketBloc.state.selectedItemTicket;
 
-                                print('itemSelect: $itemSelect');
+                                /* String itemSelect =
+                                    ticketBloc.state.selectedItemTicket;
 
                                 bool itemExist = ticketBloc.state.tickets.any(
                                     (ticket) => ticket.status == itemSelect);
-
-                                print('ticket Exist: $itemExist');
 
                                 if (ticketBloc.state.selectedItemTicket == '' ||
                                     !itemExist) {
@@ -163,7 +163,7 @@ class _ticket_cardState extends State<ticket_card> {
                                       item: ticketBloc.state.tickets[0].status,
                                       ticketId:
                                           ticketBloc.state.tickets[0].id));
-                                }
+                                } */
 
                                 return DropdownButtonHideUnderline(
                                   child: DropdownButton<String>(
@@ -180,24 +180,23 @@ class _ticket_cardState extends State<ticket_card> {
 
                                         for (Ticket t
                                             in ticketBloc.state.tickets) {
-                                          if (t.status == newValue) {
-                                            idTicketSelected = t.id;
-                                            ticketBloc.add(
-                                              SelectedItemTicketEvent(
-                                                  item: newValue!,
-                                                  ticketId: idTicketSelected),
-                                            );
-                                          }
+                                          idTicketSelected = t.id;
+                                          ticketBloc.add(
+                                            SelectedItemTicketEvent(
+                                                item: newValue!,
+                                                ticketId: idTicketSelected),
+                                          );
                                         }
-
-                                        itemSelect = newValue!;
-                                        g.ticketState = itemSelect;
                                       });
+
+                                      itemSelect = newValue!;
                                     },
                                     items: <String>[
                                       'PENDING',
+                                      'PAID',
+                                      'EXPIRED',
+                                      'CANCELLED',
                                       'CONFIRMED',
-                                      'CANCELLED'
                                     ].map<DropdownMenuItem<String>>(
                                         (String value) {
                                       return DropdownMenuItem<String>(
@@ -487,23 +486,19 @@ class _ticket_cardState extends State<ticket_card> {
                     ],
                   ),
                   onPressed: () {
-                    print('g.ticketState');
-                    print(g.ticketState);
-
                     final authBloc = BlocProvider.of<AuthBloc>(context);
                     final ticketBloc = BlocProvider.of<TicketBloc>(context);
+                    final statusSelected = ticketBloc.state.selectedItemTicket;
 
                     ticketBloc.add(ProcessRequestTicketEvent());
 
                     ticketBloc.add(
                       ChangeStatusEvent(
-                        status: g.ticketState,
+                        status: statusSelected,
                         ticketId: args['ticketId'],
                         userId: authBloc.state.user!.id,
                       ),
                     );
-                    print('args.ticketId');
-                    print(args['ticketId']);
 
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'ProcessRequestUpdateTicketStatus', (route) => false);
