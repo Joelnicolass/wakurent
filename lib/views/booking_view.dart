@@ -121,7 +121,8 @@ class _Booking_ViewState extends State<Booking_View> {
           appBar: NeumorphicAppBar(
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),
-              onPressed: () => Navigator.of(context).pop(),
+              onPressed: () => Navigator.of(context)
+                  .pushNamedAndRemoveUntil('role_selector', (route) => false),
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
@@ -151,7 +152,7 @@ class _Booking_ViewState extends State<Booking_View> {
                             clientAddress:
                                 state.tickets[index].client[0].address,
                             clientPhone: state.tickets[index].client[0].phone,
-                            ticketPrice: state.tickets[index].price,
+                            ticketPrice: state.tickets[index].price.toString(),
                             ticketId: state.tickets[index].id,
                             ticketStatus: state.tickets[index].status,
                             wakureName: state.tickets[index].wakure[0].name,
@@ -215,7 +216,7 @@ class booking_card extends StatefulWidget {
   final String clientEmail;
   final String clientAddress;
   final String clientPhone;
-  final int ticketPrice;
+  final String ticketPrice;
   final String ticketId;
   final String ticketStatus;
 
@@ -398,17 +399,17 @@ class _booking_cardState extends State<booking_card> {
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
+                  children: [
                     Padding(
                       padding: const EdgeInsets.only(right: 1.0),
                       child: Icon(Icons.attach_money_sharp,
                           size: 20, color: Colors.grey),
                     ),
-                    Text('550', style: TextStyle(fontSize: 18)),
+                    Text(widget.ticketPrice, style: TextStyle(fontSize: 18)),
                   ],
                 ),
               ),
-              SizedBox(width: 180),
+              Expanded(child: Container()),
               Container(
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -417,8 +418,7 @@ class _booking_cardState extends State<booking_card> {
                       padding: const EdgeInsets.only(right: 8.0),
                       child: Icon(Icons.circle, size: 10, color: color),
                     ),
-                    Text(widget.ticketStatus,
-                        style: TextStyle(fontSize: 16)),
+                    Text(widget.ticketStatus, style: TextStyle(fontSize: 16)),
                   ],
                 ),
               )

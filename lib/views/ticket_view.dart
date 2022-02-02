@@ -427,13 +427,13 @@ class _ticket_cardState extends State<ticket_card> {
                     ticketBloc.add(
                       ChangeStatusEvent(
                         status: g.ticketState,
-                        ticketId:
-                            args['ticketId'],
+                        ticketId: args['ticketId'],
                         userId: authBloc.state.user!.id,
                       ),
                     );
 
-                    Navigator.of(context).pop();
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        'booking_view', (route) => false);
                   },
                   style: button_style(),
                 ),
