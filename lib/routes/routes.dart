@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:walkiler/routes/selectors/loading_screen.dart';
 import 'package:walkiler/routes/selectors/process_request_add_friend.dart';
 import 'package:walkiler/routes/selectors/process_request_add_wakure.dart';
+import 'package:walkiler/routes/selectors/process_request_update_ticket_status.dart';
 import 'package:walkiler/screens/login_screen.dart';
 import 'package:walkiler/screens/map_screen.dart';
 import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
@@ -36,6 +37,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'processResponseGetWakure': (_) => ProcessRequestGetWakure(),
   'processResponseAddWakure': (_) => ProcessRequestAddWakure(),
   'processResponseAddFriend': (_) => ProcessRequestAddFriend(),
+  'ProcessRequestUpdateTicketStatus': (_) => ProcessRequestUpdateTicketStatus(),
   'add_booking_view': (_) => AddBooking_View(),
   'ticket_view': (_) => Ticket_View(),
 

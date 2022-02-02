@@ -11,6 +11,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
   TicketBloc() : super(TicketState()) {
     on<OnGetTicketsEvent>(_onGetTickets);
     on<ChangeStatusEvent>(_changeStatus);
+    on<ProcessRequestTicketEvent>(_processRequestTicket);
   }
 
   // get Tickets
@@ -35,7 +36,16 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
       emit(state.copyWith(
         status: event.status,
       ));
-     
     }
+  }
+
+  // process Request
+
+  Future<void> _processRequestTicket(
+      ProcessRequestTicketEvent event, Emitter<TicketState> emit) async {
+    emit(state.copyWith(
+      processRequest: true,
+      tickets: state.tickets,
+    ));
   }
 }

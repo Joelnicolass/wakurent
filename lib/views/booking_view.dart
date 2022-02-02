@@ -231,13 +231,13 @@ class _booking_cardState extends State<booking_card> {
     Color color = Colors.yellow;
 
     setState(() {
-      if (ticketBloc.state.status == 'PENDING') {
+      if (widget.ticketStatus == 'PENDING') {
         color = Colors.yellow;
       }
-      if (ticketBloc.state.status == 'CONFIRMED') {
+      if (widget.ticketStatus == 'CONFIRMED') {
         color = Colors.green;
       }
-      if (ticketBloc.state.status == 'CANCELLED') {
+      if (widget.ticketStatus == 'CANCELLED') {
         color = Colors.red;
       }
     });

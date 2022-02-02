@@ -28,3 +28,10 @@ class ChangeStatusEvent extends TicketEvent {
   @override
   List<Object> get props => [status, ticketId, userId];
 }
+
+
+// process request event
+
+class ProcessRequestTicketEvent extends TicketEvent {
+  ProcessRequestTicketEvent();
+}

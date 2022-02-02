@@ -419,10 +419,13 @@ class _ticket_cardState extends State<ticket_card> {
                     ],
                   ),
                   onPressed: () {
+                    print('g.ticketState');
                     print(g.ticketState);
 
                     final authBloc = BlocProvider.of<AuthBloc>(context);
                     final ticketBloc = BlocProvider.of<TicketBloc>(context);
+
+                    ticketBloc.add(ProcessRequestTicketEvent());
 
                     ticketBloc.add(
                       ChangeStatusEvent(
@@ -431,9 +434,11 @@ class _ticket_cardState extends State<ticket_card> {
                         userId: authBloc.state.user!.id,
                       ),
                     );
-
+                    print('args.ticketId');
+                    print(args['ticketId']);
+                    
                     Navigator.of(context).pushNamedAndRemoveUntil(
-                        'booking_view', (route) => false);
+                        'ProcessRequestUpdateTicketStatus', (route) => false);
                   },
                   style: button_style(),
                 ),
