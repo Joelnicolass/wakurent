@@ -137,7 +137,7 @@ class _bookingForm_cardState extends State<bookingForm_card> {
                               String itemSelect =
                                   bookingBloc.state.selectedItemClient;
 
-                              print('itemSelect: $itemSelect');
+                            // print('itemSelect: $itemSelect');
 
                               bool itemExist = friendBloc.state.friends
                                   .any((friend) => friend.name == itemSelect);
