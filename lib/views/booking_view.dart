@@ -162,8 +162,6 @@ class _Booking_ViewState extends State<Booking_View> {
                                   ),
                                 );
                                 state.tickets.removeAt(index);
-                                print('g.ticketState');
-                                print(g.ticketState);
                               });
                             },
                             child: booking_card(

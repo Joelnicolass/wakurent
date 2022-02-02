@@ -35,3 +35,16 @@ class ChangeStatusEvent extends TicketEvent {
 class ProcessRequestTicketEvent extends TicketEvent {
   ProcessRequestTicketEvent();
 }
+
+
+// selected Item
+
+class SelectedItemTicketEvent extends TicketEvent {
+  final String item;
+  final String ticketId;
+
+  const SelectedItemTicketEvent({
+    required this.item,
+    required this.ticketId,
+  });
+}

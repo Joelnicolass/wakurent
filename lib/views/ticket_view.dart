@@ -4,6 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
 
 import 'package:walkiler/globals.dart' as g;
+import 'package:walkiler/models/ticket.dart';
 
 class Ticket_View extends StatefulWidget {
   const Ticket_View({Key? key}) : super(key: key);
@@ -26,26 +27,25 @@ class _Ticket_ViewState extends State<Ticket_View> {
     // get arguments to previous view
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    print('args de booking');
-    print(args);
 
     return Scaffold(
       appBar: NeumorphicAppBar(
         title: Row(
           children: [
-            Icon(Icons.electric_scooter_rounded, color: Colors.grey, size: 30),
-            SizedBox(width: 10),
+            const Icon(Icons.electric_scooter_rounded,
+                color: Colors.grey, size: 30),
+            const SizedBox(width: 10),
             Text(args['wakureName'],
-                style: TextStyle(fontSize: 18, color: Colors.grey)),
+                style: const TextStyle(fontSize: 18, color: Colors.grey)),
           ],
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_outlined),
+          icon: const Icon(Icons.arrow_back_outlined),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.grey,
         ),
       ),
@@ -67,21 +67,24 @@ class ticket_card extends StatefulWidget {
 }
 
 class _ticket_cardState extends State<ticket_card> {
-  String itemSelect = 'PENDING';
+  // String itemSelect = 'PENDING';
   @override
   Widget build(BuildContext context) {
+    final ticketBloc = BlocProvider.of<TicketBloc>(context);
+
     Color color = Colors.yellow;
 
-    setState(() {
-      if (itemSelect == 'PENDING') {
-        color = Colors.yellow;
-      }
-      if (itemSelect == 'CONFIRMED') {
-        color = Colors.green;
-      }
-      if (itemSelect == 'CANCELLED') {
-        color = Colors.red;
-      }
+    
+    setState((){
+    if (ticketBloc.state.status == 'PENDING') {
+      color = Colors.yellow;
+    }
+    if (ticketBloc.state.status  == 'CONFIRMED') {
+      color = Colors.green;
+    }
+    if (ticketBloc.state.status  == 'CANCELLED') {
+      color = Colors.red;
+    }
     });
 
     final Map<String, dynamic> args =
@@ -117,30 +120,95 @@ class _ticket_cardState extends State<ticket_card> {
                       SizedBox(width: 20),
                       Container(
                         width: g.width * 0.52,
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton<String>(
-                            value: itemSelect,
-                            isExpanded: true,
-                            icon:
-                                const Icon(Icons.arrow_drop_down, color: g.red),
-                            dropdownColor: g.background,
-                            style: TextStyle(
-                                color: Colors.grey[400], fontSize: 18),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                itemSelect = newValue!;
-                                g.ticketState = itemSelect;
-                              });
-                            },
-                            items: <String>['PENDING', 'CONFIRMED', 'CANCELLED']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
+                        child: BlocConsumer<TicketBloc, TicketState>(
+                            listener: (context, state) {},
+                            builder: (context, state) {
+                              if (state.tickets.isEmpty) {
+                                return DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    hint: Text('No hay reservas registradas',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey[700])),
+                                    value: null,
+                                    isExpanded: true,
+                                    icon: const Icon(Icons.arrow_drop_down,
+                                        color: Colors.grey),
+                                    dropdownColor: g.background,
+                                    style: TextStyle(
+                                        color: Colors.grey[400], fontSize: 18),
+                                    onChanged: (String? newValue) {
+                                      setState(() {});
+                                    },
+                                    items: [],
+                                  ),
+                                );
+                              } else {
+                                String itemSelect =
+                                    ticketBloc.state.selectedItemTicket;
+
+                                print('itemSelect: $itemSelect');
+
+                                bool itemExist = ticketBloc.state.tickets.any(
+                                    (ticket) => ticket.status == itemSelect);
+
+                                print('ticket Exist: $itemExist');
+
+                                if (ticketBloc.state.selectedItemTicket == '' ||
+                                    !itemExist) {
+                                  itemSelect =
+                                      ticketBloc.state.tickets[0].status;
+
+                                  ticketBloc.add(SelectedItemTicketEvent(
+                                      item: ticketBloc.state.tickets[0].status,
+                                      ticketId:
+                                          ticketBloc.state.tickets[0].id));
+                                }
+
+                                return DropdownButtonHideUnderline(
+                                  child: DropdownButton<String>(
+                                    value: itemSelect,
+                                    isExpanded: true,
+                                    icon: const Icon(Icons.arrow_drop_down,
+                                        color: g.red),
+                                    dropdownColor: g.background,
+                                    style: TextStyle(
+                                        color: Colors.grey[400], fontSize: 18),
+                                    onChanged: (String? newValue) {
+                                      setState(() {
+                                        String idTicketSelected;
+
+                                        for (Ticket t
+                                            in ticketBloc.state.tickets) {
+                                          if (t.status == newValue) {
+                                            idTicketSelected = t.id;
+                                            ticketBloc.add(
+                                              SelectedItemTicketEvent(
+                                                  item: newValue!,
+                                                  ticketId: idTicketSelected),
+                                            );
+                                          }
+                                        }
+
+                                        itemSelect = newValue!;
+                                        g.ticketState = itemSelect;
+                                      });
+                                    },
+                                    items: <String>[
+                                      'PENDING',
+                                      'CONFIRMED',
+                                      'CANCELLED'
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  ),
+                                );
+                              }
+                            }),
                       ),
                     ],
                   ),
@@ -436,7 +504,7 @@ class _ticket_cardState extends State<ticket_card> {
                     );
                     print('args.ticketId');
                     print(args['ticketId']);
-                    
+
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         'ProcessRequestUpdateTicketStatus', (route) => false);
                   },

@@ -12,6 +12,7 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     on<OnGetTicketsEvent>(_onGetTickets);
     on<ChangeStatusEvent>(_changeStatus);
     on<ProcessRequestTicketEvent>(_processRequestTicket);
+     on<SelectedItemTicketEvent>(_selectedItemTicket);
   }
 
   // get Tickets
@@ -46,6 +47,16 @@ class TicketBloc extends Bloc<TicketEvent, TicketState> {
     emit(state.copyWith(
       processRequest: true,
       tickets: state.tickets,
+    ));
+  }
+
+  
+  // event selected item
+  _selectedItemTicket(
+      SelectedItemTicketEvent event, Emitter<TicketState> emit) async {
+    emit(state.copyWith(
+      selectedItemTicket: event.item,
+      selectedItemTicketId: event.ticketId,
     ));
   }
 }
