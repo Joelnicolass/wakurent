@@ -144,26 +144,51 @@ class _Booking_ViewState extends State<Booking_View> {
                       itemCount: state.tickets.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return SlideInRight(
-                          child: booking_card(
-                            clientName: state.tickets[index].client[0].name,
-                            clientSurname:
-                                state.tickets[index].client[0].surname,
-                            clientEmail: state.tickets[index].client[0].email,
-                            clientAddress:
-                                state.tickets[index].client[0].address,
-                            clientPhone: state.tickets[index].client[0].phone,
-                            ticketPrice: state.tickets[index].price.toString(),
-                            ticketId: state.tickets[index].id,
-                            ticketStatus: state.tickets[index].status,
-                            wakureName: state.tickets[index].wakure[0].name,
-                            dateFrom: state.tickets[index].dateFrom
-                                .toString()
-                                .substring(0, 10),
-                            dateTo: state.tickets[index].dateTo
-                                .toString()
-                                .substring(0, 10),
-                            timeFrom: state.tickets[index].timeFrom.toString(),
-                            timeTo: state.tickets[index].timeTo.toString(),
+                          child: Dismissible(
+                            key: UniqueKey(),
+                            onDismissed: (direction) {
+                              // Remove the item from the data source.
+                              setState(() {
+                                g.ticketState = 'ARCHIVED';
+                                final authBloc =
+                                    BlocProvider.of<AuthBloc>(context);
+                                final ticketBloc =
+                                    BlocProvider.of<TicketBloc>(context);
+                                ticketBloc.add(
+                                  ChangeStatusEvent(
+                                    status: g.ticketState,
+                                    ticketId: state.tickets[index].id,
+                                    userId: authBloc.state.user!.id,
+                                  ),
+                                );
+                                state.tickets.removeAt(index);
+                                print('g.ticketState');
+                                print(g.ticketState);
+                              });
+                            },
+                            child: booking_card(
+                              clientName: state.tickets[index].client[0].name,
+                              clientSurname:
+                                  state.tickets[index].client[0].surname,
+                              clientEmail: state.tickets[index].client[0].email,
+                              clientAddress:
+                                  state.tickets[index].client[0].address,
+                              clientPhone: state.tickets[index].client[0].phone,
+                              ticketPrice:
+                                  state.tickets[index].price.toString(),
+                              ticketId: state.tickets[index].id,
+                              ticketStatus: state.tickets[index].status,
+                              wakureName: state.tickets[index].wakure[0].name,
+                              dateFrom: state.tickets[index].dateFrom
+                                  .toString()
+                                  .substring(0, 10),
+                              dateTo: state.tickets[index].dateTo
+                                  .toString()
+                                  .substring(0, 10),
+                              timeFrom:
+                                  state.tickets[index].timeFrom.toString(),
+                              timeTo: state.tickets[index].timeTo.toString(),
+                            ),
                           ),
                         );
                       }),
