@@ -25,8 +25,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       event.password,
     );
 
-    print(response.data);
-
     switch (response.statusCode) {
       case 200:
         emit(state.copyWith(

@@ -28,16 +28,36 @@ class FriendBloc extends Bloc<FriendEvent, FriendState> {
       event.phone,
     );
 
-    if (response.statusCode == 200) {
-      emit(state.copyWith(
-        friends: state.friends,
-        processRequest: false,
-      ));
-    } else {
-      emit(state.copyWith(
-        friends: state.friends,
-        processRequest: false,
-      ));
+    switch (response.statusCode) {
+      case 200:
+        emit(state.copyWith(
+          friendCreated: true,
+          friends: state.friends,
+          processRequest: false,
+          error: null,
+        ));
+        break;
+      case 400:
+        emit(state.copyWith(
+            friendCreated: false,
+            friends: state.friends,
+            processRequest: false,
+            error: response.data['msg']));
+        break;
+      case 500:
+        emit(state.copyWith(
+          friendCreated: false,
+            friends: state.friends,
+            processRequest: false,
+            error: response.data['msg']));
+        break;
+      default:
+        emit(state.copyWith(
+          friendCreated: state.friendCreated,
+          friends: state.friends,
+          processRequest: false,
+          error: state.error,
+        ));
     }
   }
 

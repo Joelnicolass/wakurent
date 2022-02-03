@@ -1,6 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:walkiler/blocs/blocs.dart';
+import 'package:walkiler/routes/selectors/role_selector.dart';
+import 'package:walkiler/views/menu_view.dart';
 
 import '../globals.dart' as g;
 
@@ -13,6 +15,24 @@ class AddGuest_View extends StatelessWidget {
     g.width = MediaQuery.of(context).size.width;
     g.height = MediaQuery.of(context).size.height;
 
+    return BlocBuilder<FriendBloc, FriendState>(
+      builder: (context, state) {
+      if (state.friendCreated == true) {
+        return RoleSelector();
+      } else {
+        return addguestView();
+      }
+    });
+  }
+}
+
+class addguestView extends StatelessWidget {
+  const addguestView({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: NeumorphicAppBar(
         leading: IconButton(
@@ -25,14 +45,35 @@ class AddGuest_View extends StatelessWidget {
       ),
       resizeToAvoidBottomInset: false,
       body: Center(
-        child: Column(
-          children: const [
-            Text("Nuevo Invitado",
-                style: TextStyle(fontSize: 20, color: Colors.grey)),
-            SizedBox(
-              height: 20,
+        child: Stack(
+          children: [
+            Column(
+              children: const [
+                Text("Nuevo Invitado",
+                    style: TextStyle(fontSize: 20, color: Colors.grey)),
+                SizedBox(
+                  height: 20,
+                ),
+                add_guest_form(),
+              ],
             ),
-            add_guest_form(),
+            BlocBuilder<FriendBloc, FriendState>(
+              builder: (context, state) {
+                if (state.error != null) {
+                  print(state.error);
+                  return Positioned(
+                    bottom: g.height * 0.08,
+                    left: g.width * 0,
+                    child: Text(state.error,
+                        style: const TextStyle(color: Colors.red)),
+                  );
+                } else {
+                  return const SizedBox(
+                    height: 0,
+                  );
+                }
+              },
+            )
           ],
         ),
       ),
@@ -225,9 +266,6 @@ class add_guest_form extends StatelessWidget {
                 g.email = '';
                 g.password = '';
                 g.phone = '';
-
-                Navigator.of(context).pushNamedAndRemoveUntil(
-                    'processResponseAddFriend', (route) => false);
               },
               style: NeumorphicStyle(
                 depth: 1.5,

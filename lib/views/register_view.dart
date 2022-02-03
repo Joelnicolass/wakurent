@@ -71,7 +71,7 @@ class registerView extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const addGuest_form(),
               ],
@@ -81,7 +81,7 @@ class registerView extends StatelessWidget {
                 if (state.error != null) {
                   print(state.error!);
                   return Positioned(
-                    bottom: g.height * 0.06,
+                    bottom: g.height * 0.1,
                     left: g.width * 0,
                     child: Text(state.error!,
                         style: const TextStyle(color: Colors.red)),
@@ -108,6 +108,7 @@ class addGuest_form extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin:  EdgeInsets.only(top: 30),
       width: g.width * 0.8,
       height: g.height * 0.7,
       child: Neumorphic(

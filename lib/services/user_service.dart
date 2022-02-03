@@ -3,6 +3,8 @@ import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
 class UserService {
+
+  // save user
   static Future saveUser(String name, String surname, String address,
       String phone, String email, String password) async {
     try {
