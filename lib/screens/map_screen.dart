@@ -10,6 +10,8 @@ import 'package:walkiler/services/wakure_service.dart';
 import 'package:walkiler/views/map_view.dart';
 import '../blocs/blocs.dart';
 
+import '../globals.dart' as g;
+
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
 
@@ -73,12 +75,16 @@ class _MapScreenState extends State<MapScreen> {
                   Positioned(
                     top: 30,
                     left: 10,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_back_outlined,
-                        color: Colors.white,
+                    child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors.grey.shade900,
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_outlined,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => Navigator.of(context).pop(),
                       ),
-                      onPressed: () => Navigator.of(context).pop(),
                     ),
                   ),
                   //TODO eliminar esto

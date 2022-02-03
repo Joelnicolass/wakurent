@@ -33,18 +33,38 @@ class WakureBloc extends Bloc<WakureEvent, WakureState> {
       event.wakureCode,
     );
 
-    if (response.statusCode == 200) {
-      emit(state.copyWith(
-        wakures: state.wakures,
-        processRequest: false,
-      ));
-    } else {
-      emit(state.copyWith(
-        wakures: state.wakures,
-        processRequest: false,
-
-        /* error: response.data['error'], */
-      ));
+    switch (response.statusCode) {
+      case 200:
+        emit(state.copyWith(
+          wakures: state.wakures,
+          processRequest: false,
+          error: null,
+          wakureCreated: true,
+        ));
+        break;
+      case 400:
+        emit(state.copyWith(
+          wakures: state.wakures,
+          processRequest: false,
+          error: response.data['msg'],
+          wakureCreated: false,
+        ));
+        break;
+          case 500:
+        emit(state.copyWith(
+          wakures: state.wakures,
+          processRequest: false,
+          error: response.data['msg'],
+          wakureCreated: false,
+        ));
+        break;
+        default:
+        emit(state.copyWith(
+          wakures: state.wakures,
+          processRequest: false,
+          error: state.error,
+          wakureCreated: state.wakureCreated,
+        ));
     }
   }
 
