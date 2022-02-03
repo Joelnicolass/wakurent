@@ -71,23 +71,11 @@ class ticket_card extends StatefulWidget {
 }
 
 class _ticket_cardState extends State<ticket_card> {
+  Color color = Colors.grey;
+
   @override
   Widget build(BuildContext context) {
     final ticketBloc = BlocProvider.of<TicketBloc>(context);
-
-    Color color = Colors.yellow;
-
-    setState(() {
-      if (ticketBloc.state.status == 'PENDING') {
-        color = Colors.yellow;
-      }
-      if (ticketBloc.state.status == 'PAID') {
-        color = Colors.green;
-      }
-      if (ticketBloc.state.status == 'CANCELLED') {
-        color = Colors.red;
-      }
-    });
 
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
@@ -187,6 +175,25 @@ class _ticket_cardState extends State<ticket_card> {
                                                 item: newValue!,
                                                 ticketId: idTicketSelected),
                                           );
+                                        }
+
+                                        if (newValue == 'PENDING') {
+                                          color = Colors.yellow;
+                                        }
+                                        if (newValue == 'PAID') {
+                                          color = Colors.green;
+                                        }
+                                        if (newValue == 'EXPIRED') {
+                                          color = Colors.purple;
+                                        }
+                                        if (newValue == 'CANCELLED') {
+                                          color = Colors.red;
+                                        }
+                                        if (newValue == 'CONFIRMED') {
+                                          color = Colors.blue;
+                                        }
+                                        if (newValue == 'ARCHIVED') {
+                                          color = Colors.grey;
                                         }
                                       });
 
@@ -514,4 +521,3 @@ class _ticket_cardState extends State<ticket_card> {
     );
   }
 }
-

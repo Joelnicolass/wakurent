@@ -188,14 +188,8 @@ class _booking_cardState extends State<booking_card> {
     Color color = Colors.yellow;
 
     setState(() {
-      if (widget.ticketStatus == 'PENDING') {
-        color = Colors.yellow;
-      }
-      if (widget.ticketStatus == 'PAID') {
-        color = Colors.green;
-      }
-      if (widget.ticketStatus == 'CANCELLED') {
-        color = Colors.red;
+      if (widget.ticketStatus == 'ARCHIVED') {
+        color = Colors.grey;
       }
     });
 
