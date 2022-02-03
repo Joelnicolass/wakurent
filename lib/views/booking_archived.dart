@@ -12,23 +12,21 @@ import 'package:walkiler/widgets/no_scroll_glow.dart';
 
 import 'package:animate_do/animate_do.dart';
 
-class Booking_View extends StatefulWidget {
-  Booking_View({Key? key}) : super(key: key);
+class BookingArchived_View extends StatefulWidget {
+  BookingArchived_View({Key? key}) : super(key: key);
 
   @override
-  State<Booking_View> createState() => _Booking_ViewState();
+  State<BookingArchived_View> createState() => _BookingArchived_ViewState();
 }
 
-class _Booking_ViewState extends State<Booking_View> {
+class _BookingArchived_ViewState extends State<BookingArchived_View> {
   //getTickets
   Future<void> resTickets() async {
     final authBloc = BlocProvider.of<AuthBloc>(context);
     final id = authBloc.state.user!.id;
-    final httpRes = await BookingService.getAllTickets(id);
+    final httpRes = await BookingService.getAllTicketsArchived(id);
     final List<dynamic> list = httpRes as List;
     final tickets = ProcessResponse.getTicketList(list);
-
-    //final clientList = ProcessResponse.getClientList(tickets);
     final ticketBloc = BlocProvider.of<TicketBloc>(context);
     ticketBloc.add(OnGetTicketsEvent(tickets: tickets));
   }
@@ -68,7 +66,7 @@ class _Booking_ViewState extends State<Booking_View> {
               icon: Icon(Icons.arrow_back_outlined),
               onPressed: () {
                 Navigator.of(context)
-                    .pushNamedAndRemoveUntil('role_selector', (route) => false);
+                    .pushNamedAndRemoveUntil('booking_view', (route) => false);
               },
             ),
             iconTheme: const IconThemeData(
@@ -81,87 +79,7 @@ class _Booking_ViewState extends State<Booking_View> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text("No tiene Reservas registradas"),
-                SizedBox(height: 20),
-                NeumorphicButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: g.width * 0.07,
-                    vertical: g.height * 0.015,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'add_booking_view');
-                  },
-                  style: NeumorphicStyle(
-                    depth: 1.5,
-                    intensity: 0.8,
-                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
-                    oppositeShadowLightSource: true,
-                    shape: NeumorphicShape.convex,
-                    boxShape:
-                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(0),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(25),
-                    )),
-                  ),
-                  child: Container(
-                    width: g.width * 0.35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Icon(Icons.add, color: Colors.grey),
-                        SizedBox(width: 10),
-                        Text(
-                          'Nueva Reserva',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30),
-                NeumorphicButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: g.width * 0.07,
-                    vertical: g.height * 0.015,
-                  ),
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'booking_archived_view');
-                  },
-                  style: NeumorphicStyle(
-                    depth: 1.5,
-                    intensity: 0.8,
-                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
-                    oppositeShadowLightSource: true,
-                    shape: NeumorphicShape.convex,
-                    boxShape:
-                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(0),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(25),
-                    )),
-                  ),
-                  child: Container(
-                    width: g.width * 0.35,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Icon(Icons.archive, color: Colors.grey),
-                        SizedBox(width: 10),
-                        Text(
-                          'Archivadas',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+                Text("No tiene Reservas Archivadas"),
               ],
             ),
           ),
@@ -172,7 +90,7 @@ class _Booking_ViewState extends State<Booking_View> {
             leading: IconButton(
               icon: const Icon(Icons.arrow_back_outlined),
               onPressed: () => Navigator.of(context)
-                  .pushNamedAndRemoveUntil('role_selector', (route) => false),
+                  .pushNamedAndRemoveUntil('booking_view', (route) => false),
             ),
             iconTheme: const IconThemeData(
               color: Colors.grey,
@@ -181,28 +99,8 @@ class _Booking_ViewState extends State<Booking_View> {
           backgroundColor: NeumorphicTheme.baseColor(context),
           body: Column(
             children: <Widget>[
-              Row(
-                children: [
-                  SizedBox(width: g.width * 0.34),
-                  const Text('Mis Reservas',
-                      style: TextStyle(fontSize: 20, color: Colors.grey)),
-                  SizedBox(width: g.width * 0.23),
-                  NeumorphicButton(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10, bottom: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.archive, color: Colors.grey),
-                      ],
-                    ),
-                    onPressed: () {
-                      Navigator.pushNamed(context, 'booking_archived_view');
-                    },
-                    style: button_style(),
-                  ),
-                ],
-              ),
+              const Text('Mis Reservas Archivadas',
+                  style: TextStyle(fontSize: 20, color: Colors.grey)),
               SizedBox(
                 height: g.height * 0.02,
               ),
@@ -214,65 +112,32 @@ class _Booking_ViewState extends State<Booking_View> {
                       itemCount: state.tickets.length,
                       itemBuilder: (BuildContext ctxt, int index) {
                         return SlideInRight(
-                          child: Dismissible(
-                            key: UniqueKey(),
-                            onDismissed: (direction) {
-                              // Remove the item from the data source.
-                              setState(() {
-                                final authBloc =
-                                    BlocProvider.of<AuthBloc>(context);
-                                final ticketBloc =
-                                    BlocProvider.of<TicketBloc>(context);
-                                ticketBloc.add(
-                                  ChangeStatusEvent(
-                                    status: 'ARCHIVED',
-                                    ticketId: state.tickets[index].id,
-                                    userId: authBloc.state.user!.id,
-                                  ),
-                                );
-                                state.tickets.removeAt(index);
-                              });
-                            },
-                            child: booking_card(
-                              clientName: state.tickets[index].client[0].name,
-                              clientSurname:
-                                  state.tickets[index].client[0].surname,
-                              clientEmail: state.tickets[index].client[0].email,
-                              clientAddress:
-                                  state.tickets[index].client[0].address,
-                              clientPhone: state.tickets[index].client[0].phone,
-                              ticketPrice:
-                                  state.tickets[index].price.toString(),
-                              ticketId: state.tickets[index].id,
-                              ticketStatus: state.tickets[index].status,
-                              wakureName: state.tickets[index].wakure[0].name,
-                              dateFrom: state.tickets[index].dateFrom
-                                  .toString()
-                                  .substring(0, 10),
-                              dateTo: state.tickets[index].dateTo
-                                  .toString()
-                                  .substring(0, 10),
-                              timeFrom:
-                                  state.tickets[index].timeFrom.toString(),
-                              timeTo: state.tickets[index].timeTo.toString(),
-                            ),
+                          child: booking_card(
+                            clientName: state.tickets[index].client[0].name,
+                            clientSurname:
+                                state.tickets[index].client[0].surname,
+                            clientEmail: state.tickets[index].client[0].email,
+                            clientAddress:
+                                state.tickets[index].client[0].address,
+                            clientPhone: state.tickets[index].client[0].phone,
+                            ticketPrice: state.tickets[index].price.toString(),
+                            ticketId: state.tickets[index].id,
+                            ticketStatus: state.tickets[index].status,
+                            wakureName: state.tickets[index].wakure[0].name,
+                            dateFrom: state.tickets[index].dateFrom
+                                .toString()
+                                .substring(0, 10),
+                            dateTo: state.tickets[index].dateTo
+                                .toString()
+                                .substring(0, 10),
+                            timeFrom: state.tickets[index].timeFrom.toString(),
+                            timeTo: state.tickets[index].timeTo.toString(),
                           ),
                         );
                       }),
                 ),
               )
             ],
-          ),
-          floatingActionButton: NeumorphicFloatingActionButton(
-            style: const NeumorphicStyle(
-                boxShape: NeumorphicBoxShape.circle(),
-                shape: NeumorphicShape.convex,
-                depth: 1.5,
-                intensity: 0.3),
-            onPressed: () {
-              Navigator.pushNamed(context, 'add_booking_view');
-            },
-            child: const Icon(Icons.add, color: Colors.white54),
           ),
         );
       }
@@ -337,26 +202,7 @@ class _booking_cardState extends State<booking_card> {
     return NeumorphicButton(
       margin: const EdgeInsets.symmetric(horizontal: 13, vertical: 8),
       padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      onPressed: () {
-        ticketBloc.add(SelectedItemTicketEvent(
-            item: widget.ticketStatus, ticketId: widget.ticketId));
-
-        Navigator.pushNamed(context, 'ticket_view', arguments: {
-          'clientName': widget.clientName,
-          'clientSurname': widget.clientSurname,
-          'wakureName': widget.wakureName,
-          'dateFrom': widget.dateFrom,
-          'dateTo': widget.dateTo,
-          'timeFrom': widget.timeFrom,
-          'timeTo': widget.timeTo,
-          'clientEmail': widget.clientEmail,
-          'clientAddress': widget.clientAddress,
-          'clientPhone': widget.clientPhone,
-          'ticketPrice': widget.ticketPrice,
-          'ticketId': widget.ticketId,
-          'ticketStatus': widget.ticketStatus,
-        });
-      },
+      // onPressed: () {},
       style: NeumorphicStyle(
         depth: 1.5,
         intensity: 1,

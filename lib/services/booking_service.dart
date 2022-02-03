@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/helpers/secure_storage.dart';
 import '../globals.dart' as g;
 
 class BookingService {
+
+  // get All Tickets (by owner - except archived)
   static Future getAllTickets(String id) async {
     try {
       Response response;
@@ -19,8 +19,6 @@ class BookingService {
       response = await dio.get(
         'http://' + g.ip + ':5000/api/booking/' + id + '/all',
       );
-      print('responde.data desde el service');
-      print(response.data);
       return response.data;
     } on DioError catch (e) {
       return e.response;
@@ -92,8 +90,6 @@ class BookingService {
           
         },
       );
-      print('response');
-      print(response);
       return response;
     } on DioError catch (e) {
       return e.response;
@@ -204,6 +200,30 @@ class BookingService {
         },
       );
 
+      return response.data;
+    } on DioError catch (e) {
+      return e.response;
+    }
+  }
+
+
+  // get All Tickets Archived
+  static Future getAllTicketsArchived(String id) async {
+    try {
+      Response response;
+      var dio = Dio();
+      dio.options.contentType = "application/json; charset=utf-8";
+      final token = await SecureStorage.getToken();
+
+      // dio option send auth token
+      dio.options.headers = {
+        'auth': token,
+      };
+      response = await dio.get(
+        'http://' + g.ip + ':5000/api/booking/' + id + '/archived',
+      );
+      print('responde.data desde el service');
+      print(response.data);
       return response.data;
     } on DioError catch (e) {
       return e.response;

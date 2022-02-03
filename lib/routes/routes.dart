@@ -10,6 +10,7 @@ import 'package:walkiler/screens/map_screen.dart';
 import 'package:walkiler/routes/selectors/process_request_get_wakure.dart';
 import 'package:walkiler/routes/selectors/role_selector.dart';
 import 'package:walkiler/views/add_wakure_view.dart';
+import 'package:walkiler/views/booking_archived.dart';
 import 'package:walkiler/views/booking_view.dart';
 import 'package:walkiler/views/guests_info_view.dart';
 import 'package:walkiler/views/guests_view.dart';
@@ -31,6 +32,7 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'guestInfo_view': (_) => GuestsInfo_View(),
   'map_screen': (_) => MapScreen(),
   'booking_view': (_) => Booking_View(),
+  'booking_archived_view': (_) => BookingArchived_View(),
   'add_guest_view': (_) => AddGuest_View(),
   'addWakure_view': (_) => AddWakure_View(),
   'wakure_info_view': (_) => WakureInfo_View(),
@@ -41,6 +43,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'processResponseAddBooking': (_) => ProcessRequestAddBooking(),
   'add_booking_view': (_) => AddBooking_View(),
   'ProcessRequestUpdateTicketStatus': (_) => ProcessRequestUpdateTicketStatus(),
-  'add_booking_view': (_) => AddBooking_View(),
   'ticket_view': (_) => Ticket_View(),
 };
