@@ -118,7 +118,7 @@ class _MisWakure_ViewState extends State<MisWakure_View> {
                 height: g.height * 0.02,
               ),
               SizedBox(
-                height: g.height * 0.63,
+                height: g.height * 0.75,
                 child: ScrollConfiguration(
                     behavior: NoScrollGlow(),
                     child: ListView.builder(

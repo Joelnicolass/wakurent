@@ -127,6 +127,85 @@ class wakure_info_card extends StatelessWidget {
                     child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Container(
+                        width: 200,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text("IR AL MAPA", style: TextStyle(fontSize: 16)),
+                            NeumorphicButton(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: g.width * 0.05,
+                                vertical: g.height * 0.015,
+                              ),
+                              onPressed: () {},
+                              style: NeumorphicStyle(
+                                depth: 1.5,
+                                intensity: 0.8,
+                                shadowLightColor:
+                                    const Color.fromRGBO(255, 0, 0, 1),
+                                oppositeShadowLightSource: true,
+                                shape: NeumorphicShape.convex,
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    const BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(0),
+                                  bottomLeft: Radius.circular(0),
+                                  bottomRight: Radius.circular(25),
+                                )),
+                              ),
+                              child: Container(
+                                width: g.width * 0.06,
+                                child: Icon(Icons.location_searching_rounded,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Center(
+                      child: Container(
+                        width: 160,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('APAGAR', style: TextStyle(fontSize: 16)),
+                            NeumorphicButton(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: g.width * 0.04,
+                                vertical: g.height * 0.015,
+                              ),
+                              onPressed: () {},
+                              style: NeumorphicStyle(
+                                depth: 1.5,
+                                intensity: 0.8,
+                                shadowLightColor:
+                                    const Color.fromRGBO(255, 0, 0, 1),
+                                oppositeShadowLightSource: true,
+                                shape: NeumorphicShape.convex,
+                                boxShape: NeumorphicBoxShape.roundRect(
+                                    const BorderRadius.only(
+                                  topLeft: Radius.circular(25),
+                                  topRight: Radius.circular(0),
+                                  bottomLeft: Radius.circular(0),
+                                  bottomRight: Radius.circular(25),
+                                )),
+                              ),
+                              child: Container(
+                                width: g.width * 0.08,
+                                child: Icon(Icons.power_settings_new_rounded,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 70),
                     const Padding(
                       padding: EdgeInsets.only(left: 22.0),
                       child: Text(
@@ -139,7 +218,7 @@ class wakure_info_card extends StatelessWidget {
                     ),
                   ],
                 )),
-                const SizedBox(height: 50),
+                const SizedBox(height: 45),
                 NeumorphicButton(
                   padding: EdgeInsets.symmetric(
                     horizontal: g.width * 0.05,
@@ -176,84 +255,6 @@ class wakure_info_card extends StatelessWidget {
                           fontSize: 16,
                         ),
                       ),
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                NeumorphicButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: g.width * 0.05,
-                    vertical: g.height * 0.015,
-                  ),
-                  onPressed: () {},
-                  style: NeumorphicStyle(
-                    depth: 1.5,
-                    intensity: 0.8,
-                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
-                    oppositeShadowLightSource: true,
-                    shape: NeumorphicShape.convex,
-                    boxShape:
-                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(0),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(25),
-                    )),
-                  ),
-                  child: Container(
-                    width: g.width * 0.28,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          'Ir al mapa',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Icon(Icons.location_searching_rounded,
-                            color: Colors.grey),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 50),
-                NeumorphicButton(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: g.width * 0.08,
-                    vertical: g.height * 0.015,
-                  ),
-                  onPressed: () {},
-                  style: NeumorphicStyle(
-                    depth: 1.5,
-                    intensity: 0.8,
-                    shadowLightColor: const Color.fromRGBO(255, 0, 0, 1),
-                    oppositeShadowLightSource: true,
-                    shape: NeumorphicShape.convex,
-                    boxShape:
-                        NeumorphicBoxShape.roundRect(const BorderRadius.only(
-                      topLeft: Radius.circular(25),
-                      topRight: Radius.circular(0),
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(25),
-                    )),
-                  ),
-                  child: Container(
-                    width: g.width * 0.23,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        Text(
-                          'Apagar',
-                          style: TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        SizedBox(width: 10),
-                        Icon(Icons.power_settings_new_rounded,
-                            color: Colors.grey),
-                      ],
                     ),
                   ),
                 ),

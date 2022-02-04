@@ -8,6 +8,8 @@ import 'package:walkiler/helpers/process_response.dart';
 import 'package:walkiler/services/services.dart';
 import 'package:walkiler/widgets/no_scroll_glow.dart';
 
+import 'package:animate_do/animate_do.dart';
+
 class Guests_View extends StatefulWidget {
   Guests_View({Key? key}) : super(key: key);
 
@@ -142,14 +144,18 @@ class _Guests_ViewState extends State<Guests_View> {
                               state.friends.removeAt(index);
                             });
                           },
-                          child: guest_card(
-                            friendName: state.friends[index].name.toString(),
-                            friendSurname:
-                                state.friends[index].surname.toString(),
-                            friendEmail: state.friends[index].email.toString(),
-                            friendAddress:
-                                state.friends[index].address.toString(),
-                            friendPhone: state.friends[index].phone.toString(),
+                          child: SlideInRight(
+                            child: guest_card(
+                              friendName: state.friends[index].name.toString(),
+                              friendSurname:
+                                  state.friends[index].surname.toString(),
+                              friendEmail:
+                                  state.friends[index].email.toString(),
+                              friendAddress:
+                                  state.friends[index].address.toString(),
+                              friendPhone:
+                                  state.friends[index].phone.toString(),
+                            ),
                           ),
                         );
                       }),
