@@ -2,6 +2,7 @@
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:walkiler/blocs/blocs.dart';
 import 'package:walkiler/globals.dart' as g;
 import 'package:walkiler/helpers/process_response.dart';
@@ -186,7 +187,7 @@ class _Booking_ViewState extends State<Booking_View> {
                   SizedBox(width: g.width * 0.34),
                   const Text('Mis Reservas',
                       style: TextStyle(fontSize: 20, color: Colors.grey)),
-                  SizedBox(width: g.width * 0.23),
+                  SizedBox(width: g.width * 0.10),
                   NeumorphicButton(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10, bottom: 10),
@@ -198,6 +199,25 @@ class _Booking_ViewState extends State<Booking_View> {
                     ),
                     onPressed: () {
                       Navigator.pushNamed(context, 'booking_archived_view');
+                    },
+                    style: button_style(),
+                  ),
+                  SizedBox(width: 10),
+                  NeumorphicButton(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 10, bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const [
+                        Icon(Icons.settings, color: Colors.grey),
+                      ],
+                    ),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) =>
+                            _alertDialogToken(context),
+                      );
                     },
                     style: button_style(),
                   ),
@@ -323,7 +343,6 @@ class _booking_cardState extends State<booking_card> {
     Color color = Colors.yellow;
 
     setState(() {
-
       if (widget.ticketStatus == 'PENDING') {
         color = Colors.yellow;
       }
@@ -397,7 +416,7 @@ class _booking_cardState extends State<booking_card> {
                 style: TextStyle(color: Colors.white, fontSize: 16),
               ),
               SizedBox(
-                width: g.width * 0.21,
+                width: g.width * 0.05,
               ),
               CircleAvatar(
                 backgroundColor: Colors.transparent,
@@ -532,5 +551,85 @@ class _booking_cardState extends State<booking_card> {
         ],
       ),
     );
+  }
+}
+
+Widget _alertDialogToken(BuildContext context) {
+  return AlertDialog(
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 80,
+          child: NeumorphicButton(
+            padding:
+                const EdgeInsets.only(left: 10, right: 10, top: 10, bottom: 10),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.info, color: Colors.grey),
+              ],
+            ),
+            onPressed: _launchURL,
+            style: button_style(),
+          ),
+        ),
+        SizedBox(height: g.height * 0.08),
+        const Text(
+          'Ingrese su TOKEN de Mercado Pago',
+          style: TextStyle(color: Colors.grey),
+        ),
+        TextField(
+          decoration: const InputDecoration(
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.red,
+              ),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: g.red,
+                width: 2,
+              ),
+            ),
+          ),
+          onChanged: (value) => g.tokenMP = value,
+        ),
+      ],
+    ),
+    actions: <Widget>[
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(height: 20),
+          TextButton(
+            onPressed: () {
+              print(g.tokenMP);
+              Navigator.pop(context);
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CANCELAR'),
+          ),
+          SizedBox(width: 30),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            style: TextButton.styleFrom(primary: Colors.grey),
+            child: const Text('CONFIRMAR'),
+          ),
+        ],
+      )
+    ],
+  );
+}
+
+const String url = 'https://www.mercadopago.com.ar/developers/es/guides/resources/credentials#:~:text=Las%20credenciales%20son%20contrase%C3%B1as%20%C3%BAnicas,%3E%20Gesti%C3%B3n%20y%20Administraci%C3%B3n%3E%20Credenciales.';
+
+_launchURL() async {
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
   }
 }

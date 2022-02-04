@@ -41,3 +41,6 @@ String newWakureName = "";
 
 // Ticker State
 String ticketState = "";
+
+// Mercado Pago
+String tokenMP = "";

@@ -17,6 +17,7 @@ import 'package:walkiler/views/guests_view.dart';
 import 'package:walkiler/views/menu_view.dart';
 import 'package:walkiler/views/my_wakures_view.dart';
 import 'package:walkiler/views/add_guest_view.dart';
+import 'package:walkiler/views/qr_code.dart';
 import 'package:walkiler/views/register_view.dart';
 import 'package:walkiler/views/add_booking_view.dart';
 import 'package:walkiler/views/ticket_view.dart';
@@ -44,4 +45,5 @@ final Map<String, Widget Function(BuildContext)> appRoutes = {
   'add_booking_view': (_) => AddBooking_View(),
   'ProcessRequestUpdateTicketStatus': (_) => ProcessRequestUpdateTicketStatus(),
   'ticket_view': (_) => Ticket_View(),
+  'qr_code': (_) => QR_Code(),
 };

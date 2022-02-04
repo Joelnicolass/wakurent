@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:walkiler/blocs/blocs.dart';
 
 import 'package:walkiler/globals.dart' as g;
@@ -36,8 +37,11 @@ class _Ticket_ViewState extends State<Ticket_View> {
             const Icon(Icons.electric_scooter_rounded,
                 color: Colors.grey, size: 30),
             const SizedBox(width: 10),
-            Text(args['wakureName'],
-                style: const TextStyle(fontSize: 18, color: Colors.grey)),
+            Expanded(
+              flex: 5,
+              child: Text(args['wakureName'],
+                  style: const TextStyle(fontSize: 18, color: Colors.grey)),
+            ),
           ],
         ),
         leading: IconButton(
@@ -408,31 +412,7 @@ class _ticket_cardState extends State<ticket_card> {
                       ],
                     ),
                     onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            content: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.qr_code_2,
-                                    size: 280, color: Colors.grey),
-                              ],
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Ok',
-                                    style: TextStyle(color: Colors.grey)),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                      return;
+                      Navigator.pushNamed(context, 'qr_code');
                     },
                     style: button_style(),
                   ),
