@@ -74,6 +74,7 @@ class Menu_View extends StatelessWidget {
                     icon: Icons.location_pin,
                     route: () => goRoute('loading_screen')),
               ],
+              // create button for test
             ),
           ],
         ),
